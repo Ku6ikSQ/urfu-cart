@@ -4,6 +4,7 @@ import AuthRouter from './auth/router.js'
 
 const PORT = 5000
 const app = express()
+export const serverURL = `http://localhost:${PORT}`
 
 app.use(fileUpload({}))
 app.use(express.json())
