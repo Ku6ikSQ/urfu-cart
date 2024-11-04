@@ -1,8 +1,11 @@
 import express from "express"
 import fileUpload from "express-fileupload"
 import AuthRouter from './auth/router.js'
+import dotenv from 'dotenv'
 
-const PORT = 5000
+dotenv.config()
+
+const PORT = process.env.PORT || 5000
 const app = express()
 export const serverURL = `http://localhost:${PORT}`
 
