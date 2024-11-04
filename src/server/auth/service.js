@@ -6,11 +6,8 @@ import { sendMail } from "../mail/service.js";
 async function sendConfirm(email, id) {
     // this link routes to site and there's sending the request to the server (AuthService.confirm)
     const confirmURL = `${serverURL}/auth/confirm?id=${id}`
-    console.log(`${confirmURL} on ${email}`)
-    return;
     // send this URL to email
-    const res = await sendMail(email)
-    console.log(res);
+    await sendMail(email, confirmURL)
 }
 
 const NOT_CONFIRM = -1

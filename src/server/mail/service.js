@@ -1,28 +1,26 @@
 import nodemailer from 'nodemailer'
 
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: true,
-    auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASS,
-    },
-});
-
-const getMailOptions = (emailDest) => ({
+const getMailOptions = (emailDest, text) => ({
     from: process.env.EMAIL,
     to: emailDest,
-    subject: 'Hello World!',
-    html: `
-      <h1>Hello?</h1>
-      <p>How are you?</p>
-    `
+    subject: 'urfu-cart confirmation',
+    text
 })
 
-export const sendMail = (email) => {
+export const sendMail = (email, content) => {
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD,
+        },
+    });
+
     return new Promise((resolve, reject) => {
-      transporter.sendMail(getMailOptions(email), (error, info) => {
+      const options = getMailOptions(email, content)
+      transporter.sendMail(options, (error, info) => {
         if (error) {
           reject(error)
         }
