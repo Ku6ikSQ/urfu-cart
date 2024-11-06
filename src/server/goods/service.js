@@ -7,6 +7,7 @@ export default class GoodsService {
         return result.rows[0];
     }
 
+    // TODO: probably, it will be rewrited
     static async getAllGoods() {
         const result = await db.query("SELECT * FROM goods");
         return result.rows;
@@ -21,6 +22,7 @@ export default class GoodsService {
     }
 
     static async updateGoods(id, name, description, price, categoryId, photos) {
+        // TODO: in fact, we need to save the photos on the storage and after get photo names and save it in database.
         const result = await db.query(
             "UPDATE goods SET name = $1, description = $2, price = $3, category_id = $4, photos = $5 WHERE id = $6 RETURNING *",
             [name, description, price, categoryId, photos, id]
