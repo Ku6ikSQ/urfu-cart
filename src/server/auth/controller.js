@@ -1,6 +1,5 @@
 // there's a processing of headers and returning of responses
 
-import { validateEmail, validatePassword } from "../utils.js"
 import AuthService from "./service.js"
 
 export default class AuthController {
