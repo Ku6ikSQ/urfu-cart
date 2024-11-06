@@ -1,16 +1,18 @@
 openapi: 3.0.0
 info:
   title: Authentication API
-  version: 1.0.0
+  version: 0.0.1
   description: API для регистрации, входа и подтверждения учетных записей пользователей.
 
 servers:
-  - url: http://localhost:5000
+  - url: http://localhost:5000/api
     description: Local server
 
 paths:
   /auth/confirm:
     get:
+      tags:
+        - Auth
       summary: Подтверждение пользователя
       description: Подтверждает учетную запись пользователя на основе идентификатора.
       parameters:
@@ -45,6 +47,8 @@ paths:
 
   /auth/signup:
     post:
+      tags:
+        - Auth
       summary: Регистрация нового пользователя
       description: Регистрирует нового пользователя на основе email и пароля.
       requestBody:
@@ -104,9 +108,10 @@ paths:
               schema:
                 type: string
                 example: "Internal server error"
-
   /auth/signin:
     post:
+      tags:
+        - Auth
       summary: Аутентификация пользователя
       description: Аутентифицирует пользователя на основе email и пароля.
       requestBody:
@@ -158,3 +163,11 @@ paths:
               schema:
                 type: string
                 example: "Internal server error"
+                
+tags:
+  - name: Auth
+    description: Методы для работы с авторизацией и регистрацией.
+  - name: User
+    description: Методы для работы с профилем пользователя.
+  - name: Cart
+    description: Методы для работы с корзиной.

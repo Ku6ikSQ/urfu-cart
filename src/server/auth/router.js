@@ -6,8 +6,8 @@ import AuthController from './controller.js';
 const AuthRouter = Router();
 
 // CRUD
-AuthRouter.get('/auth/confirm', AuthController.confirm)
-AuthRouter.post('/auth/signin', AuthController.signIn)
-AuthRouter.post('/auth/signup', AuthController.signUp)
+AuthRouter.get('/api/auth/confirm', AuthController.confirm)
+AuthRouter.post('/api/auth/signin', AuthController.signIn)
+AuthRouter.post('/api/auth/signup', AuthController.signUp)
 
 export default AuthRouter;
