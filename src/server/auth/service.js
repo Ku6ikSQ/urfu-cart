@@ -10,36 +10,39 @@ async function sendConfirm(email, id) {
     await sendMail(email, confirmURL)
 }
 
-const NOT_CONFIRM = -1
-const CONFIRM = 1
+const NOT_ACTIVATED = 0
+const ACTIVATED = 1
 
 export default class AuthService {
     static async confirm(id) {
         const user = await db.query('SELECT * FROM users WHERE id = $1', [id])
-        if(!user)
-            throw new Error('Failed to confirm')
-        const match = await db.query('UPDATE users SET status = $1 WHERE id = $2 RETURNING *', [CONFIRM, id])
-        return !!match
+        if(!user.rows || !user.rows[0])
+            throw new Error("Failed to find a user with this id")
+        await db.query('UPDATE users SET activated = $1 WHERE id = $2 RETURNING *', [ACTIVATED, id])
     }
 
     static async signUp(email, password) {
+        if(!email || !password || !validateEmail(email) || !validatePassword(password))
+            throw new Error("Invalid input")
         // check that not exists confirmed user with this email
-        const matches = await db.query('SELECT * FROM users WHERE email = $1 AND status = $2', [email, CONFIRM])
+        const matches = await db.query('SELECT * FROM users WHERE email = $1 AND activated = $2', [email, ACTIVATED])
         if(matches && matches.rows && matches.rows.length)
-            throw new Error("This email already had been reserved")
+            throw new Error("This email already had been reversed")
         const hashedPassword = await argon2.hash(password)
-        const user = await db.query('INSERT INTO users (email, password, status) values ($1, $2, $3) RETURNING *', [email, hashedPassword, NOT_CONFIRM])
+        const user = await db.query('INSERT INTO users (email, password, activated) values ($1, $2, $3) RETURNING *', [email, hashedPassword, NOT_ACTIVATED])
         // sending the message to email
         await sendConfirm(email, user.rows[0].id)
         return user.rows[0]
     }
 
     static async signIn(email, password) {
+        if(!email || !password)
+            throw new Error("Invalid input")
         const record = await db.query('SELECT * FROM users WHERE email = $1', [email])
         if(!record.rows[0])
-            throw new Error("Non-existent user")
-        if(record.rows[0].status != CONFIRM)
-            throw new Error("Unconfirmed user. Please, confirm it")
+            throw new Error("Failed to find this user")
+        if(record.rows[0].activated != ACTIVATED)
+            throw new Error("This user is not activated")
         const correctPassword = await argon2.verify(record.rows[0].password, password)
         return correctPassword
     }
