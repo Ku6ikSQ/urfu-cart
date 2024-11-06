@@ -6,14 +6,14 @@ CREATE TABLE users(
     status INT
 );
 
-CREATE TABLE goodscategories (
+CREATE TABLE goods_categories (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-    parent_id SERIAL,
+    parent_id INT,
     CONSTRAINT fk_parent_category
         FOREIGN KEY (parent_id)
-        REFERENCES goodscategories(id)
+        REFERENCES goods_categories(id)
         ON DELETE SET NULL
 );
 
@@ -22,10 +22,10 @@ CREATE TABLE goods (
     name VARCHAR(255) NOT NULL,
     description TEXT,
     price NUMERIC(10, 2) NOT NULL,
-    category_id INTEGER NOT NULL,
+    category_id SERIAL NOT NULL,
     photos TEXT[],
     CONSTRAINT fk_category
         FOREIGN KEY (category_id)
-        REFERENCES goodscategories(id)
+        REFERENCES goods_categories(id)
         ON DELETE CASCADE
 );
