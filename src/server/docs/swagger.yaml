@@ -663,6 +663,130 @@ paths:
               schema:
                 type: string
                 example: "Internal server error"
+  /api/file/upload:
+    post:
+      tags:
+        - File
+      summary: Загрузка файла
+      description: Загружает файл в хранилище Minio.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Файл для загрузки.
+      responses:
+        '200':
+          description: Файл успешно загружен
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Имя созданного файла
+                example: "uuid-image.png"
+        '400':
+          description: Ошибка при загрузке файла
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "No file uploaded"
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Internal server error"
+                
+  /api/file/{fileName}:
+    get:
+      tags:
+        - File
+      summary: Получение временной ссылки для файла
+      description: Возвращает временную ссылку на файл в хранилище Minio.
+      parameters:
+        - in: path
+          name: fileName
+          required: true
+          schema:
+            type: string
+          description: Имя файла в хранилище.
+          example: "example-file.png"   # Example added here
+      responses:
+        '200':
+          description: Успешное получение ссылки на файл
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Временная ссылка для доступа к файлу.
+                example: "https://server/file/image-link.png"
+                    
+        '400':
+          description: Ошибка при получении файла
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Failed to get the file"
+        '404':
+          description: Файл не найден
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "File not found"
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Internal server error"
+                
+    delete:
+      tags:
+        - File
+      summary: Удаление файла
+      description: Удаляет файл из хранилища Minio.
+      parameters:
+        - in: path
+          name: fileName
+          required: true
+          schema:
+            type: string
+          description: Имя файла для удаления.
+          example: "example-file.png"   # Example added here
+      responses:
+        '204':
+          description: Файл успешно удален
+        '400':
+          description: Ошибка при удалении файла
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Failed to delete the file"
+        '404':
+          description: Файл не найден
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "File not found"
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Internal server error"
 
 tags:
   - name: Auth
@@ -675,3 +799,5 @@ tags:
     description: Методы для работы с профилем пользователя.
   - name: Cart
     description: Методы для работы с корзиной.
+  - name: File
+    description: Методы для работы с файлами.

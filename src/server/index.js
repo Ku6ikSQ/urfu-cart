@@ -4,6 +4,7 @@ import AuthRouter from './auth/router.js'
 import dotenv from 'dotenv'
 import GoodCategoryRouter from "./goods-categories/router.js"
 import GoodsRouter from "./goods/router.js"
+import FileRouter from "./file/router.js"
 
 dotenv.config()
 
@@ -17,6 +18,8 @@ app.use(express.static('static'))
 app.use(AuthRouter)
 app.use(GoodCategoryRouter)
 app.use(GoodsRouter)
+app.use(FileRouter)
+  
 app.listen(PORT, () => {
     console.log('Server has been started')
 })

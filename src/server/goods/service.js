@@ -14,6 +14,7 @@ export default class GoodsService {
     }
 
     static async createGoods(name, description, price, categoryId, photos) {
+        // TODO: in fact, we need to save the photos on the storage and after get photo names and save it in database.
         const result = await db.query(
             "INSERT INTO goods (name, description, price, category_id, photos) VALUES ($1, $2, $3, $4, $5) RETURNING *",
             [name, description, price, categoryId, photos]
