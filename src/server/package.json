@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "node ./index.js",
-    "nodemon": "nodemon ./index.js"
+    "nodemon": "nodemon ./index.js",
+    "fs": "C:\\minio.exe server C:\\minio --console-address :9001",
+    "psql": "cmd /c \"C:/Program Files/PostgreSQL/17/bin/psql\" -U postgres"
   },
   "dependencies": {
     "argon2": "^0.41.1",
