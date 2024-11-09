@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Authentication API
-  version: 0.0.1
+  version: 0.1.0
   description: API для регистрации, входа и подтверждения учетных записей пользователей.
 
 servers:
@@ -668,7 +668,7 @@ paths:
       tags:
         - File
       summary: Загрузка файла
-      description: Загружает файл в хранилище Minio.
+      description: Загружает файл в хранилище.
       requestBody:
         required: true
         content:
@@ -695,7 +695,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "No file uploaded"
+                example: "The file wasn't uploaded"
         '500':
           description: Внутренняя ошибка сервера
           content:
@@ -709,7 +709,7 @@ paths:
       tags:
         - File
       summary: Получение временной ссылки для файла
-      description: Возвращает временную ссылку на файл в хранилище Minio.
+      description: Возвращает временную ссылку на файл в хранилище.
       parameters:
         - in: path
           name: fileName
@@ -717,7 +717,7 @@ paths:
           schema:
             type: string
           description: Имя файла в хранилище.
-          example: "example-file.png"   # Example added here
+          example: "example-file.png"
       responses:
         '200':
           description: Успешное получение ссылки на файл
@@ -754,7 +754,7 @@ paths:
       tags:
         - File
       summary: Удаление файла
-      description: Удаляет файл из хранилища Minio.
+      description: Удаляет файл из хранилища.
       parameters:
         - in: path
           name: fileName
@@ -762,7 +762,7 @@ paths:
           schema:
             type: string
           description: Имя файла для удаления.
-          example: "example-file.png"   # Example added here
+          example: "example-file.png"
       responses:
         '204':
           description: Файл успешно удален
