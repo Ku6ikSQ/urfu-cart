@@ -1,7 +1,7 @@
 import express from "express"
 import fileUpload from "express-fileupload"
-import AuthRouter from './auth/router.js'
 import dotenv from 'dotenv'
+import AuthRouter from './auth/router.js'
 import GoodCategoryRouter from "./goods-categories/router.js"
 import GoodsRouter from "./goods/router.js"
 import FileRouter from "./file/router.js"
@@ -14,7 +14,6 @@ export const serverURL = `http://localhost:${PORT}`
 
 app.use(fileUpload({}))
 app.use(express.json())
-app.use(express.static('static'))
 app.use(AuthRouter)
 app.use(GoodCategoryRouter)
 app.use(GoodsRouter)
