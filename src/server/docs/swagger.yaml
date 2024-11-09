@@ -396,6 +396,7 @@ paths:
                     items:
                       type: string
                     description: Массив строк, представляющих имена изображений товара
+                    example: ["photo.png", "photo2.png"]
               required:
                 - name
                 - price
@@ -428,6 +429,7 @@ paths:
                     items:
                       type: string
                     description: Массив строк, представляющих имена изображений товара
+                    example: ["photo.png", "photo2.png"]
         '400':
           description: Ошибка при создании товара
           content:
