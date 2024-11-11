@@ -23,11 +23,10 @@ app.use(GoodCategoryRouter)
 app.use(GoodsRouter)
 app.use(FileRouter)
 
-//TODO: скопируй содержимое из сервера
 if(process.env.VPS) {
     const sslOptions = {
-        key: fs.readFileSync('/path/to/certs/privkey.pem'),
-        cert: fs.readFileSync('/path/to/certs/fullchain.pem')
+        key: fs.readFileSync('/root/urfuproj/server.key'),
+        cert: fs.readFileSync('/root/urfuproj/server.cert')
       }
     https.createServer(sslOptions, app).listen(PORT, () => {
         console.log('Server has been started')
