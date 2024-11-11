@@ -4,7 +4,7 @@ import {v7} from 'uuid'
 
 configDotenv()
 const minioClient = new Client({
-    endPoint: 'localhost',
+    endPoint: process.env.SERVER,
     port: 9000,
     useSSL: false,
     accessKey: process.env.MINIO_ROOT_USER,
@@ -50,7 +50,7 @@ class FileService {
         await minioClient.presignedGetObject(process.env.MINIO_BASE_BUCKET, fileName, 60*60*4, (err, presignedUrl) => {
           if(err)
             throw new Error("Failed to get the file")
-            fileURL = presignedUrl
+          fileURL = presignedUrl
         });
         return fileURL
       } catch (e) {

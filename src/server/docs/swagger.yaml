@@ -7,7 +7,7 @@ info:
 servers:
   - url: http://localhost:5000
     description: Local server
-  - url: http://5.35.124.24:5000
+  - url: https://5.35.124.24:5000
     description: Public server
 
 paths:
