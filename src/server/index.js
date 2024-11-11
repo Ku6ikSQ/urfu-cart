@@ -5,13 +5,15 @@ import AuthRouter from './auth/router.js'
 import GoodCategoryRouter from "./goods-categories/router.js"
 import GoodsRouter from "./goods/router.js"
 import FileRouter from "./file/router.js"
+import cors from 'cors'
 
 dotenv.config()
 
 const PORT = process.env.PORT || 5000
 const app = express()
-export const serverURL = `http://localhost:${PORT}`
+export const serverURL = `${process.env.SERVER_URL}:${PORT}`
 
+app.use(cors())
 app.use(fileUpload({}))
 app.use(express.json())
 app.use(AuthRouter)
