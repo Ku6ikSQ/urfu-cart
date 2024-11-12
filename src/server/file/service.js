@@ -4,13 +4,16 @@ import { v7 as uuidv7 } from 'uuid';
 
 configDotenv();
 
+
 const minioClient = new Client({
   endPoint: process.env.SERVER,
   port: 9000,
-  useSSL: false,
+  useSSL: false, // true for "vps"
   accessKey: process.env.MINIO_ROOT_USER,
   secretKey: process.env.MINIO_ROOT_PASSWORD,
 });
+
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 const minioCreateBucket = async (bucketName) => {
   try {
