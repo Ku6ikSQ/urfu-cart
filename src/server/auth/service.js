@@ -45,6 +45,7 @@ export default class AuthService {
         if(record.rows[0].activated != ACTIVATED)
             throw new Error("This user is not activated")
         const correctPassword = await argon2.verify(record.rows[0].password, password)
-        return correctPassword
+        if(!correctPassword)
+            throw new Error("Failed to authorization")
     }
 }
