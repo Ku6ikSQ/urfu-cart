@@ -1,53 +1,66 @@
-import GoodsService from "./service.js";
+import GoodsService from "./service.js"
 
 export default class GoodsController {
     static async getGoodsById(req, res) {
         try {
-            const { id } = req.params;
-            const goods = await GoodsService.getGoodsById(id);
-            return res.json(goods);
+            const { id } = req.params
+            const goods = await GoodsService.getGoodsById(id)
+            return res.json(goods)
         } catch (e) {
-            return res.status(400).json(e.message);
+            return res.status(400).json(e.message)
         }
     }
 
     static async getAllGoods(req, res) {
         try {
-            const goodsList = await GoodsService.getAllGoods();
-            return res.json(goodsList);
+            const goodsList = await GoodsService.getAllGoods()
+            return res.json(goodsList)
         } catch (e) {
-            return res.status(400).json(e.message);
+            return res.status(400).json(e.message)
         }
     }
 
     static async createGoods(req, res) {
         try {
-            const { name, description, price, category_id, photos } = req.body;
-            const goods = await GoodsService.createGoods(name, description, price, category_id, photos);
-            return res.status(201).json(goods);
+            const { name, description, price, category_id, photos } = req.body
+            const goods = await GoodsService.createGoods(
+                name,
+                description,
+                price,
+                category_id,
+                photos
+            )
+            return res.status(201).json(goods)
         } catch (e) {
-            return res.status(400).json(e.message);
+            return res.status(400).json(e.message)
         }
     }
 
     static async updateGoods(req, res) {
         try {
-            const { id } = req.params;
-            const { name, description, price, category_id, photos } = req.body;
-            const goods = await GoodsService.updateGoods(id, name, description, price, category_id, photos);
-            return res.json(goods);
+            const { id } = req.params
+            const { name, description, price, category_id, photos } = req.body
+            const goods = await GoodsService.updateGoods(
+                id,
+                name,
+                description,
+                price,
+                category_id,
+                photos
+            )
+            return res.json(goods)
         } catch (e) {
-            return res.status(400).json(e.message);
+            return res.status(400).json(e.message)
         }
     }
 
     static async deleteGoods(req, res) {
         try {
-            const { id } = req.params;
-            await GoodsService.deleteGoods(id);
-            return res.status(204).send();
+            const { id } = req.params
+            await GoodsService.deleteGoods(id)
+            return res.status(204).send()
         } catch (e) {
-            return res.status(400).json(e.message);
+            return res.status(400).json(e.message)
         }
     }
 }
