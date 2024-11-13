@@ -35,28 +35,28 @@ class FileService {
   static async uploadFile(file) {
     try {
       const fileName = uuidv7() + '-' + file.name; // generate name with uuid
-      await minioClient.putObject(process.env.MINIO_BASE_BUCKET, fileName, file.data);
-      return fileName;
+      await minioClient.putObject(process.env.MINIO_BASE_BUCKET, fileName, file.data)
+      return fileName
     } catch (e) {
-      throw new Error('Failed to upload file: ' + e.message);
+      throw new Error('Failed to upload file: ' + e.message)
     }
   }
 
   static async getFile(fileName) {
     try {
-      const fileURL = await minioClient.presignedGetObject(process.env.MINIO_BASE_BUCKET, fileName, 60 * 60 * 4);
-      return fileURL;
+      const fileURL = await minioClient.presignedGetObject(process.env.MINIO_BASE_BUCKET, fileName, 60 * 60 * 4)
+      return fileURL
     } catch (e) {
-      throw new Error('Failed to get file: ' + e.message);
+      throw new Error('Failed to get file: ' + e.message)
     }
   }
 
   static async deleteFile(fileName) {
     try {
-      await minioClient.removeObject(process.env.MINIO_BASE_BUCKET, fileName);
-      return 'File deleted successfully';
+      await minioClient.removeObject(process.env.MINIO_BASE_BUCKET, fileName)
+      return 0
     } catch (e) {
-      throw new Error('Failed to delete file: ' + e.message);
+      throw new Error('Failed to delete file: ' + e.message)
     }
   }
 }

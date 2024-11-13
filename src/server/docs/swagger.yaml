@@ -310,7 +310,7 @@ paths:
             type: integer
           description: Уникальный идентификатор товара.
       responses:
-        '204':
+        '200':
           description: Товар успешно удален
         '400':
           description: Ошибка при удалении товара
@@ -404,7 +404,7 @@ paths:
                 - price
                 - category_id
       responses:
-        '201':
+        '200':
           description: Товар успешно создан
           content:
             application/json:
@@ -503,7 +503,7 @@ paths:
               required:
                 - title
       responses:
-        '201':
+        '200':
           description: Категория успешно создана
           content:
             application/json:
@@ -651,7 +651,7 @@ paths:
             type: integer
           description: Уникальный идентификатор категории товара.
       responses:
-        '204':
+        '200':
           description: Категория успешно удалена
         '400':
           description: Категория не найдена
@@ -768,7 +768,7 @@ paths:
           description: Имя файла для удаления.
           example: "example-file.png"
       responses:
-        '204':
+        '200':
           description: Файл успешно удален
         '400':
           description: Ошибка при удалении файла
