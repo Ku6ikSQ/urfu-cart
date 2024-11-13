@@ -1,7 +1,8 @@
-import db from "../db/db.js";
-import * as argon2 from 'argon2'
-import { serverURL } from "../index.js";
-import { sendMail } from "../mail/service.js";
+import db from "../db/db.js"
+import * as argon2 from "argon2"
+import { serverURL } from "../index.js"
+import { sendMail } from "../mail/service.js"
+import {validateEmail, validatePassword} from "../utils.js"
 
 async function sendConfirm(email, id) {
     // this link routes to site and there's sending the request to the server (AuthService.confirm)

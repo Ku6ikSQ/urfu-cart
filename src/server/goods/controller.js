@@ -22,8 +22,8 @@ export default class GoodsController {
 
     static async createGoods(req, res) {
         try {
-            const { name, description, price, categoryId, photos } = req.body;
-            const goods = await GoodsService.createGoods(name, description, price, categoryId, photos);
+            const { name, description, price, category_id, photos } = req.body;
+            const goods = await GoodsService.createGoods(name, description, price, category_id, photos);
             return res.status(201).json(goods);
         } catch (e) {
             return res.status(400).json(e.message);
@@ -33,8 +33,8 @@ export default class GoodsController {
     static async updateGoods(req, res) {
         try {
             const { id } = req.params;
-            const { name, description, price, categoryId, photos } = req.body;
-            const goods = await GoodsService.updateGoods(id, name, description, price, categoryId, photos);
+            const { name, description, price, category_id, photos } = req.body;
+            const goods = await GoodsService.updateGoods(id, name, description, price, category_id, photos);
             return res.json(goods);
         } catch (e) {
             return res.status(400).json(e.message);

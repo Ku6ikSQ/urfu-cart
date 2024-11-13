@@ -197,7 +197,7 @@ paths:
                   price:
                     type: number
                     description: Цена товара
-                  categoryId:
+                  category_id:
                     type: integer
                     description: Идентификатор категории товара
                   photos:
@@ -247,7 +247,7 @@ paths:
                 price:
                   type: number
                   description: Цена товара
-                categoryId:
+                category_id:
                   type: integer
                   description: Идентификатор категории, к которой принадлежит товар
                 photos:
@@ -275,7 +275,7 @@ paths:
                   price:
                     type: number
                     description: Цена товара
-                  categoryId:
+                  category_id:
                     type: integer
                     description: Идентификатор категории товара
                   photos:
@@ -354,7 +354,7 @@ paths:
                     price:
                       type: number
                       description: Цена товара
-                    categoryId:
+                    category_id:
                       type: integer
                       description: Идентификатор категории товара
                     photos:
@@ -390,7 +390,7 @@ paths:
                 price:
                   type: number
                   description: Цена товара
-                categoryId:
+                category_id:
                   type: integer
                   description: Идентификатор категории, к которой принадлежит товар
                 photos:
@@ -402,7 +402,7 @@ paths:
               required:
                 - name
                 - price
-                - categoryId
+                - category_id
       responses:
         '201':
           description: Товар успешно создан
@@ -423,7 +423,7 @@ paths:
                   price:
                     type: number
                     description: Цена товара
-                  categoryId:
+                  category_id:
                     type: integer
                     description: Идентификатор категории товара
                   photos:
