@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-    title: Authentication API
-    version: 0.1.0
-    description: API для регистрации, входа и подтверждения учетных записей пользователей.
+    title: Restful API (urfu-cart)
+    version: 0.3.0
+    description: This is an Restful API for interacting with the server
 
 servers:
     - url: http://localhost:5000
