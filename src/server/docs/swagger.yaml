@@ -729,7 +729,6 @@ paths:
                                 type: string
                                 description: Временная ссылка для доступа к файлу.
                                 example: "https://server/file/image-link.png"
-
                 "400":
                     description: Ошибка при получении файла
                     content:
@@ -782,6 +781,241 @@ paths:
                             schema:
                                 type: string
                                 example: "File not found"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+    /api/users/{id}:
+        get:
+            tags:
+                - User
+            summary: Получение пользователя по ID
+            description: Возвращает информацию о пользователе по его уникальному идентификатору.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор пользователя.
+            responses:
+                "200":
+                    description: Информация о пользователе
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    name:
+                                        type: string
+                                        description: Имя пользователя
+                                    email:
+                                        type: string
+                                        description: Электронная почта пользователя
+                                    activated:
+                                        type: integer
+                                        description: Статус активации пользователя
+                "400":
+                    description: Пользователь не найден
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "User not found"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        patch:
+            tags:
+                - User
+            summary: Обновление пользователя по ID
+            description: Обновляет информацию о пользователе на основе переданного ID.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор пользователя.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                                    description: Имя пользователя
+                                email:
+                                    type: string
+                                    description: Электронная почта пользователя
+                                password:
+                                    type: string
+                                    description: Новый пароль пользователя
+                                activated:
+                                    type: integer
+                                    description: Статус активации пользователя
+            responses:
+                "200":
+                    description: Пользователь успешно обновлен
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    name:
+                                        type: string
+                                        description: Имя пользователя
+                                    email:
+                                        type: string
+                                        description: Электронная почта пользователя
+                                    activated:
+                                        type: integer
+                                        description: Статус активации пользователя
+                "400":
+                    description: Ошибка при обновлении пользователя
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "User not found or invalid input"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        delete:
+            tags:
+                - User
+            summary: Удаление пользователя по ID
+            description: Удаляет пользователя на основе его уникального идентификатора.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор пользователя.
+            responses:
+                "204":
+                    description: Пользователь успешно удален
+                "400":
+                    description: Ошибка при удалении пользователя
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "User not found"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+    /api/users:
+        get:
+            tags:
+                - User
+            summary: Получение списка всех пользователей
+            description: Возвращает список всех пользователей.
+            responses:
+                "200":
+                    description: Список пользователей
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: integer
+                                            description: Уникальный идентификатор пользователя
+                                        name:
+                                            type: string
+                                            description: Имя пользователя
+                                        email:
+                                            type: string
+                                            description: Электронная почта пользователя
+                                        activated:
+                                            type: integer
+                                            description: Статус активации пользователя
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        post:
+            tags:
+                - User
+            summary: Создание нового пользователя
+            description: Создает нового пользователя на основе переданных данных.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                                    description: Имя пользователя
+                                email:
+                                    type: string
+                                    description: Электронная почта пользователя
+                                password:
+                                    type: string
+                                    description: Пароль пользователя
+                            required:
+                                - name
+                                - email
+                                - password
+            responses:
+                "201":
+                    description: Пользователь успешно создан
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    name:
+                                        type: string
+                                        description: Имя пользователя
+                                    email:
+                                        type: string
+                                        description: Электронная почта пользователя
+                                    activated:
+                                        type: integer
+                                        description: Статус активации пользователя
+                "400":
+                    description: Ошибка при создании пользователя
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Invalid input"
                 "500":
                     description: Внутренняя ошибка сервера
                     content:
