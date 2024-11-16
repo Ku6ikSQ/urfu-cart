@@ -986,7 +986,6 @@ paths:
                                     type: string
                                     description: Пароль пользователя
                             required:
-                                - name
                                 - email
                                 - password
             responses:
