@@ -3,6 +3,7 @@ import { serverURL } from "../index.js"
 import { sendMail } from "../mail/service.js"
 import UserService from "../user/service.js"
 import * as argon2 from "argon2"
+import { generatePassword } from "../utils.js"
 
 async function sendConfirm(email, id) {
     // this link routes to site and there's sending the request to the server (AuthService.confirm)
@@ -43,5 +44,19 @@ export default class AuthService {
             password
         )
         if (!correctPassword) throw new Error("Failed to authorization")
+    }
+
+    static async reset(id) {
+        const user = await UserService.getUserById(id)
+        const passwd = generatePassword(8)
+        user.password = await argon2.hash(passwd)
+        await UserService.updateUser(
+            id,
+            user.name,
+            user.email,
+            user.password,
+            user.activated
+        )
+        await sendMail(user.email, passwd)
     }
 }

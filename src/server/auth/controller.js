@@ -32,4 +32,14 @@ export default class AuthController {
             return res.status(400).json(e.message)
         }
     }
+
+    static async reset(req, res) {
+        try {
+            const { id } = req.query
+            await AuthService.reset(id)
+            return res.status(200).json("Reset successful")
+        } catch (e) {
+            return res.status(400).json(e.message)
+        }
+    }
 }

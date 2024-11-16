@@ -24,7 +24,7 @@ export default class UserController {
         try {
             const { name, email, password } = req.body
             const user = await UserService.createUser(name, email, password)
-            return res.status(201).json(user)
+            return res.status(200).json(user)
         } catch (e) {
             return res.status(400).json(e.message)
         }
@@ -51,7 +51,7 @@ export default class UserController {
         try {
             const { id } = req.params
             await UserService.deleteUser(id)
-            return res.status(204).send()
+            return res.status(200).send()
         } catch (e) {
             return res.status(400).json(e.message)
         }

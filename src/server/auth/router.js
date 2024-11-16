@@ -9,5 +9,6 @@ const AuthRouter = Router()
 AuthRouter.get("/api/auth/confirm", AuthController.confirm)
 AuthRouter.post("/api/auth/signin", AuthController.signIn)
 AuthRouter.post("/api/auth/signup", AuthController.signUp)
+AuthRouter.get("/api/auth/reset", AuthController.reset)
 
 export default AuthRouter

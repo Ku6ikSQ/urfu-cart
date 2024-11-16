@@ -32,9 +32,10 @@ export default class UserService {
     }
 
     static async updateUser(id, name, email, password, activated) {
+        const hashedPassword = await argon2.hash(password)
         const result = await db.query(
             "UPDATE users SET name = $1, email = $2, password = $3, activated = $4 WHERE id = $5 RETURNING *",
-            [name ? name : "", email, password, activated, id]
+            [name ? name : "", email, hashedPassword, activated, id]
         )
         if (!result.rows[0]) throw new Error("User not found")
         return result.rows[0]
@@ -46,6 +47,5 @@ export default class UserService {
             [id]
         )
         if (!result.rows[0]) throw new Error("User not found")
-        return result.rows[0]
     }
 }
