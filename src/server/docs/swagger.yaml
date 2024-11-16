@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
     title: Restful API (urfu-cart)
-    version: 0.3.0
+    version: 0.4.5
     description: This is an Restful API for interacting with the server
 
 servers:
@@ -913,7 +913,7 @@ paths:
                       type: integer
                   description: Уникальный идентификатор пользователя.
             responses:
-                "204":
+                "200":
                     description: Пользователь успешно удален
                 "400":
                     description: Ошибка при удалении пользователя
@@ -989,7 +989,7 @@ paths:
                                 - email
                                 - password
             responses:
-                "201":
+                "200":
                     description: Пользователь успешно создан
                     content:
                         application/json:

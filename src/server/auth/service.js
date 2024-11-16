@@ -1,8 +1,8 @@
 import db from "../db/db.js"
-import * as argon2 from "argon2"
 import { serverURL } from "../index.js"
 import { sendMail } from "../mail/service.js"
-import { validateEmail, validatePassword } from "../utils.js"
+import UserService from "../user/service.js"
+import * as argon2 from "argon2"
 
 async function sendConfirm(email, id) {
     // this link routes to site and there's sending the request to the server (AuthService.confirm)
@@ -11,7 +11,6 @@ async function sendConfirm(email, id) {
     await sendMail(email, confirmURL)
 }
 
-const NOT_ACTIVATED = 0
 const ACTIVATED = 1
 
 export default class AuthService {
@@ -26,28 +25,9 @@ export default class AuthService {
     }
 
     static async signUp(email, password) {
-        if (
-            !email ||
-            !password ||
-            !validateEmail(email) ||
-            !validatePassword(password)
-        )
-            throw new Error("Invalid input")
-        // check that not exists confirmed user with this email
-        const matches = await db.query(
-            "SELECT * FROM users WHERE email = $1 AND activated = $2",
-            [email, ACTIVATED]
-        )
-        if (matches && matches.rows && matches.rows.length)
-            throw new Error("This email already had been reversed")
-        const hashedPassword = await argon2.hash(password)
-        const user = await db.query(
-            "INSERT INTO users (email, password, activated) values ($1, $2, $3) RETURNING *",
-            [email, hashedPassword, NOT_ACTIVATED]
-        )
-        // sending the message to email
-        await sendConfirm(email, user.rows[0].id)
-        return user.rows[0]
+        const user = await UserService.createUser(null, email, password)
+        await sendConfirm(email, user.id)
+        return user
     }
 
     static async signIn(email, password) {
