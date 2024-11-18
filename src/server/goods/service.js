@@ -13,18 +13,44 @@ export default class GoodsService {
         return result.rows
     }
 
-    static async createGoods(name, description, price, categoryId, photos) {
+    static async createGoods(
+        name,
+        description,
+        price,
+        categoryId,
+        photos,
+        article,
+        discount
+    ) {
         const result = await db.query(
-            "INSERT INTO goods (name, description, price, category_id, photos) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-            [name, description, price, categoryId, photos]
+            "INSERT INTO goods (name, description, price, category_id, photos, article, discount) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+            [name, description, price, categoryId, photos, article, discount]
         )
         return result.rows[0]
     }
 
-    static async updateGoods(id, name, description, price, categoryId, photos) {
+    static async updateGoods(
+        id,
+        name,
+        description,
+        price,
+        categoryId,
+        photos,
+        article,
+        discount
+    ) {
         const result = await db.query(
-            "UPDATE goods SET name = $1, description = $2, price = $3, category_id = $4, photos = $5 WHERE id = $6 RETURNING *",
-            [name, description, price, categoryId, photos, id]
+            "UPDATE goods SET name = $1, description = $2, price = $3, category_id = $4, photos = $5, article = $6, discount = $7 WHERE id = $8 RETURNING *",
+            [
+                name,
+                description,
+                price,
+                categoryId,
+                photos,
+                article,
+                discount,
+                id,
+            ]
         )
         if (!result.rows[0]) throw new Error("Goods not found")
         return result.rows[0]

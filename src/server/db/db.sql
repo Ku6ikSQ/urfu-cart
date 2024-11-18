@@ -29,3 +29,9 @@ CREATE TABLE goods (
         REFERENCES goods_categories(id)
         ON DELETE CASCADE
 );
+
+ALTER TABLE goods
+ADD COLUMN discount INT DEFAULT 0;
+
+ALTER TABLE goods
+ADD COLUMN article VARCHAR(255) DEFAULT NULL;

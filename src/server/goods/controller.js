@@ -22,15 +22,25 @@ export default class GoodsController {
 
     static async createGoods(req, res) {
         try {
-            const { name, description, price, category_id, photos } = req.body
+            const {
+                name,
+                description,
+                price,
+                category_id,
+                photos,
+                article,
+                discount,
+            } = req.body
             const goods = await GoodsService.createGoods(
                 name,
                 description,
                 price,
                 category_id,
-                photos
+                photos,
+                article,
+                discount
             )
-            return res.status(201).json(goods)
+            return res.status(200).json(goods)
         } catch (e) {
             return res.status(400).json(e.message)
         }
@@ -39,14 +49,24 @@ export default class GoodsController {
     static async updateGoods(req, res) {
         try {
             const { id } = req.params
-            const { name, description, price, category_id, photos } = req.body
+            const {
+                name,
+                description,
+                price,
+                category_id,
+                photos,
+                article,
+                discount,
+            } = req.body
             const goods = await GoodsService.updateGoods(
                 id,
                 name,
                 description,
                 price,
                 category_id,
-                photos
+                photos,
+                article,
+                discount
             )
             return res.json(goods)
         } catch (e) {
@@ -58,7 +78,7 @@ export default class GoodsController {
         try {
             const { id } = req.params
             await GoodsService.deleteGoods(id)
-            return res.status(204).send()
+            return res.status(200).send()
         } catch (e) {
             return res.status(400).json(e.message)
         }

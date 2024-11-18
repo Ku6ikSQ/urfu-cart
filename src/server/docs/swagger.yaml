@@ -240,6 +240,12 @@ paths:
                                         items:
                                             type: string
                                         description: Массив строк, представляющих имена изображений товара
+                                    article:
+                                        type: string
+                                        description: Артикул товара
+                                    discount:
+                                        type: integer
+                                        description: Скидка на товар
                 "400":
                     description: Товар не найден
                     content:
@@ -290,6 +296,12 @@ paths:
                                     items:
                                         type: string
                                     description: Массив строк, представляющих имена изображений товара
+                                article:
+                                    type: string
+                                    description: Артикул товара
+                                discount:
+                                    type: integer
+                                    description: Скидка на товар
             responses:
                 "200":
                     description: Товар успешно обновлен
@@ -318,6 +330,12 @@ paths:
                                         items:
                                             type: string
                                         description: Массив строк, представляющих имена изображений товара
+                                    article:
+                                        type: string
+                                        description: Артикул товара
+                                    discount:
+                                        type: integer
+                                        description: Скидка на товар
                 "400":
                     description: Ошибка при обновлении товара
                     content:
@@ -397,6 +415,12 @@ paths:
                                             items:
                                                 type: string
                                             description: Массив строк, представляющих имена изображений товара
+                                        article:
+                                            type: string
+                                            description: Артикул товара
+                                        discount:
+                                            type: integer
+                                            description: Скидка на товар
                 "500":
                     description: Внутренняя ошибка сервера
                     content:
@@ -434,6 +458,12 @@ paths:
                                         type: string
                                     description: Массив строк, представляющих имена изображений товара
                                     example: ["photo.png", "photo2.png"]
+                                article:
+                                    type: string
+                                    description: Артикул товара
+                                discount:
+                                    type: integer
+                                    description: Скидка на товар
                             required:
                                 - name
                                 - price
@@ -467,6 +497,12 @@ paths:
                                             type: string
                                         description: Массив строк, представляющих имена изображений товара
                                         example: ["photo.png", "photo2.png"]
+                                    article:
+                                        type: string
+                                        description: Артикул товара
+                                    discount:
+                                        type: integer
+                                        description: Скидка на товар
                 "400":
                     description: Ошибка при создании товара
                     content:
