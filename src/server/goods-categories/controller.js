@@ -22,11 +22,12 @@ export default class GoodCategoryController {
 
     static async createCategory(req, res) {
         try {
-            const { title, description, parentId } = req.body
+            const { title, description, parentId, photo } = req.body
             const category = await GoodCategoryService.createCategory(
                 title,
                 description,
-                parentId
+                parentId,
+                photo
             )
             return res.status(201).json(category)
         } catch (e) {
@@ -37,12 +38,13 @@ export default class GoodCategoryController {
     static async updateCategory(req, res) {
         try {
             const { id } = req.params
-            const { title, description, parentId } = req.body
+            const { title, description, parentId, photo } = req.body
             const category = await GoodCategoryService.updateCategory(
                 id,
                 title,
                 description,
-                parentId
+                parentId,
+                photo
             )
             return res.json(category)
         } catch (e) {

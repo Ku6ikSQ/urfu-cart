@@ -542,6 +542,9 @@ paths:
                                         description:
                                             type: string
                                             description: Описание категории
+                                        photo:
+                                            type: string
+                                            description: Имя файла фотографии
                 "500":
                     description: Внутренняя ошибка сервера
                     content:
@@ -570,6 +573,9 @@ paths:
                                 parentId:
                                     type: integer
                                     description: Идентификатор родительской категории (если есть).
+                                photo:
+                                    type: string
+                                    description: Имя файла фотографии
                             required:
                                 - title
             responses:
@@ -589,6 +595,9 @@ paths:
                                     description:
                                         type: string
                                         description: Описание категории
+                                    photo:
+                                        type: string
+                                        description: Имя файла фотографии
                 "400":
                     description: Ошибка при создании категории
                     content:
@@ -633,6 +642,9 @@ paths:
                                     description:
                                         type: string
                                         description: Описание категории
+                                    photo:
+                                        type: string
+                                        description: Имя файла фотографии
                 "400":
                     description: Категория не найдена
                     content:
@@ -675,6 +687,9 @@ paths:
                                 parentId:
                                     type: integer
                                     description: Идентификатор родительской категории (если есть).
+                                photo:
+                                    type: string
+                                    description: Имя файла фотографии
                             required:
                                 - title
             responses:
@@ -694,6 +709,9 @@ paths:
                                     description:
                                         type: string
                                         description: Описание категории
+                                    photo:
+                                        type: string
+                                        description: Имя файла фотографии
                 "400":
                     description: Ошибка при обновлении категории
                     content:
