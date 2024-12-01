@@ -1,0 +1,73 @@
+.body{
+    display:flex;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.good_pic{
+    width: 45%;
+}
+
+.images{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: end;
+    margin-top: 20px;
+    width: 50%;
+}
+
+.info{
+    width:50%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+h4,p,button,strike{
+    font-family: 'Inter';
+    font-weight: bold;
+}
+
+strike{
+    color: #d9d9d9;
+}
+
+.article,.description{
+    font-weight: normal;
+}
+
+.price{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.price p, h4{
+    font-size: larger;
+}
+
+.buy{
+    color:white;
+    background-color: black;
+    border-radius: 20px;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.buttons img{
+    width: 30px;
+    height: 30px;
+}
+
+.description{
+    width: 50%;
+    margin-top: 40px;
+}
