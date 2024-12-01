@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>FantaZm</title>
+        <link rel="stylesheet" href="styles/auth_styles.css"> 
+    </head>
+    <body>
+        <div class="auth-container">
+            <h1>Авторизация</h1>
+            <form action="auth_admin.php" method="post" class="auth-form">
+                <div class="auth-input-container">
+                    <p>Почта</p>
+                    <input type="text" name="login" placeholder="Логин" class="auth-input">
+                </div>
+                <div class="auth-input-container">
+                    <p>Пароль</p>
+                    <div class="password-wrapper">
+                        <input type="password" name="password" id="password" placeholder="Пароль" class="auth-input">
+                        <img src="assets/open_eye.png" class="eye" id="togglePassword" alt="Показать пароль">
+                    </div>
+                </div>
+                <button type="submit" class="auth-button">Войти</button>
+            </form>
+            <div class="text-container">
+                <p>Впервые у нас на сайте? <a href="register_admin.html">Зарегистрироваться</a></p>
+                <p>Забыли пароль? <a href="recovery_admin.html">Восстановить</a></p>
+            </div>
+        </div>
+        <script src="scripts/show_password.js"></script>
+    </body>
+</html>
