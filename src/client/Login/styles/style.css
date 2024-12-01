@@ -13,7 +13,7 @@ body {
   padding: 0;
   font-family: "Poppins", sans-serif;
   color: white;
-  background: #e0d0d0;
+  background-image: url(../assets/registration_background.png) !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +28,6 @@ body {
   text-align: center;
   margin-top: 8px;
   margin-bottom: 15px;
-  padding-top: 30px;
 }
 
 .container_rec {
@@ -48,7 +47,7 @@ body {
   flex-direction: column;
   width: 500px;
   border-radius: 25px;
-  background-color: #ff9e9e;
+  background-color: #e3c9d0;
   /* border: 10px solid rgba(0, 0, 0, 0.05); */
 }
 

@@ -23,13 +23,13 @@ html, body{
     width: 100%;
     font-family: 'Inter';
     font-weight: normal;
+    background-image: url("../assets/auth_background.png");
 }
 
 body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #e0d0d0;
 }
 
 .auth-container {
@@ -37,7 +37,7 @@ body{
     align-items: center;
     display: flex;
     flex-direction: column;
-    background-color: #ff9e9e;
+    background-color: #d9b9e7;
     width: auto;
     height: auto;
     border-radius: 25px;
