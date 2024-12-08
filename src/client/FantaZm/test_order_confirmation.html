@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>FANTECH</title>
+        <link rel="stylesheet" href="styles/shop_showcase_styles.css">
+        <link rel="stylesheet" href="styles/test_order_confirmation_styles.css">
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo">
+                <img src="assets/FANTECH.svg" alt="Логотип" class="logo">
+                <a href="main_page.html" class="link"><h1>FANTECH</h1></a>
+            </div>
+            <h2>Ваш заказ</h2>
+            <span class="close" id="close">&times;</span>
+        </header>
+        <main>
+            <div class="body">
+                <div class="leftContent">
+                    <div class="userInfo">
+                        <div>
+                            <label for="name">Ваше имя:</label>
+                            <input type="text" id="name" placeholder="Введите ваше имя">
+                        </div>
+                        <div>
+                            <label for="email">Почта:</label>
+                            <input type="text" id="email" placeholder="Введите вашу Email">
+                        </div>
+                        <div>
+                            <label for="phone">Телефон:</label>
+                            <input type="text" id="phone" placeholder="+7 999-999-99-99">
+                        </div>
+                        <div class="promo"><input type="text" placeholder="Промокод"><button>Активировать</button></div>
+                    </div>
+                    <div class="addressInfo">
+                        <h4>Доставка</h4>
+                        <div>
+                            <label for="city">Город</label>
+                            <input type="text" id="city" placeholder="Введите ваш город">
+                        </div>
+                        <div class="deliveryType">
+                            <div>
+                                <input type="radio" name="type1" id="deliveryType" value="Почта России">
+                                <label for="type1">Почта России</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="type2" id="deliveryType" value="СДЭК | Доставка в пункт выдачи">
+                                <label for="type2">СДЭК | Доставка в пункт выдачи</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="type3" id="deliveryType" value="СДЭК | Доставка курьером">
+                                <label for="type3">СДЭК | Доставка курьером</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="address">Адрес</label>
+                            <input type="text" id="address" placeholder="Введите адрес отделения Почта России">
+                        </div>
+                        <div>
+                            <label for="buyer">Получатель (ФИО полностью)</label>
+                            <input type="text" id="buyer" placeholder="Иванов Геннадий Крокодилович">
+                        </div>
+                        <div>
+                            <label for="comment">Комментарий</label>
+                            <input type="text" id="comment" placeholder="Комментарий к заказу">
+                        </div>
+                        <div class="terms">
+                            <div>
+                                <input type="checkbox" id="terms">
+                                <label for="terms">Я согласен с <a href="#">Пользовательским соглашением</a> и даю согласие на <a href="#">обработку персональных данных</a></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="paymentInfo">
+                        <h4>Выберите способ оплаты</h4>
+                        <div>
+                            <input type="radio" name="payment" id="payment" value="Яндекс.Сплит">
+                            <label for="payment">Яндекс.Сплит</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="payment" id="payment" value="Банковская карта, ЮMoney или ЮКасса">
+                            <label for="payment">Банковская карта, ЮMoney или ЮКасса</label>
+                        </div>
+                    </div>
+                    <button class="confirmButton">ОФОРМИТЬ</button>
+                </div>
+                <div class="rightContent">
+                    <div class="goodsParams">
+                        <div class="selectAll">
+                            <input type="checkbox" checked="checked" id="selectAll">
+                            <label for="selectAll">Выбрать все товары</label>
+                        </div>
+                        <div class="deleteSelected">
+                            <span class="close" id="close">&times;</span>
+                            <label>Удалить выбранные</label>
+                        </div>
+                    </div>
+                    <div class="orderGoods">
+                        <div class="cartItem">
+                            <div class="imgTextContent">
+                              <input type='checkbox' checked="checked" class="inputCheck">
+                              <img src="assets/good_without_pic.jpg">
+                              <div class="textInfo">
+                                <p>Ключевое имя</p>
+                                <p class="memory">Объём памяти: 256gb</p>
+                                <p>Цена</p>
+                              </div>
+                            </div>
+                            <span class="close" id="close">&times;</span>
+                          </div>
+                          <div class="cartItem">
+                            <div class="imgTextContent">
+                              <input type='checkbox' checked="checked" class="inputCheck">
+                              <img src="assets/good_without_pic.jpg">
+                              <div class="textInfo">
+                                <p>Ключевое имя</p>
+                                <p>Цена</p>
+                              </div>
+                            </div>
+                            <span class="close" id="close">&times;</span>
+                          </div>
+                          <div class="cartItem">
+                            <div class="imgTextContent">
+                              <input type='checkbox' checked="checked" class="inputCheck">
+                              <img src="assets/good_without_pic.jpg">
+                              <div class="textInfo">
+                                <p>Ключевое имя</p>
+                                <p>Цена</p>
+                              </div>
+                            </div>
+                            <span class="close" id="close">&times;</span>
+                          </div>
+                    </div>
+                    <h3>Сумма заказа: </h3>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="footer_container">
+                <div class="footer_left">
+                    <div class="footer_logo">
+                        <img src="assets/FANTECH.svg" alt="Логотип" width="70px" height="70px">
+                        <span class="logo-text">SITE NAME</span>
+                    </div>
+                    <p class="footer_rights">2024 ALL RIGHTS RESERVED</p>
+                </div>
+                <div class="footer_right">
+                    <a href="#" class="footer_link">Контакты</a>
+                    <a href="#" class="footer_link">Пользовательское соглашение</a>
+                    <a href="#" class="footer_link">Политика конфиденциальности</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

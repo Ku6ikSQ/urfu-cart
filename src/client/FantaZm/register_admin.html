@@ -6,23 +6,24 @@
     <link rel="stylesheet" href="styles/auth_styles.css" />
     <script src="scripts/script.js" defer></script>
     <script src="scripts/show_password.js"></script>
-    <title>Login Form</title>
+    <script src="scripts/register.js" defer></script>
+    <title>FANTECH</title>
   </head>
   <body>
     <div class="container">
       <div class="form_area">
         <h4 class="title">Регистрация</h4>
-        <form>
+        <form id="registerForm">
 
           <div class="form_group">
             <label for="email" class="sub_title">Ваша почта:</label>
-            <input type="email" id="email" class="form_style" placeholder="anyemail@example.ru"/>
+            <input type="email" id="email" name="login" class="form_style" placeholder="anyemail@example.ru"/>
           </div>
 
           <div class="form_group">
             <label for="password" class="sub_title">Пароль</label>
             <div class="password-wrapper">
-              <input type="password" id="password1" class="form_style" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="reallystrongpass"
+              <input type="password" id="password1" name="password1" class="form_style" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="reallystrongpass"
               title="Пароль должен содержать не менее 8 символов, одну цифру, заглавные и строчные латинские буквы" required/>
               <img src="assets/open_eye.png" class="eye" id="togglePassword1" alt="Показать пароль">
             </div>
@@ -39,14 +40,14 @@
             <label for="password" class="sub_title">Повторите пароль</label>
             <div class="password-wrapper">  
               <input
-                type="password" id="password2" class="form_style" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="reallystrongpass"
+                type="password" id="password2" name="password2" class="form_style" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="reallystrongpass"
                 >
                 <img src="assets/open_eye.png" class="eye" id="togglePassword2" alt="Показать пароль">
               </div>
           </div>
 
           <div>
-            <button class="btn" id="button">Войти</button>
+            <button class="btn" id="register">Зарегистрироваться</button>
           </div>
           <p><b>Уже бывали у нас?</b> <a href="auth_admin.html"><b>Войти</b></a></p>
         </form>
