@@ -1,0 +1,97 @@
+body{
+    margin: 0;
+    height: auto;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    border-bottom: 2px solid #ddd;
+
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    background-color: white;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.logo h1{
+    font-family: 'Inter';
+    font-weight: bold;
+    font-size: 22px;
+    margin: 0px;
+    padding: 0px;
+    margin-left: 15px;
+    color: #000000;
+}
+
+.logo img{
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}
+
+.shopping_bag {
+    width: 25px;
+    height: 25px;
+    opacity: 0px;
+
+    padding-top: 12px;
+}
+
+.right-elems {
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.login {
+    margin: 0;
+    padding-top: 11px;
+    width: 140px;
+
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 29.05px;
+    text-align: center;   
+    color: #000000;
+}
+
+.login:hover {
+    text-decoration: underline;
+}
+
+.register {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 140px;
+    
+    
+    border: 2px solid;
+    border-radius: 10px;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 29.05px;
+    text-align: center;
+    color: #000000;
+}
+
+.register:hover {
+    text-decoration: underline;
+}
+
+.link{
+    text-decoration: none;
+}

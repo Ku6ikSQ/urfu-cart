@@ -1,3 +1,120 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Italic.ttf') format('truetype');
+    font-style: italic;
+}
+
+body{
+    margin: 0;
+    height: auto;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    border-bottom: 2px solid #ddd;
+
+    position: sticky;
+    top: 0;
+
+    background-color: white;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.logo h1{
+    font-family: 'Inter';
+    font-weight: bold;
+    font-size: 22px;
+    margin: 0px;
+    padding: 0px;
+    margin-left: 15px;
+    color: #000000;
+}
+
+.logo img{
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}
+
+.shopping_bag {
+    width: 25px;
+    height: 25px;
+    opacity: 0px;
+
+    padding-top: 12px;
+}
+
+.right-elems {
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.login {
+    margin: 0;
+    padding-top: 11px;
+    width: 140px;
+
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 29.05px;
+    text-align: center;   
+    color: #000000;
+}
+
+.login:hover {
+    text-decoration: underline;
+}
+
+.register {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 140px;
+    
+    
+    border: 2px solid;
+    border-radius: 10px;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 29.05px;
+    text-align: center;
+    color: #000000;
+}
+
+.register:hover {
+    text-decoration: underline;
+}
+
+.link{
+    text-decoration: none;
+}
+
+
+
 .body{
     display:flex;
     align-items: flex-start;
@@ -5,7 +122,10 @@
 }
 
 .good_pic{
-    width: 45%;
+    width: 400px;
+    height: 400px;
+    border-radius: 40px;
+    aspect-ratio: 1/1;
 }
 
 .images{
@@ -70,4 +190,150 @@ strike{
 .description{
     width: 50%;
     margin-top: 40px;
+}
+
+
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    margin-top: 60px;
+    border-top: 2px solid #ddd;
+    font-family: 'Inter';
+}
+  
+.footer_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+  
+.footer_left {
+    display: flex;
+    flex-direction: column;
+}
+  
+.footer_logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+    margin: 0px;
+    padding: 0px;
+    margin-left: 25px;
+}
+  
+.footer_rights {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #000000;
+    font-weight: 400;
+}
+  
+.footer_right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+  
+.footer_link {
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+  
+.footer_link:hover {
+    text-decoration: underline;
+}
+
+.aside {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    font-family: 'Inter';
+    font-weight: bold;
+}
+
+aside{
+    position: fixed;
+    top: 0;
+    right:0;
+    width: 25%;
+    background-color: white;
+    border: 1px solid black;
+    height: 100vh;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.cart{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cartItem{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.cartItem img{
+    width: 19%;
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+}
+
+.cartContent{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-bottom:10px;
+    padding-top:10px;
+}
+
+h3{
+    align-self: end;
+}
+
+.checkout{
+    height: 40px;
+    background-color: black;
+    color: white;
+    border-radius: 15px;
+  }
+
+.textInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.textInfo p{
+    margin:0;
+}
+
+.imgTextContent{
+    display:flex;
+    gap:20px;
+    align-items: center;
 }

@@ -1,0 +1,183 @@
+.ordersContent{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+    align-items: center;
+}
+
+.search{
+    margin-top: 40px;
+    display:flex;
+    flex-direction: column;
+}
+
+.search-input{
+    margin-top:10px;
+}
+
+.search-input.name{
+    width: 50%;
+}
+
+.search-input.name input{
+    width:100%;
+}
+
+.search-input.date{
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+}   
+
+.search-input.date input{
+    width: 50%;
+}
+
+.inputs{
+    display:flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.buttons{
+    display:flex;
+    gap:10px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+.buttons button{
+    background-color: #e7e7e7;
+    border-radius: 10px;
+    font-family:'Inter';
+    font-weight: bold;
+    color:black;
+    border:none;
+    height:30px;
+}
+
+button.active{
+    background-color: white;
+    border:1px solid black;
+}
+
+.order{
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    border-radius:10px;
+}
+
+.order-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid black;
+}
+
+.order-info-text{
+    display: flex;
+    gap:20px;
+}
+
+.order-goods{
+    display:flex;
+    justify-content: space-between;
+    padding:15px;
+    /*flex-direction: column;*/
+}
+
+.goods-item{
+    display: flex;
+    gap:20px;
+    /*flex-direction: column;*/
+}
+
+.goods-item img{
+    /*width: 15%;*/
+    width:100%;
+    aspect-ratio: 1/1;
+}
+
+.goods-price{
+    display: flex;
+    flex-direction: column;
+    align-self: end;
+}
+
+h2{
+    font-family: 'Inter';
+    font-weight: bold;
+    text-align: center;
+    width:fit-content;
+    border-top:1px solid black;
+    padding-top: 15px;
+}
+
+.status{
+    background-color: rgba(113, 53, 139, 0.5);
+    color:#71358b;
+    font-weight: lighter;
+    border-radius: 8px;
+}
+
+.retry{
+    background-color: #f8f8f8;
+    font-family: 'Inter';
+    font-weight: bold;
+    color:black;
+    border:1px solid black;
+    border-radius: 10px;
+    height: 40px;
+}
+
+.phoneAndAddress{
+    display: none;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid black;
+  }
+
+.goods-item-info{
+    display: flex;
+    justify-content: space-between;
+    /*width: 100%;*/
+    width: 10%;
+    align-items: center;
+  }
+
+.imgAndName{
+    display: flex;
+    /*width: 50%;*/
+    align-items: center;
+    gap: 20px;
+  }
+
+.nameAndCode{
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+.nameAndCode p, .priceAndQuantity p{
+    margin:0;
+  }
+
+.priceAndQuantity{
+    display: none;
+    flex-direction: column;
+}
+
+.ordersTable{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.left{
+    height: fit-content;
+}
