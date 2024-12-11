@@ -39,6 +39,7 @@ ADD COLUMN article VARCHAR(255) DEFAULT NULL;
 ALTER TABLE goods_categories
 ADD COLUMN photo TEXT DEFAULT NULL;
 
+-- ITER2
 ALTER TABLE goods
 ADD COLUMN brand VARCHAR(255) DEFAULT NULL;
 
@@ -57,4 +58,13 @@ CREATE TABLE CartItems (
     count INT NOT NULL,
     selected BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (cart_id) REFERENCES Cart(id) ON DELETE CASCADE
+);
+
+CREATE TABLE metrics (
+    id SERIAL PRIMARY KEY,
+    goods_id INT NOT NULL,
+    views INT DEFAULT 0,
+    add_to_cart_count INT DEFAULT 0,
+    order_count INT DEFAULT 0,
+    FOREIGN KEY (goods_id) REFERENCES goods(id) ON DELETE CASCADE
 );

@@ -10,6 +10,7 @@ import GoodsRouter from "./goods/router.js"
 import FileRouter from "./file/router.js"
 import UserRouter from "./user/router.js"
 import CartRouter from "./cart/router.js"
+import MetricsRouter from "./metrics/router.js"
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ app.use(GoodsRouter)
 app.use(FileRouter)
 app.use(UserRouter)
 app.use(CartRouter)
+app.use(MetricsRouter)
 
 if (process.env.VPS) {
     const sslOptions = {
