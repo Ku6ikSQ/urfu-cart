@@ -20,11 +20,23 @@ export default class GoodsService {
         categoryId,
         photos,
         article,
-        discount
+        discount,
+        brand,
+        stock
     ) {
         const result = await db.query(
-            "INSERT INTO goods (name, description, price, category_id, photos, article, discount) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-            [name, description, price, categoryId, photos, article, discount]
+            "INSERT INTO goods (name, description, price, category_id, photos, article, discount, brand, stock) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+            [
+                name,
+                description,
+                price,
+                categoryId,
+                photos,
+                article,
+                discount,
+                brand,
+                stock,
+            ]
         )
         return result.rows[0]
     }
@@ -37,10 +49,12 @@ export default class GoodsService {
         categoryId,
         photos,
         article,
-        discount
+        discount,
+        brand,
+        stock
     ) {
         const result = await db.query(
-            "UPDATE goods SET name = $1, description = $2, price = $3, category_id = $4, photos = $5, article = $6, discount = $7 WHERE id = $8 RETURNING *",
+            "UPDATE goods SET name = $1, description = $2, price = $3, category_id = $4, photos = $5, article = $6, discount = $7, brand = $8, stock = $9 WHERE id = $10 RETURNING *",
             [
                 name,
                 description,
@@ -49,6 +63,8 @@ export default class GoodsService {
                 photos,
                 article,
                 discount,
+                brand,
+                stock,
                 id,
             ]
         )

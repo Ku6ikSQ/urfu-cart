@@ -246,6 +246,12 @@ paths:
                                     discount:
                                         type: integer
                                         description: Скидка на товар
+                                    brand:
+                                        type: string
+                                        description: Бренд
+                                    stock:
+                                        type: integer
+                                        description: Остаток товара (в наличии)
                 "400":
                     description: Товар не найден
                     content:
@@ -302,6 +308,12 @@ paths:
                                 discount:
                                     type: integer
                                     description: Скидка на товар
+                                brand:
+                                    type: string
+                                    description: Бренд
+                                stock:
+                                    type: integer
+                                    description: Остаток товара (в наличии)
             responses:
                 "200":
                     description: Товар успешно обновлен
@@ -336,6 +348,12 @@ paths:
                                     discount:
                                         type: integer
                                         description: Скидка на товар
+                                    brand:
+                                        type: string
+                                        description: Бренд
+                                    stock:
+                                        type: integer
+                                        description: Остаток товара (в наличии)
                 "400":
                     description: Ошибка при обновлении товара
                     content:
@@ -421,6 +439,12 @@ paths:
                                         discount:
                                             type: integer
                                             description: Скидка на товар
+                                        brand:
+                                            type: string
+                                            description: Бренд
+                                        stock:
+                                            type: integer
+                                            description: Остаток товара (в наличии)
                 "500":
                     description: Внутренняя ошибка сервера
                     content:
@@ -464,6 +488,12 @@ paths:
                                 discount:
                                     type: integer
                                     description: Скидка на товар
+                                brand:
+                                    type: string
+                                    description: Бренд
+                                stock:
+                                    type: integer
+                                    description: Остаток товара (в наличии)
                             required:
                                 - name
                                 - price
@@ -503,6 +533,12 @@ paths:
                                     discount:
                                         type: integer
                                         description: Скидка на товар
+                                    brand:
+                                        type: string
+                                        description: Бренд
+                                    stock:
+                                        type: integer
+                                        description: Остаток товара (в наличии)
                 "400":
                     description: Ошибка при создании товара
                     content:

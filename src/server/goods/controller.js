@@ -30,6 +30,8 @@ export default class GoodsController {
                 photos,
                 article,
                 discount,
+                brand,
+                stock,
             } = req.body
             const goods = await GoodsService.createGoods(
                 name,
@@ -38,7 +40,9 @@ export default class GoodsController {
                 category_id,
                 photos,
                 article,
-                discount
+                discount,
+                brand,
+                stock
             )
             return res.status(200).json(goods)
         } catch (e) {
@@ -57,6 +61,8 @@ export default class GoodsController {
                 photos,
                 article,
                 discount,
+                brand,
+                stock,
             } = req.body
             const goods = await GoodsService.updateGoods(
                 id,
@@ -66,7 +72,9 @@ export default class GoodsController {
                 category_id,
                 photos,
                 article,
-                discount
+                discount,
+                brand,
+                stock
             )
             return res.json(goods)
         } catch (e) {
