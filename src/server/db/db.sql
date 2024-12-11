@@ -68,3 +68,21 @@ CREATE TABLE metrics (
     order_count INT DEFAULT 0,
     FOREIGN KEY (goods_id) REFERENCES goods(id) ON DELETE CASCADE
 );
+
+
+
+WITH RECURSIVE category_hierarchy AS (
+    -- Начинаем с родительской категории
+    SELECT id
+    FROM goods_categories
+    WHERE id = 2  -- Заменяем :parent_id на идентификатор родительской категории
+    
+    UNION ALL
+    
+    SELECT gc.id
+    FROM goods_categories gc
+    INNER JOIN category_hierarchy ch ON gc.parent_id = ch.id
+)
+SELECT g.*
+FROM goods g
+WHERE g.category_id IN (SELECT id FROM category_hierarchy);

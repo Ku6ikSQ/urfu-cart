@@ -13,7 +13,8 @@ export default class GoodsController {
 
     static async getAllGoods(req, res) {
         try {
-            const goodsList = await GoodsService.getAllGoods()
+            const categoryId = (req.query && req.query.categoryId) || null
+            const goodsList = await GoodsService.getAllGoods(categoryId)
             return res.json(goodsList)
         } catch (e) {
             return res.status(400).json(e.message)

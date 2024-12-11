@@ -1,4 +1,5 @@
 import db from "../db/db.js"
+import GoodCategoryService from "../goods-categories/service.js"
 
 export default class GoodsService {
     static async getGoodsById(id) {
@@ -7,9 +8,26 @@ export default class GoodsService {
         return result.rows[0]
     }
 
-    // TODO: probably, it will be rewrited (later)
-    static async getAllGoods() {
-        const result = await db.query("SELECT * FROM goods")
+    static async getAllGoods(categoryId) {
+        const query = !categoryId
+            ? "SELECT * FROM goods"
+            : `
+            WITH RECURSIVE category_hierarchy AS (
+                SELECT id
+                FROM goods_categories
+                WHERE id = ${categoryId}
+                
+                UNION ALL
+                
+                SELECT gc.id
+                FROM goods_categories gc
+                INNER JOIN category_hierarchy ch ON gc.parent_id = ch.id
+            )
+            SELECT g.*
+            FROM goods g
+            WHERE g.category_id IN (SELECT id FROM category_hierarchy);
+        `
+        const result = await db.query(query)
         return result.rows
     }
 

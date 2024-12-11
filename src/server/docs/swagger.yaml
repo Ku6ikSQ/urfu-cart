@@ -403,6 +403,13 @@ paths:
                 - Goods
             summary: Получение списка всех товаров
             description: Возвращает список всех товаров.
+            parameters:
+                - name: categoryId
+                  in: query
+                  required: false
+                  description: Уникальный идентификатор категории для фильтрации товаров
+                  schema:
+                      type: integer
             responses:
                 "200":
                     description: Список товаров
