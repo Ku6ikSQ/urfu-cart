@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
     title: Restful API (urfu-cart)
-    version: 0.4.5
+    version: 0.7.5
     description: This is an Restful API for interacting with the server
 
 servers:
@@ -1459,18 +1459,6 @@ paths:
                   description: Уникальный идентификатор товара, для которого нужно получить метрики
                   schema:
                       type: integer
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                goodsId:
-                                    type: integer
-                                    description: Уникальный идентификатор товара, для которого создаются метрики
-                            required:
-                                - goodsId
             responses:
                 "201":
                     description: Метрики успешно созданы
