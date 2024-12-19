@@ -8,12 +8,11 @@
         <link rel="stylesheet" href="styles/header_styles.css">
         <script src="scripts/open_dropdown.js" defer></script>
         <script src="scripts/light_selected.js" defer></script>
-        <script src="scripts/edit_good.js" defer></script>
         <script src="scripts/add_good.js" defer></script>
         <script src="scripts/add_picture.js" defer></script>
         <script src="scripts/load_goods.js" defer></script>
         <script src="scripts/is_latin_letter_or_digit.js" defer></script>
-
+        <script src="scripts/search_script.js" defer></script>
     </head>
     <body>
         <header class="header">
@@ -43,20 +42,21 @@
                 <div class="search">
                     <div class="search-input">
                         <p>Поиск</p>
-                        <input type="text" placeholder="По ключевому имени">
+                        <input type="text" id="searchName" placeholder="По ключевому имени">
                     </div>
                     <div class="search-input">
                         <p>Бренд</p>
-                        <input type="text" placeholder="Введите название бренда">
+                        <input type="text" id="searchBrand" placeholder="Введите название бренда">
                     </div>
                     <div class="search-input-price ">
                         <p>Стоимость, ₽</p>
                         <div class="price-input">
-                            <input type="text" pattern="[0-9]*" placeholder="От" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,5}$/.test(this.value));">
+                            <input type="text" pattern="[0-9]*" placeholder="От" id="searchPriceFrom" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,5}$/.test(this.value));">
                             <p> — </p>
-                            <input type="text" pattern ="\d*" placeholder="До" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,5}$/.test(this.value));">
+                            <input type="text" pattern ="\d*" placeholder="До"  id="searchPriceTo" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,5}$/.test(this.value));">
                         </div>
                     </div>
+                    <img src="assets/magnifier.png" class="search-icon" id="searchButton">
                 </div>
                 <div class="table" id="productContainer">
                     <div class="good_card">
@@ -138,7 +138,13 @@
                                 </div>
                                 <div class="labelItem">
                                     <label for="productCategory">Категория:</label>
-                                    <input type="text" id="productCategory" placeholder="Введите название категории">
+                                    <input list="category-list" type="text" id="productCategory" placeholder="Введите название категории">
+                                    <datalist id="category-list">
+                                        <option value="Пример 1">
+                                        <option value="Пример 2">
+                                        <option value="Пример 3">
+                                        <option value="Пример 4">
+                                    </datalist>
                                 </div>
                                 <div class="labelItem">
                                     <label for="productPrice">Цена:</label>
@@ -189,7 +195,13 @@
                                 </div>
                                 <div class="labelItem">
                                     <label for = "productCategory1">Категория:</label>
-                                    <input type="text" id="productCategory1" placeholder="Введите название категории">
+                                    <input list="category-list1" type="text" id="productCategory1" placeholder="Введите название категории">
+                                    <datalist id="category-list1">
+                                        <option value="Пример 1">
+                                        <option value="Пример 2">
+                                        <option value="Пример 3">
+                                        <option value="Пример 4">
+                                    </datalist>
                                 </div>
                                 <div class="labelItem">
                                     <label for="productPrice1">Цена:</label>

@@ -12,8 +12,7 @@
         <script src="scripts/is_latin_letter_or_digit.js" defer></script>
         <script src="scripts/edit_category.js" defer></script>
         <script src="scripts/add_category.js" defer></script>
-        <script src="scripts/rename_category.js" defer></script>
-
+        <script src="scripts/load_categories.js" defer></script>
     </head>
     <body>
         <header class="header">
@@ -39,76 +38,32 @@
                     <li><a href="admin_statistics.html">Статистика</a></li>
                 </ul>
             </aside>
-            <div class="content">
-                <div class="filter">
-                    <img src="assets/filter.png">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">Категории</a>
-                        <ul class="dropdown-content">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle">Категория 1</a>
-                                <ul class="dropdown-content">
-                                    <li><a href="#">Подкатегория 1</a></li>
-                                    <li><a href="#">Подкатегория 2</a></li>
-                                    <li><a href="#">Подкатегория 3</a></li>
-                                    <button class="add-category" id="add-category">Добавить категорию</button>
-                                </ul>
-                            </li>
-                            <li><a href="#">Категория 2</a></li>
-                            <li><a href="#">Категория 3</a></li>
-                            <button class="add-category" id="add-category">Добавить категорию</button>
-                        </ul>
-                    </li>
-                </div>
-                <div class="table" id="productContainer">
-                    <div class="good_card">
-                        <img src="assets/good_without_pic.jpg" class="good_pic">
-                        <p>Ключевое имя</p>
-                        <div class="good_price">
-                            <p>Цена</p><p>₽</p>
-                        </div>
-                    </div>
-                    <div class="good_card">
-                        <img src="assets/good_without_pic.jpg" class="good_pic">
-                        <p>Ключевое имя</p>
-                        <div class="good_price">
-                            <p>Цена</p><p>₽</p>
-                        </div>
-                    </div>
-                    <div class="good_card">
-                        <img src="assets/good_without_pic.jpg" class="good_pic">
-                        <p>Ключевое имя</p>
-                        <div class="good_price">
-                            <p>Цена</p><p>₽</p>
-                        </div>
-                    </div>
-                    <div class="good_card">
-                        <img src="assets/good_without_pic.jpg" class="good_pic">
-                        <p>Ключевое имя</p>
-                        <div class="good_price">
-                            <p>Цена</p><p>₽</p>
-                        </div>
-                    </div>
-                    <div class="good_card">
-                        <img src="assets/good_without_pic.jpg" class="good_pic">
-                        <p>Ключевое имя</p>
-                        <div class="good_price">
-                            <p>Цена</p><p>₽</p>
-                        </div>
-                    </div>
-                    <div class="good_card">
-                        <img src="assets/good_without_pic.jpg" class="good_pic">
-                        <p>Ключевое имя</p>
-                        <div class="good_price">
-                            <p>Цена</p><p>₽</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="content" id="content">
+                <ul class="categories">
+                    <li><a href="#" class="link">Категория 1</a></li>
+                    <li><a href="#" class="link">Категория 2</a></li>
+                    <li><a href="#" class="link">Категория 3</a></li>
+                    <li><a href="#" class="link">Категория 4</a></li>
+                    <li><a href="#" class="link">Категория 5</a></li>
+                </ul>
+                <ul class="categories">
+                    <li><a href="#" class="link">Категория 1</a></li>
+                    <li><a href="#" class="link">Категория 2</a></li>
+                    <li><a href="#" class="link">Категория 3</a></li>
+                    <li><a href="#" class="link">Категория 4</a></li>
+                    <li><a href="#" class="link">Категория 5</a></li>
+                </ul>
+                <ul class="categories">
+                    <li><a href="#" class="link">Категория 1</a></li>
+                    <li><a href="#" class="link">Категория 2</a></li>
+                    <li><a href="#" class="link">Категория 3</a></li>
+                    <li><a href="#" class="link">Категория 4</a></li>
+                    <li><a href="#" class="link">Категория 5</a></li>
+                </ul>
             </div>
-        <div class="add_button">
-            <button class="add" id="edit-category">Редактировать</button>
-            <button class="add" id="save-category">Сохранить</button>
-        </div>
+            <div class="add_button">
+                <button class="add" id="edit-category">Редактировать</button>
+            </div>
         </div>
     </main>
     </body>

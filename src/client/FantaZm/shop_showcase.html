@@ -6,7 +6,10 @@
         <link rel="stylesheet" href="styles/shop_showcase_styles.css">
         <script src="scripts/light_selected.js" defer></script>
         <script src="scripts/rename_category.js" defer></script>
+        <script src="scripts/open_category.js" defer></script>
         <script src="scripts/customer_cart.js" defer></script>
+        <script src="scripts/showcase_load_goods.js" defer></script>
+        <script src="scripts/showcase_load_categories.js" defer></script>
     </head>
     <body>
         <header class="header">
@@ -27,22 +30,22 @@
                     <div class="category_container">
                         <img src="assets/category.svg" alt="Категории" class="category_icon">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle link category_text">Категории</a>
-                            <ul class="dropdown-content">
+                            <a href="#" class="dropdown-toggle link category_text">Все категории</a>
+                            <ul class="dropdown-content" id="category-list">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle link category_text">Все категории</a>
+                                </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle link category_text">Категория 1</a>
-                                    <ul class="dropdown-content">
-                                        <li><a href="#" class="link category_text">Подкатегория 1</a></li>
-                                        <li><a href="#" class="link category_text">Подкатегория 2</a></li>
-                                        <li><a href="#" class="link category_text">Подкатегория 3</a></li>
-                                    </ul>
                                 </li>
-                                <li><a href="#" class="link category_text">Категория 2</a></li>
-                                <li><a href="#" class="link category_text">Категория 3</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle link category_text">Категория 2</a>
+                                </li>
+                                <li class="dropdown"><a href="#" class="dropdown-toggle link category_text">Категория 3</a></li>
                             </ul>
                         </li>
                     </div>
-                    <div class="table">
+                    <div class="table" id="goodsTable">
                         <div class="good_card">
                             <img src="assets/good_without_pic.jpg" class="good_pic">
                             <p>КАРТОЧКА ТОВАРА</p>
@@ -129,7 +132,7 @@
                       <span class="close" id="close">&times;</span>
                     </div>
                   </div>
-                  <h3>Сумма заказа: </h3>
+                  <h3 id="totalSum">Сумма заказа: </h3>
                   <button class="checkout">ОФОРМИТЬ</button>
                 </aside>
             </div>

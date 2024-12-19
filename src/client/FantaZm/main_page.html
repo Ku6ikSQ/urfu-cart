@@ -15,6 +15,7 @@
                 window.location.href = "shop_showcase.html";
             }
         </script>
+        <script src="scripts/customer_cart.js" defer></script>
     </head>
     <body>
         <header class="header">
@@ -23,9 +24,10 @@
                 <a href="main_page.html" class="link"><h1>FANTECH</h1></a>
             </div>
             <div class="right-elems">
-                <a href="#"><img src="assets/shopping_bag.svg" alt="Корзина" class="shopping_bag"></a>
+                <a href="#" id="cartButton"><img src="assets/shopping_bag.svg" alt="Корзина" class="shopping_bag"></a>
                 <a href="auth_admin.html" class="link"><p class="login">Войти</p></a>
                 <a href="register_admin.html" class="link"><p class="register">Регистрация</p></a>
+                <a href="test_customer_cabinet.html" class="link" id="cabinet"><p class="cabinet">Никнейм</p></a>
             </div>
         </header>
         <main>
@@ -37,6 +39,37 @@
                     <h1>Идеальное место для ваших покупок</h1>
                     <button onclick="goToShowcase()">Перейти к каталогу</button>
                 </div>
+            </div>
+            <div class="aside" id="customerCart">
+                <aside class="cart">
+                  <h4>Ваш заказ:</h4>
+                  <div class="cartContent">
+                    <div class="cartItem">
+                      <div class="imgTextContent">
+                        <input type='checkbox' checked="checked" class="inputCheck">
+                        <img src="assets/good_without_pic.jpg">
+                        <div class="textInfo">
+                          <p>Ключевое имя</p>
+                          <p>Цена</p>
+                        </div>
+                      </div>
+                      <span class="close" id="close">&times;</span>
+                    </div>
+                    <div class="cartItem">
+                      <div class="imgTextContent">
+                        <input type='checkbox' checked="checked" class="inputCheck">
+                        <img src="assets/good_without_pic.jpg">
+                        <div class="textInfo">
+                          <p>Ключевое имя</p>
+                          <p>Цена</p>
+                        </div>
+                      </div>
+                      <span class="close" id="close">&times;</span>
+                    </div>
+                  </div>
+                  <h3 id="totalSum">Сумма заказа: </h3>
+                  <button class="checkout">ОФОРМИТЬ</button>
+                </aside>
             </div>
         </main>
         <footer class="footer">
