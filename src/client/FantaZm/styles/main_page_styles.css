@@ -26,7 +26,6 @@
 
     position: sticky;
     top: 0;
-    z-index: 10;
 
     background-color: white;
 }
@@ -227,4 +226,120 @@ body{
   
 .footer_link:hover {
     text-decoration: underline;
+}
+
+.aside {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    font-family: 'Inter';
+    font-weight: bold;
+}
+
+aside{
+    position: fixed;
+    top: 0;
+    right:0;
+    width: 25%;
+    background-color: white;
+    border: 1px solid black;
+    height: 100vh;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.cart{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cartItem{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.cartItem img{
+    width: 19%;
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+}
+
+.cartContent{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-bottom:10px;
+    padding-top:10px;
+}
+
+h3{
+    align-self: end;
+}
+
+.checkout{
+    height: 40px;
+    background-color: black;
+    color: white;
+    border-radius: 15px;
+    font-weight:bold;
+    font-family: 'Inter';
+  }
+
+.textInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.textInfo p{
+    margin:0;
+}
+
+.imgTextContent{
+    display:flex;
+    gap:20px;
+    align-items: center;
+}
+
+h4{
+    font-size:larger;
+    margin-bottom: 0px;
+}
+
+.inputCheck{
+    accent-color:#c7c7c7;
+}
+
+.cabinet{
+    margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 140px;
+  border: 2px solid;
+  border-radius: 10px;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 29.05px;
+  text-align: center;
+  color: #000000;
+}
+
+.itemCount{
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }

@@ -11,10 +11,6 @@ li{
     font-weight: bold;
 }
 
-.content{
-    display:block;
-}
-
 #productContainer{
     margin-left: 40px;
 }
@@ -122,3 +118,40 @@ li{
     text-decoration: underline;
 }
 
+.categories{
+    max-width: fit-content;
+    background-color: #f8f8f8;
+    padding-left: 0px;
+    margin-left: 40px;
+    height: fit-content;
+}
+
+.categories li{
+    border: 1px black solid;
+    border-radius: 10px;
+    height: 40px;
+    justify-content: space-around;
+    width: 200px;
+}
+
+.content .categories li.active {
+    background-color: white;
+    color: white;             
+    border-radius: 5px;
+    border:1px solid black;
+}
+
+.content{
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.btn{
+    display: none;
+    background-color: white;
+}
+
+span{
+    color: black;
+    display: none;
+}

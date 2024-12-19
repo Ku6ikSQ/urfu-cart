@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     const modals = document.getElementById("editModal");
     const closeBtn = document.getElementsByClassName("close")[0];
     const saveButton = document.getElementById("saveButton");
@@ -6,6 +6,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const previewImage = document.querySelector('#editModal .good_pic');
     let currentCard = null;
     let firstImage = null;
+
+    const categories = document.getElementById('category-list');
+    categories.innerHTML = '';
+    const response = await fetch(`https://5.35.124.24:5000/api/good-categories`,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (!response.ok) {
+        throw new Error(`Ошибка HTTP: ${response.status}`);
+    }
+    const data = await response.json();
+    const categoryList = [];
+    data.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.title;
+        categoryList.push(category.title);
+        option.setAttribute('data-id', category.id);
+        categories.appendChild(option);
+    });
 
     function openModal(productId, card) {
         currentCard = card;
@@ -24,6 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById("productPrice").value = Number(product.price) || 0;
                 document.getElementById("productDescription").value = product.description || '';
                 document.querySelector('.modal .good_pic').src = await getFileLink(product.photos[0]) || 'assets/good_without_pic.jpg';
+                document.getElementById('goodsRemains').value = product.stock || 0;
+                document.getElementById('productCategory').value = await getCategory(product.category_id) || 0;
+                document.getElementById('productBrand').value = product.brand || '';
                 firstImage = product.photos[0];
 
                 modals.style.display = "block";
@@ -55,20 +79,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    saveButton.onclick = function () {
+    saveButton.onclick = async function () {
         const productId = currentCard.dataset.id;
         const name = document.getElementById('productName').value;
         const brand = document.getElementById('productBrand').value;
         const price = document.getElementById('productPrice').value;
         const description = document.getElementById('productDescription').value;
-        const quantity = document.getElementById('goodsRemains').value;
-
+        const stock = document.getElementById('goodsRemains').value;
+        const category = document.getElementById('productCategory').value.trim();
+        const image = document.getElementById('fileInput').files[0];
+        let uploadFileName = firstImage;
+        if (image){
+            try{
+                const uploadResult = await uploadFile(image);
+                uploadFileName = uploadResult;
+            } catch (error){
+                console.error("Uploading file error: ",error);
+                return;
+            }
+        }
         if (name && price) {
+            if (!categoryList.includes(category)){
+                alert('Выберите категорию из списка');
+                return;
+            }
             const updatedData = {
                 'name': name,
-                'brand': brand,
+                'description':description,
                 'price': parseFloat(price),
-                'description':description
+                'category_id': document.querySelector(`#category-list option[value="${category}"]`).getAttribute('data-id'),
+                'photos': [uploadFileName],
+                'article': '',
+                'discount': 0,
+                'brand': brand,
+                'stock': stock
             };
 
             fetch(`https://5.35.124.24:5000/api/goods/${productId}`, {
@@ -86,10 +130,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(data => {
                     alert('Товар успешно обновлен');
-                    currentCard.querySelector('p').innerText = name;
-                    currentCard.querySelector('.good_price p').innerText = price + '₽';
-                    currentCard.querySelector('.good_pic').src = previewImage.src;
                     modals.style.display = "none";
+                    window.location.reload();
                 })
                 .catch(error => {
                     console.error('Ошибка при обновлении товара:', error);
@@ -160,3 +202,42 @@ async function getFileLink(fileName) {
         return null;
     }
 }
+
+async function uploadFile(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    try{
+        const response = await fetch('https://5.35.124.24:5000/api/file/upload', {
+            method: 'POST',
+            body: formData
+        });
+        if (!response.ok) {
+            throw new Error(`Ошибка HTTP: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log("Файл успешно загружен: ",result);
+        return result;
+    } catch (error){
+        console.error("Ошибка при загрузке файла: ", error);
+    }
+}
+
+async function getCategory(categoryId) {
+    try{
+        const response = await fetch(`https://5.35.124.24:5000/api/good-categories/${categoryId}`,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log(data);
+            return data.title;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    } 

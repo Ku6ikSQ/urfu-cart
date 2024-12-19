@@ -21,7 +21,7 @@ html,body{
     width: 95%;
     background-color: #f8f8f8;
     border-radius: 10px;
-    
+    align-items: center;
 }
 .search-input-price input{
     width: 75px;
@@ -328,4 +328,9 @@ strike{
   
 .footer_link:hover {
     text-decoration: underline;
+}
+
+.search-icon{
+    width: 30px;
+    height: 30px;
 }

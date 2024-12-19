@@ -21,6 +21,10 @@ document.getElementById('authForm').addEventListener('submit', async function (e
                 throw new Error(data);
             }
             sessionStorage.setItem('isAuth',true);
+            const allUsers = await fetch('https://5.35.124.24:5000/api/users');
+            const allUsersData = await allUsers.json();
+            const user = allUsersData.find(user => user.email === login);
+            sessionStorage.setItem('userId', user.id);
             window.location.href = 'shop_showcase.html';
         } catch (error) {
             if (error == 'Error: Failed to find this user'){
