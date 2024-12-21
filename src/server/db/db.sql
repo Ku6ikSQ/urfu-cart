@@ -68,3 +68,8 @@ CREATE TABLE metrics (
     order_count INT DEFAULT 0,
     FOREIGN KEY (goods_id) REFERENCES goods(id) ON DELETE CASCADE
 );
+
+
+ALTER TABLE CartItems
+ADD CONSTRAINT fk_goods
+FOREIGN KEY (goods_id) REFERENCES goods(id) ON DELETE CASCADE;
