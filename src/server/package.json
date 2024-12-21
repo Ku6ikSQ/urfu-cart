@@ -1,26 +1,26 @@
 {
-  "name": "urfu-cart-server",
-  "version": "0.0.1",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "start": "node ./index.js",
-    "nodemon": "nodemon ./index.js",
-    "fs": "C:\\minio.exe server C:\\minio --console-address :9001",
-    "psql": "cmd /c \"C:/Program Files/PostgreSQL/17/bin/psql\" -U postgres"
-  },
-  "dependencies": {
-    "argon2": "^0.41.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.1",
-    "express-fileupload": "^1.5.1",
-    "minio": "^8.0.2",
-    "nodemailer": "^6.9.16",
-    "pg": "^8.13.1",
-    "uuid": "^11.0.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.7"
-  }
+    "name": "urfu-cart-server",
+    "version": "0.0.1",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node ./index.js",
+        "nodemon": "nodemon ./index.js",
+        "fs": "C:\\minio.exe server C:\\minio --console-address :9001",
+        "psql": "cmd /c \"C:/Program Files/PostgreSQL/17/bin/psql\" -U postgres"
+    },
+    "dependencies": {
+        "argon2": "^0.41.1",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.21.1",
+        "express-fileupload": "^1.5.1",
+        "minio": "^8.0.2",
+        "nodemailer": "^6.9.16",
+        "pg": "^8.13.1",
+        "uuid": "^11.0.2"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.7"
+    }
 }

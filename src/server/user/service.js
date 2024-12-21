@@ -1,6 +1,6 @@
 import * as argon2 from "argon2"
 import db from "../db/db.js"
-import { validateEmail, validatePassword } from "../utils.js"
+import { isHashedPassword, validateEmail, validatePassword } from "../utils.js"
 
 export default class UserService {
     static async getUserById(id) {
@@ -32,7 +32,9 @@ export default class UserService {
     }
 
     static async updateUser(id, name, email, password, activated) {
-        const hashedPassword = await argon2.hash(password)
+        const hashedPassword = isHashedPassword(password)
+            ? password
+            : await argon2.hash(password)
         const result = await db.query(
             "UPDATE users SET name = $1, email = $2, password = $3, activated = $4 WHERE id = $5 RETURNING *",
             [name ? name : "", email, hashedPassword, activated, id]

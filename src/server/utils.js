@@ -25,3 +25,6 @@ export const generatePassword = (length) => {
 
     return password
 }
+
+export const isHashedPassword = (password) =>
+    password.length > 60 && password.startsWith("$argon2")
