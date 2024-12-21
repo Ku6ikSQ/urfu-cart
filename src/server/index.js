@@ -14,6 +14,7 @@ import MetricsRouter from "./metrics/router.js"
 import PaymentsRouter from "./payments/router.js"
 import DeliveryRouter from "./delivery/router.js"
 import RecipientRouter from "./recipient/router.js"
+import CheckoutRouter from "./checkout/router.js"
 
 dotenv.config()
 
@@ -34,6 +35,7 @@ app.use(MetricsRouter)
 app.use(PaymentsRouter)
 app.use(DeliveryRouter)
 app.use(RecipientRouter)
+app.use(CheckoutRouter)
 
 if (process.env.VPS) {
     const sslOptions = {

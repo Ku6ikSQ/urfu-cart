@@ -2105,11 +2105,11 @@ paths:
             description: Возвращает информацию о получателе на основе его уникального идентификатора.
             parameters:
                 - in: path
-                name: id
-                required: true
-                schema:
-                    type: integer
-                description: Уникальный идентификатор получателя.
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор получателя.
             responses:
                 "200":
                     description: Информация о получателе
@@ -2163,11 +2163,11 @@ paths:
             description: Обновляет данные существующего получателя на основе переданного ID.
             parameters:
                 - in: path
-                name: id
-                required: true
-                schema:
-                    type: integer
-                description: Уникальный идентификатор получателя.
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор получателя.
             requestBody:
                 required: true
                 content:
@@ -2255,11 +2255,11 @@ paths:
             description: Удаляет получателя на основе его уникального идентификатора.
             parameters:
                 - in: path
-                name: id
-                required: true
-                schema:
-                    type: integer
-                description: Уникальный идентификатор получателя.
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор получателя.
             responses:
                 "200":
                     description: Получатель успешно удален
@@ -2409,7 +2409,308 @@ paths:
                             schema:
                                 type: string
                                 example: "Internal server error"
-
+    /api/checkouts/{id}:
+        get:
+            tags:
+                - Checkouts
+            summary: Получение счета оплаты по ID
+            description: Возвращает информацию о счете оплаты на основе его уникального идентификатора.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор счета оплаты.
+            responses:
+                "200":
+                    description: Информация о счете оплаты
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор счета оплаты
+                                    user_id:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    recipient_id:
+                                        type: integer
+                                        description: Уникальный идентификатор получателя
+                                    cart_id:
+                                        type: integer
+                                        description: Уникальный идентификатор корзины
+                                    payment_id:
+                                        type: integer
+                                        description: Уникальный идентификатор метода оплаты
+                                    delivery_id:
+                                        type: integer
+                                        description: Уникальный идентификатор метода доставки
+                                    payment_total:
+                                        type: number
+                                        format: float
+                                        description: Общая сумма к оплате
+                "400":
+                    description: Счет оплаты не найден
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Checkout not found"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        patch:
+            tags:
+                - Checkouts
+            summary: Обновление счета оплаты по ID
+            description: Обновляет данные существующего счета оплаты на основе переданного ID.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор счета оплаты.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                userId:
+                                    type: integer
+                                    description: Уникальный идентификатор пользователя
+                                recipientId:
+                                    type: integer
+                                    description: Уникальный идентификатор получателя
+                                cartId:
+                                    type: integer
+                                    description: Уникальный идентификатор корзины
+                                paymentId:
+                                    type: integer
+                                    description: Уникальный идентификатор метода оплаты
+                                deliveryId:
+                                    type: integer
+                                    description: Уникальный идентификатор метода доставки
+                                paymentTotal:
+                                    type: number
+                                    format: float
+                                    description: Общая сумма к оплате
+                            required:
+                                - userId
+                                - recipientId
+                                - cartId
+                                - paymentId
+                                - deliveryId
+                                - paymentTotal
+            responses:
+                "200":
+                    description: Счет оплаты успешно обновлен
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор счета оплаты
+                                    user_id:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    recipient_id:
+                                        type: integer
+                                        description: Уникальный идентификатор получателя
+                                    cart_id:
+                                        type: integer
+                                        description: Уникальный идентификатор корзины
+                                    payment_id:
+                                        type: integer
+                                        description: Уникальный идентификатор метода оплаты
+                                    delivery_id:
+                                        type: integer
+                                        description: Уникальный идентификатор метода доставки
+                                    payment_total:
+                                        type: number
+                                        format: float
+                                        description: Общая сумма к оплате
+                "400":
+                    description: Ошибка при обновлении счета оплаты
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Checkout not found or invalid input"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        delete:
+            tags:
+                - Checkouts
+            summary: Удаление счета оплаты по ID
+            description: Удаляет счет оплаты на основе его уникального идентификатора.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор счета оплаты.
+            responses:
+                "200":
+                    description: Счет оплаты успешно удален
+                "400":
+                    description: Ошибка при удалении счета оплаты
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Checkout not found"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+    /api/checkouts:
+        get:
+            tags:
+                - Checkouts
+            summary: Получение списка всех счетов оплаты
+            description: Возвращает список всех счетов оплаты.
+            responses:
+                "200":
+                    description: Список счетов оплаты
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: integer
+                                            description: Уникальный идентификатор счета оплаты
+                                        user_id:
+                                            type: integer
+                                            description: Уникальный идентификатор пользователя
+                                        recipient_id:
+                                            type: integer
+                                            description: Уникальный идентификатор получателя
+                                        cart_id:
+                                            type: integer
+                                            description: Уникальный идентификатор корзины
+                                        payment_id:
+                                            type: integer
+                                            description: Уникальный идентификатор метода оплаты
+                                        delivery_id:
+                                            type: integer
+                                            description: Уникальный идентификатор метода доставки
+                                        payment_total:
+                                            type: number
+                                            format: float
+                                            description: Общая сумма к оплате
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        post:
+            tags:
+                - Checkouts
+            summary: Создание нового счета оплаты
+            description: Создает новый счет оплаты на основе переданных данных.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                userId:
+                                    type: integer
+                                    description: Уникальный идентификатор пользователя
+                                recipientId:
+                                    type: integer
+                                    description: Уникальный идентификатор получателя
+                                cartId:
+                                    type: integer
+                                    description: Уникальный идентификатор корзины
+                                paymentId:
+                                    type: integer
+                                    description: Уникальный идентификатор метода оплаты
+                                deliveryId:
+                                    type: integer
+                                    description: Уникальный идентификатор метода доставки
+                                paymentTotal:
+                                    type: number
+                                    format: float
+                                    description: Общая сумма к оплате
+                            required:
+                                - userId
+                                - recipientId
+                                - cartId
+                                - paymentId
+                                - deliveryId
+                                - paymentTotal
+            responses:
+                "200":
+                    description: Счет оплаты успешно создан
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор счета оплаты
+                                    user_id:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    recipient_id:
+                                        type: integer
+                                        description: Уникальный идентификатор получателя
+                                    cart_id:
+                                        type: integer
+                                        description: Уникальный идентификатор корзины
+                                    payment_id:
+                                        type: integer
+                                        description: Уникальный идентификатор метода оплаты
+                                    delivery_id:
+                                        type: integer
+                                        description: Уникальный идентификатор метода доставки
+                                    payment_total:
+                                        type: number
+                                        format: float
+                                        description: Общая сумма к оплате
+                "400":
+                    description: Ошибка при создании счета оплаты
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Invalid input"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
 
 tags:
     - name: Auth
@@ -2432,3 +2733,5 @@ tags:
       description: Методы для работы со способами доставки.
     - name: Recipients
       description: Методы для работы с получателями.
+    - name: Checkouts
+      description: Методы для работы со счетами заказов.

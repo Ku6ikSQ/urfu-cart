@@ -108,3 +108,13 @@ CREATE TABLE recipients (
     zip_code VARCHAR(20),
     phone VARCHAR(20) NOT NULL
 );
+
+CREATE TABLE checkouts (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    recipient_id INTEGER REFERENCES recipients(id) ON DELETE CASCADE,
+    cart_id INTEGER REFERENCES cart(id) ON DELETE CASCADE,
+    payment_id INTEGER REFERENCES payments(id) ON DELETE CASCADE,
+    delivery_id INTEGER REFERENCES delivery(id) ON DELETE CASCADE,
+    payment_total NUMERIC(10, 2) NOT NULL
+);
