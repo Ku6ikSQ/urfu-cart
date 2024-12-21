@@ -1633,6 +1633,238 @@ paths:
                             schema:
                                 type: string
                                 example: "Internal server error"
+    /api/payments/{id}:
+        get:
+            tags:
+                - Payments
+            summary: Получение метода оплаты по ID
+            description: Возвращает информацию о методе оплаты на основе его уникального идентификатора.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор метода оплаты.
+            responses:
+                "200":
+                    description: Информация о методе оплаты
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор метода оплаты
+                                    title:
+                                        type: string
+                                        description: Название метода оплаты
+                                    description:
+                                        type: string
+                                        description: Описание метода оплаты
+                                    logo:
+                                        type: string
+                                        description: Имя файла логотипа метода оплаты
+                "400":
+                    description: Метод оплаты не найден
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Payment method not found"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        patch:
+            tags:
+                - Payments
+            summary: Обновление метода оплаты по ID
+            description: Обновляет данные существующего метода оплаты на основе переданного ID.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор метода оплаты.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                title:
+                                    type: string
+                                    description: Название метода оплаты
+                                description:
+                                    type: string
+                                    description: Описание метода оплаты
+                                logo:
+                                    type: string
+                                    description: Имя файла логотипа метода оплаты
+                            required:
+                                - title
+            responses:
+                "200":
+                    description: Метод оплаты успешно обновлен
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор метода оплаты
+                                    title:
+                                        type: string
+                                        description: Название метода оплаты
+                                    description:
+                                        type: string
+                                        description: Описание метода оплаты
+                                    logo:
+                                        type: string
+                                        description: Имя файла логотипа метода оплаты
+                "400":
+                    description: Ошибка при обновлении метода оплаты
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Payment method not found or invalid input"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        delete:
+            tags:
+                - Payments
+            summary: Удаление метода оплаты по ID
+            description: Удаляет метод оплаты на основе его уникального идентификатора.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор метода оплаты.
+            responses:
+                "200":
+                    description: Метод оплаты успешно удален
+                "400":
+                    description: Ошибка при удалении метода оплаты
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Payment method not found"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+    /api/payments:
+        get:
+            tags:
+                - Payments
+            summary: Получение списка всех методов оплаты
+            description: Возвращает список всех методов оплаты.
+            responses:
+                "200":
+                    description: Список методов оплаты
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: integer
+                                            description: Уникальный идентификатор метода оплаты
+                                        title:
+                                            type: string
+                                            description: Название метода оплаты
+                                        description:
+                                            type: string
+                                            description: Описание метода оплаты
+                                        logo:
+                                            type: string
+                                            description: Имя файла логотипа метода оплаты
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        post:
+            tags:
+                - Payments
+            summary: Создание нового метода оплаты
+            description: Создает новый метод оплаты на основе переданных данных.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                title:
+                                    type: string
+                                    description: Название метода оплаты
+                                description:
+                                    type: string
+                                    description: Описание метода оплаты
+                                logo:
+                                    type: string
+                                    description: Имя файла логотипа метода оплаты
+                            required:
+                                - title
+            responses:
+                "200":
+                    description: Метод оплаты успешно создан
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор метода оплаты
+                                    title:
+                                        type: string
+                                        description: Название метода оплаты
+                                    description:
+                                        type: string
+                                        description: Описание метода оплаты
+                                    logo:
+                                        type: string
+                                        description: Имя файла логотипа метода оплаты
+                "400":
+                    description: Ошибка при создании метода оплаты
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Invalid input"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
 
 tags:
     - name: Auth
@@ -1649,3 +1881,5 @@ tags:
       description: Методы для работы с файлами.
     - name: Metrics
       description: Методы для работы с метрикой.
+    - name: Payments
+      description: Методы для работы с оплатой

@@ -78,3 +78,13 @@ FOREIGN KEY (goods_id) REFERENCES goods(id) ON DELETE CASCADE;
 ALTER TABLE metrics
 ADD COLUMN metric_date DATE NOT NULL,
 ADD CONSTRAINT unique_goods_date UNIQUE (goods_id, metric_date);
+
+
+CREATE TABLE payments (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT
+);
+
+ALTER TABLE payments
+ADD COLUMN logo VARCHAR(255);
