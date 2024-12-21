@@ -5,6 +5,10 @@
         <title>FANTECH</title>
         <link rel="stylesheet" href="styles/shop_showcase_styles.css">
         <link rel="stylesheet" href="styles/test_order_confirmation_styles.css">
+        <script src="scripts/checkbox_script.js"></script>
+        <script src="scripts/promo_script.js"></script>
+        <script src="scripts/order_confirmation.js"></script>
+        <script src="scripts/confirm_order.js"></script>
     </head>
     <body>
         <header class="header">
@@ -29,7 +33,7 @@
                         </div>
                         <div>
                             <label for="phone">Телефон:</label>
-                            <input type="text" id="phone" placeholder="+7 999-999-99-99">
+                            <input type="text" id="phone" placeholder="+7 999-999-99-99" onfocus="this.value='+7'" onblur="this.value=''" onkeypress="return /^[+]?[0-9]*$/.test(this.value + String.fromCharCode(event.charCode));" maxlength="12">
                         </div>
                         <div class="promo"><input type="text" placeholder="Промокод"><button>Активировать</button></div>
                     </div>
@@ -41,16 +45,16 @@
                         </div>
                         <div class="deliveryType">
                             <div>
-                                <input type="radio" name="type1" id="deliveryType" value="Почта России">
-                                <label for="type1">Почта России</label>
+                                <input type="radio" name="type" id="deliveryType" value="Почта России">
+                                <label for="type">Почта России</label>
                             </div>
                             <div>
-                                <input type="radio" name="type2" id="deliveryType" value="СДЭК | Доставка в пункт выдачи">
-                                <label for="type2">СДЭК | Доставка в пункт выдачи</label>
+                                <input type="radio" name="type" id="deliveryType" value="СДЭК | Доставка в пункт выдачи">
+                                <label for="type">СДЭК | Доставка в пункт выдачи</label>
                             </div>
                             <div>
-                                <input type="radio" name="type3" id="deliveryType" value="СДЭК | Доставка курьером">
-                                <label for="type3">СДЭК | Доставка курьером</label>
+                                <input type="radio" name="type" id="deliveryType" value="СДЭК | Доставка курьером">
+                                <label for="type">СДЭК | Доставка курьером</label>
                             </div>
                         </div>
                         <div>
@@ -92,7 +96,7 @@
                             <label for="selectAll">Выбрать все товары</label>
                         </div>
                         <div class="deleteSelected">
-                            <span class="close" id="close">&times;</span>
+                            <span class="close" id="closeAll">&times;</span>
                             <label>Удалить выбранные</label>
                         </div>
                     </div>
@@ -132,7 +136,7 @@
                             <span class="close" id="close">&times;</span>
                           </div>
                     </div>
-                    <h3>Сумма заказа: </h3>
+                    <h3 id="totalSum">Сумма заказа: </h3>
                 </div>
             </div>
         </main>

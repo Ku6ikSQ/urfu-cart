@@ -1,5 +1,6 @@
 .body{
     gap:20px;
+    align-items: center;
 }
 
 .customerInfo{
@@ -26,3 +27,12 @@ p{
 .customerInfo p{
     margin-bottom: 10px;
 }
+
+.submit{
+    height: 40px;
+    font-family: 'Inter';
+    font-weight: bold;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+  }

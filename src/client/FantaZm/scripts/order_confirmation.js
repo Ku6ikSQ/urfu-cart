@@ -1,24 +1,21 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const login = document.querySelector('.login');
-    const register = document.querySelector('.register');
-    const cabinet = document.querySelector('#cabinet');
-    const cart = document.getElementById('customerCart');
-    const cartButton = document.getElementById('cartButton');
+document.addEventListener('DOMContentLoaded', async function () {
     const userId = sessionStorage.getItem('userId');
-    const checkout = document.querySelector('.checkout');
-    checkout.addEventListener('click', async function(event) {
-        const response = await fetch(`https://5.35.124.24:5000/api/cart/${userId}`);
-        if (!response.ok) {
-            throw new Error(`Ошибка HTTP: ${response.status}`);
+    const getResponse = await fetch(`https://5.35.124.24:5000/api/users/${userId}`,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
         }
-        const data = await response.json();
-        if (data.items.length == 0) {
-            alert('Ваша корзина пуста');
-            return;
-        }
-        window.location.href = 'test_order_confirmation.html';
     });
-
+    if (!getResponse.ok) {
+        throw new Error(`Ошибка HTTP: ${getResponse.status}`);
+    }
+    const data = await getResponse.json();
+    const fullName = data.name;
+    const userName = document.getElementById('name');
+    userName.value = fullName;
+    const userEmail = document.getElementById('email');
+    userEmail.value = data.email;
+    
     async function getMetrics(id){
         try{
             const metricResponse = await fetch(`https://5.35.124.24:5000/api/metrics/${id}`,{
@@ -39,42 +36,93 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    async function getFileLink(fileName) {
-        if (fileName) {
-            try{
-                const response = await fetch(`https://5.35.124.24:5000/api/file/${fileName}`);
-                if (!response.ok) {
-                    throw new Error(`Ошибка HTTP: ${response.status}`);
-                }
-                return response.json();
-            } 
-            catch (error) {
-                console.error('Ошибка при получении ссылки на файл:', error);
-                return null;
-            }
-        } else{
-            return null;
+    async function openCart(){
+        const orderGoods = document.querySelector('.orderGoods');
+        orderGoods.innerHTML = '';
+        const response = await fetch(`https://5.35.124.24:5000/api/cart/${userId}`);
+        if (!response.ok) {
+            throw new Error(`Ошибка HTTP: ${response.status}`);
         }
+        const data2 = await response.json();
+        let intSum = 0;
+        if (data2.items.length == 0){
+            alert('Ваша корзина пуста');
+            window.location.href = 'shop_showcase.html';
+            return;
+        }
+        for (const item of data2.items) {
+            const {card,intSumNew} = await createCartCard(item, intSum);
+            intSum = intSumNew;
+            orderGoods.appendChild(card);
+        };
+        const totalSum = document.getElementById('totalSum');
+        totalSum.textContent = `Сумма заказа: ${intSum} ₽`;
     }
 
-    async function getGood(id) {
-        try{
-            const response = await fetch(`https://5.35.124.24:5000/api/goods/${id}`);
-            if (!response.ok){
-                throw new Error(`Ошибка: ${response.status}`);
+    const closeAll = document.getElementById('closeAll');
+    const selectAll = document.getElementById('selectAll');
+    closeAll.addEventListener('click', async function() {
+        const orderGoods = document.querySelector('.orderGoods');
+        const allSelected = orderGoods.querySelectorAll('.inputCheck:checked');
+        for (const item of allSelected) {
+            const card = item.closest('.cartItem');
+            const itemId = card.dataset.id;
+            const response = await fetch(`https://5.35.124.24:5000/api/cart/${userId}/${itemId}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
             }
             const data = await response.json();
+            const metricdata = await getMetrics(itemId);
+            const metricResponse = await fetch(`https://5.35.124.24:5000/api/metrics/${itemId}`,{
+                method:'PATCH',
+                headers : {
+                    'Content-Type':'application/json'
+                },
+                body : JSON.stringify({
+                    'views':metricdata.views,
+                    'addToCartCount': metricdata.add_to_cart_count - 1,
+                    'orderCount':metricdata.order_count
+                })
+            });
+            if (!metricResponse.ok) {
+                console.log(metricResponse);
+            }
+            const ret = await metricResponse.json();
+            console.log(ret);
             console.log(data);
-            return data;
-        } catch (error) {
-            console.error(error);
-            return null;
+            alert('Товар успешно удален из корзины');
         }
+        window.location.reload();
+    });
+    selectAll.addEventListener('click', function() {
+        const orderGoods = document.querySelector('.orderGoods');
+        const checkboxes = orderGoods.querySelectorAll('.inputCheck');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAll.checked;
+            checkbox.dispatchEvent(new Event('change'));
+        });
+    });
+
+    function updateSelectAll(){
+        const orderGoods = document.querySelector('.orderGoods');
+        const checkboxes = orderGoods.querySelectorAll('.inputCheck');
+        const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+        selectAll.checked = allChecked;
     }
+    
+    document.querySelector('.orderGoods').addEventListener('change', function(event) { 
+        if (event.target.classList.contains('inputCheck')){
+            updateSelectAll();
+        }
+    });
+    
 
     async function createCartCard(item, intSum) {
         const card = document.createElement('div');
         card.classList.add('cartItem');
+        card.setAttribute('data-id',item.goods_id)
         const imgTextContent = document.createElement('div');
         imgTextContent.classList.add('imgTextContent');
         const inputCheck = document.createElement('input');
@@ -114,7 +162,6 @@ document.addEventListener('DOMContentLoaded', function() {
         imgTextContent.appendChild(inputCheck);
         imgTextContent.appendChild(img);
         imgTextContent.appendChild(textInfo);
-        card.appendChild(imgTextContent);
         const itemCount = document.createElement('div');
         itemCount.classList.add('itemCount');
         const decrement = document.createElement('span');
@@ -198,6 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
             openCart();
         });
         itemCount.appendChild(increment);
+        card.appendChild(imgTextContent);
         card.appendChild(itemCount);
         const cross = document.createElement('span');
         cross.classList.add('close');
@@ -230,55 +278,45 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(ret);
             console.log(data);
             alert('Товар успешно удален из корзины');
-            openCart();
+            window.location.reload();
         });
         card.appendChild(cross);
         return {card, intSumNew: intSum};
-    }
+    }    
+    openCart();
+});
 
-    async function openCart(){
-        cart.style.display = "block";
-        const content = cart.querySelector('.cartContent');
-        content.innerHTML = '';
-        const totalSum = document.getElementById('totalSum');
-        const userId = sessionStorage.getItem('userId');
-        const response = await fetch(`https://5.35.124.24:5000/api/cart/${userId}`);
-        if (!response.ok) {
-            throw new Error(`Ошибка HTTP: ${response.status}`);
+
+async function getGood(id) {
+    try{
+        const response = await fetch(`https://5.35.124.24:5000/api/goods/${id}`);
+        if (!response.ok){
+            throw new Error(`Ошибка: ${response.status}`);
         }
         const data = await response.json();
-        let intSum = 0;
-        for (const item of data.items) {
-            const {card,intSumNew} = await createCartCard(item, intSum);
-            intSum = intSumNew;
-            content.appendChild(card);
-        };
-        totalSum.textContent = `Сумма заказа: ${intSum} ₽`;
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        return null;
     }
+}
 
-    cartButton.addEventListener('click', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        openCart();
-    });
-
-    function closeCart(){
-        cart.style.display = "none";
-    }
-
-    document.addEventListener('click',(event) => {
-        if (cart.style.display === "block" && !cart.querySelector('.cart').contains(event.target) && event.target !== cartButton) {
-            closeCart();
+async function getFileLink(fileName) {
+    if (fileName) {
+        try{
+            const response = await fetch(`https://5.35.124.24:5000/api/file/${fileName}`);
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+            return response.json();
+        } 
+        catch (error) {
+            console.error('Ошибка при получении ссылки на файл:', error);
+            return null;
         }
-    });
+    } else{
+        return null;
+    }
+}
 
-     if (sessionStorage.getItem('isAuth')){
-         login.style.display = 'none';
-         register.style.display = 'none';
-         cabinet.style.display = 'block';
-     } else {
-         login.style.display = 'block';
-         register.style.display = 'block';
-         cabinet.style.display = 'none';
-     }
-});

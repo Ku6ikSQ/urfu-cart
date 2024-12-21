@@ -69,6 +69,14 @@ label{
     margin-top:40px;
 }
 
+div.promo{
+    flex-direction: row;
+}
+
+.promo input{
+    width:100%;
+}
+
 .promo button{
     background-color: black;
     color: white;
@@ -76,6 +84,7 @@ label{
     font-weight:bold;
     font-family: 'Inter';
     display: none;
+    width:50%;
 }
 
 .orderGoods{
@@ -114,4 +123,10 @@ label{
 
 .textInfo{
     gap:0px;
+}
+
+.itemCount{
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
