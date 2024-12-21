@@ -2097,6 +2097,319 @@ paths:
                             schema:
                                 type: string
                                 example: "Internal server error"
+    /api/recipients/{id}:
+        get:
+            tags:
+                - Recipients
+            summary: Получение получателя по ID
+            description: Возвращает информацию о получателе на основе его уникального идентификатора.
+            parameters:
+                - in: path
+                name: id
+                required: true
+                schema:
+                    type: integer
+                description: Уникальный идентификатор получателя.
+            responses:
+                "200":
+                    description: Информация о получателе
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор получателя
+                                    userId:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    firstName:
+                                        type: string
+                                        description: Имя получателя
+                                    lastName:
+                                        type: string
+                                        description: Фамилия получателя
+                                    middleName:
+                                        type: string
+                                        description: Отчество получателя
+                                    address:
+                                        type: string
+                                        description: Адрес получателя
+                                    zipCode:
+                                        type: string
+                                        description: Почтовый индекс
+                                    phone:
+                                        type: string
+                                        description: Номер телефона
+                "400":
+                    description: Получатель не найден
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Recipient not found"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        patch:
+            tags:
+                - Recipients
+            summary: Обновление получателя по ID
+            description: Обновляет данные существующего получателя на основе переданного ID.
+            parameters:
+                - in: path
+                name: id
+                required: true
+                schema:
+                    type: integer
+                description: Уникальный идентификатор получателя.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                userId:
+                                    type: integer
+                                    description: Уникальный идентификатор пользователя
+                                firstName:
+                                    type: string
+                                    description: Имя получателя
+                                lastName:
+                                    type: string
+                                    description: Фамилия получателя
+                                middleName:
+                                    type: string
+                                    description: Отчество получателя
+                                address:
+                                    type: string
+                                    description: Адрес получателя
+                                zipCode:
+                                    type: string
+                                    description: Почтовый индекс
+                                phone:
+                                    type: string
+                                    description: Номер телефона
+                            required:
+                                - userId
+                                - firstName
+                                - lastName
+                                - address
+                                - phone
+            responses:
+                "200":
+                    description: Получатель успешно обновлен
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор получателя
+                                    userId:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    firstName:
+                                        type: string
+                                        description: Имя получателя
+                                    lastName:
+                                        type: string
+                                        description: Фамилия получателя
+                                    middleName:
+                                        type: string
+                                        description: Отчество получателя
+                                    address:
+                                        type: string
+                                        description: Адрес получателя
+                                    zipCode:
+                                        type: string
+                                        description: Почтовый индекс
+                                    phone:
+                                        type: string
+                                        description: Номер телефона
+                "400":
+                    description: Ошибка при обновлении получателя
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Recipient not found or invalid input"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        delete:
+            tags:
+                - Recipients
+            summary: Удаление получателя по ID
+            description: Удаляет получателя на основе его уникального идентификатора.
+            parameters:
+                - in: path
+                name: id
+                required: true
+                schema:
+                    type: integer
+                description: Уникальный идентификатор получателя.
+            responses:
+                "200":
+                    description: Получатель успешно удален
+                "400":
+                    description: Ошибка при удалении получателя
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Recipient not found"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+    /api/recipients:
+        get:
+            tags:
+                - Recipients
+            summary: Получение списка всех получателей
+            description: Возвращает список всех получателей.
+            responses:
+                "200":
+                    description: Список получателей
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: integer
+                                            description: Уникальный идентификатор получателя
+                                        userId:
+                                            type: integer
+                                            description: Уникальный идентификатор пользователя
+                                        firstName:
+                                            type: string
+                                            description: Имя получателя
+                                        lastName:
+                                            type: string
+                                            description: Фамилия получателя
+                                        middleName:
+                                            type: string
+                                            description: Отчество получателя
+                                        address:
+                                            type: string
+                                            description: Адрес получателя
+                                        zipCode:
+                                            type: string
+                                            description: Почтовый индекс
+                                        phone:
+                                            type: string
+                                            description: Номер телефона
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        post:
+            tags:
+                - Recipients
+            summary: Создание нового получателя
+            description: Создает нового получателя на основе переданных данных.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                userId:
+                                    type: integer
+                                    description: Уникальный идентификатор пользователя
+                                firstName:
+                                    type: string
+                                    description: Имя получателя
+                                lastName:
+                                    type: string
+                                    description: Фамилия получателя
+                                middleName:
+                                    type: string
+                                    description: Отчество получателя
+                                address:
+                                    type: string
+                                    description: Адрес получателя
+                                zipCode:
+                                    type: string
+                                    description: Почтовый индекс
+                                phone:
+                                    type: string
+                                    description: Номер телефона
+                            required:
+                                - userId
+                                - firstName
+                                - lastName
+                                - address
+                                - phone
+            responses:
+                "200":
+                    description: Получатель успешно создан
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор получателя
+                                    userId:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    firstName:
+                                        type: string
+                                        description: Имя получателя
+                                    lastName:
+                                        type: string
+                                        description: Фамилия получателя
+                                    middleName:
+                                        type: string
+                                        description: Отчество получателя
+                                    address:
+                                        type: string
+                                        description: Адрес получателя
+                                    zipCode:
+                                        type: string
+                                        description: Почтовый индекс
+                                    phone:
+                                        type: string
+                                        description: Номер телефона
+                "400":
+                    description: Ошибка при создании получателя
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Invalid input"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+
 
 tags:
     - name: Auth
@@ -2117,3 +2430,5 @@ tags:
       description: Методы для работы с оплатой.
     - name: Delivery
       description: Методы для работы со способами доставки.
+    - name: Recipients
+      description: Методы для работы с получателями.

@@ -96,3 +96,15 @@ CREATE TABLE delivery (
     description TEXT,
     logo VARCHAR(255)
 );
+
+
+CREATE TABLE recipients (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    middle_name VARCHAR(50),
+    address TEXT NOT NULL,
+    zip_code VARCHAR(20),
+    phone VARCHAR(20) NOT NULL
+);
