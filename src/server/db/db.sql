@@ -88,3 +88,11 @@ CREATE TABLE payments (
 
 ALTER TABLE payments
 ADD COLUMN logo VARCHAR(255);
+
+
+CREATE TABLE delivery (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    logo VARCHAR(255)
+);
