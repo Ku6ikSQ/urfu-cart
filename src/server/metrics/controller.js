@@ -36,4 +36,19 @@ export default class MetricsController {
             return res.status(400).json(e.message)
         }
     }
+
+    static async getMetricsByDateRange(req, res) {
+        try {
+            const { goodsId } = req.params
+            const { startDate, endDate } = req.query
+            const metrics = await MetricsService.getMetricsByDateRange(
+                goodsId,
+                startDate,
+                endDate
+            )
+            return res.json(metrics)
+        } catch (e) {
+            return res.status(400).json(e.message)
+        }
+    }
 }

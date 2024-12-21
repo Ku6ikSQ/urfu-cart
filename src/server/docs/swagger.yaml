@@ -1456,7 +1456,7 @@ paths:
                 - name: goodsId
                   in: path
                   required: true
-                  description: Уникальный идентификатор товара, для которого нужно получить метрики
+                  description: Уникальный идентификатор товара, для которого нужно создать метрики
                   schema:
                       type: integer
             responses:
@@ -1485,7 +1485,7 @@ paths:
                         application/json:
                             schema:
                                 type: string
-                                example: "Invalid input"
+                                example: "Metrics already exist for this goodsId today"
                 "500":
                     description: Внутренняя ошибка сервера
                     content:
@@ -1551,7 +1551,7 @@ paths:
                         application/json:
                             schema:
                                 type: string
-                                example: "Metrics not found"
+                                example: "Metrics not found for today"
                 "400":
                     description: Ошибка при обновлении метрик
                     content:
@@ -1559,6 +1559,73 @@ paths:
                             schema:
                                 type: string
                                 example: "Invalid input"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+    /api/metrics/{goodsId}/range:
+        get:
+            tags:
+                - Metrics
+            summary: Получение метрик товара по диапазону дат
+            description: Возвращает метрики для указанного товара в заданном диапазоне дат.
+            parameters:
+                - name: goodsId
+                  in: path
+                  required: true
+                  description: Уникальный идентификатор товара, для которого нужно получить метрики
+                  schema:
+                      type: integer
+                - name: startDate
+                  in: query
+                  required: true
+                  description: Начальная дата в формате YYYY-MM-DD
+                  schema:
+                      type: string
+                      format: date
+                - name: endDate
+                  in: query
+                  required: true
+                  description: Конечная дата в формате YYYY-MM-DD
+                  schema:
+                      type: string
+                      format: date
+            responses:
+                "200":
+                    description: Метрики товара в заданном диапазоне дат
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        goods_id:
+                                            type: integer
+                                            description: Уникальный идентификатор товара
+                                        views:
+                                            type: integer
+                                            description: Количество просмотров товара
+                                        add_to_cart_count:
+                                            type: integer
+                                            description: Количество добавлений товара в корзину
+                                        order_count:
+                                            type: integer
+                                            description: Количество заказов товара
+                                        metric_date:
+                                            type: string
+                                            format: date
+                                            description: Дата метрики
+                "404":
+                    description: Метрики не найдены в заданном диапазоне
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "No metrics found in this date range"
                 "500":
                     description: Внутренняя ошибка сервера
                     content:

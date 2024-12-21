@@ -73,3 +73,8 @@ CREATE TABLE metrics (
 ALTER TABLE CartItems
 ADD CONSTRAINT fk_goods
 FOREIGN KEY (goods_id) REFERENCES goods(id) ON DELETE CASCADE;
+
+
+ALTER TABLE metrics
+ADD COLUMN metric_date DATE NOT NULL,
+ADD CONSTRAINT unique_goods_date UNIQUE (goods_id, metric_date);

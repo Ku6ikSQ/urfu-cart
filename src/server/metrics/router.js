@@ -10,5 +10,9 @@ MetricsRouter.get(
 )
 MetricsRouter.post("/api/metrics/:goodsId", MetricsController.createMetrics)
 MetricsRouter.patch("/api/metrics/:goodsId", MetricsController.updateMetrics)
+MetricsRouter.get(
+    "/api/metrics/:goodsId/range",
+    MetricsController.getMetricsByDateRange
+)
 
 export default MetricsRouter
