@@ -46,6 +46,7 @@ ADD COLUMN brand VARCHAR(255) DEFAULT NULL;
 ALTER TABLE goods
 ADD COLUMN stock INT DEFAULT 0;
 
+
 CREATE TABLE Cart (
     id SERIAL PRIMARY KEY,
     user_id INT UNIQUE NOT NULL
@@ -60,6 +61,11 @@ CREATE TABLE CartItems (
     FOREIGN KEY (cart_id) REFERENCES Cart(id) ON DELETE CASCADE
 );
 
+ALTER TABLE CartItems
+ADD CONSTRAINT fk_goods
+FOREIGN KEY (goods_id) REFERENCES goods(id) ON DELETE CASCADE;
+
+
 CREATE TABLE metrics (
     id SERIAL PRIMARY KEY,
     goods_id INT NOT NULL,
@@ -68,12 +74,6 @@ CREATE TABLE metrics (
     order_count INT DEFAULT 0,
     FOREIGN KEY (goods_id) REFERENCES goods(id) ON DELETE CASCADE
 );
-
-
-ALTER TABLE CartItems
-ADD CONSTRAINT fk_goods
-FOREIGN KEY (goods_id) REFERENCES goods(id) ON DELETE CASCADE;
-
 
 ALTER TABLE metrics
 ADD COLUMN metric_date DATE NOT NULL,
@@ -142,3 +142,20 @@ CREATE TRIGGER update_transactions_timestamp
 BEFORE UPDATE ON transactions
 FOR EACH ROW
 EXECUTE FUNCTION update_timestamp();
+
+
+CREATE TABLE Favorites (
+    id SERIAL PRIMARY KEY,
+    user_id INT UNIQUE NOT NULL
+);
+
+CREATE TABLE FavoriteItems (
+    id SERIAL PRIMARY KEY,
+    favorites_id INT NOT NULL,
+    goods_id INT NOT NULL,
+    FOREIGN KEY (favorites_id) REFERENCES Favorites(id) ON DELETE CASCADE
+);
+
+ALTER TABLE FavoriteItems
+ADD CONSTRAINT fk_goods
+FOREIGN KEY (goods_id) REFERENCES goods(id) ON DELETE CASCADE;
