@@ -159,3 +159,11 @@ CREATE TABLE FavoriteItems (
 ALTER TABLE FavoriteItems
 ADD CONSTRAINT fk_goods
 FOREIGN KEY (goods_id) REFERENCES goods(id) ON DELETE CASCADE;
+
+
+CREATE TABLE news (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    photos TEXT[] DEFAULT '{}'
+);
