@@ -2711,6 +2711,299 @@ paths:
                             schema:
                                 type: string
                                 example: "Internal server error"
+    /api/transactions/{id}:
+        get:
+            tags:
+                - Transactions
+            summary: Получение транзакции по ID
+            description: Возвращает информацию о транзакции на основе ее уникального идентификатора.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор транзакции.
+            responses:
+                "200":
+                    description: Информация о транзакции
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор транзакции
+                                    created:
+                                        type: string
+                                        format: date-time
+                                        description: Дата и время создания транзакции
+                                    updated:
+                                        type: string
+                                        format: date-time
+                                        description: Дата и время последнего обновления транзакции
+                                    status:
+                                        type: string
+                                        enum: [PENDING, SUCCESS, ERROR]
+                                        description: Статус транзакции
+                                    amount:
+                                        type: number
+                                        format: float
+                                        description: Сумма транзакции
+                                    checkoutId:
+                                        type: integer
+                                        description: Идентификатор связанного платежного счета
+                                    providerData:
+                                        type: object
+                                        description: Данные, полученные от платежной системы
+                "400":
+                    description: Транзакция не найдена
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Transaction not found"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        patch:
+            tags:
+                - Transactions
+            summary: Обновление транзакции по ID
+            description: Обновляет данные существующей транзакции на основе переданного ID.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор транзакции.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                status:
+                                    type: string
+                                    enum: [PENDING, SUCCESS, ERROR]
+                                    description: Новый статус транзакции
+                                amount:
+                                    type: number
+                                    format: float
+                                    description: Сумма транзакции
+                                providerData:
+                                    type: object
+                                    description: Данные, полученные от платежной системы
+                            required:
+                                - status
+            responses:
+                "200":
+                    description: Транзакция успешно обновлена
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор транзакции
+                                    created:
+                                        type: string
+                                        format: date-time
+                                        description: Дата и время создания транзакции
+                                    updated:
+                                        type: string
+                                        format: date-time
+                                        description: Дата и время последнего обновления транзакции
+                                    status:
+                                        type: string
+                                        enum: [PENDING, SUCCESS, ERROR]
+                                        description: Статус транзакции
+                                    amount:
+                                        type: number
+                                        format: float
+                                        description: Сумма транзакции
+                                    checkoutId:
+                                        type: integer
+                                        description: Идентификатор связанного платежного счета
+                                    providerData:
+                                        type: object
+                                        description: Данные, полученные от платежной системы
+                "400":
+                    description: Ошибка при обновлении транзакции
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Transaction not found or invalid input"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        delete:
+            tags:
+                - Transactions
+            summary: Удаление транзакции по ID
+            description: Удаляет транзакцию на основе ее уникального идентификатора.
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор транзакции.
+            responses:
+                "200":
+                    description: Транзакция успешно удалена
+                "400":
+                    description: Ошибка при удалении транзакции
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Transaction not found"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+    /api/transactions:
+        get:
+            tags:
+                - Transactions
+            summary: Получение списка всех транзакций
+            description: Возвращает список всех транзакций.
+            responses:
+                "200":
+                    description: Список транзакций
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: integer
+                                            description: Уникальный идентификатор транзакции
+                                        created:
+                                            type: string
+                                            format: date-time
+                                            description: Дата и время создания транзакции
+                                        updated:
+                                            type: string
+                                            format: date-time
+                                            description: Дата и время последнего обновления транзакции
+                                        status:
+                                            type: string
+                                            enum: [PENDING, SUCCESS, ERROR]
+                                            description: Статус транзакции
+                                        amount:
+                                            type: number
+                                            format: float
+                                            description: Сумма транзакции
+                                        checkoutId:
+                                            type: integer
+                                            description: Идентификатор связанного платежного счета
+                                        providerData:
+                                            type: object
+                                            description: Данные, полученные от платежной системы
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
+        post:
+            tags:
+                - Transactions
+            summary: Создание новой транзакции
+            description: Создает новую транзакцию на основе переданных данных.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                status:
+                                    type: string
+                                    enum: [PENDING, SUCCESS, ERROR]
+                                    description: Статус транзакции
+                                amount:
+                                    type: number
+                                    format: float
+                                    description: Сумма транзакции
+                                checkoutId:
+                                    type: integer
+                                    description: Идентификатор связанного платежного счета
+                                providerData:
+                                    type: object
+                                    description: Данные, полученные от платежной системы
+                            required:
+                                - status
+                                - amount
+                                - checkoutId
+            responses:
+                "200":
+                    description: Транзакция успешно создана
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Уникальный идентификатор транзакции
+                                    created:
+                                        type: string
+                                        format: date-time
+                                        description: Дата и время создания транзакции
+                                    updated:
+                                        type: string
+                                        format: date-time
+                                        description: Дата и время последнего обновления транзакции
+                                    status:
+                                        type: string
+                                        enum: [PENDING, SUCCESS, ERROR]
+                                        description: Статус транзакции
+                                    amount:
+                                        type: number
+                                        format: float
+                                        description: Сумма транзакции
+                                    checkoutId:
+                                        type: integer
+                                        description: Идентификатор связанного платежного счета
+                                    providerData:
+                                        type: object
+                                        description: Данные, полученные от платежной системы
+                "400":
+                    description: Ошибка при создании транзакции
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Invalid input"
+                "500":
+                    description: Внутренняя ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Internal server error"
 
 tags:
     - name: Auth
@@ -2735,3 +3028,5 @@ tags:
       description: Методы для работы с получателями.
     - name: Checkouts
       description: Методы для работы со счетами заказов.
+    - name: Transactions
+      description: Методы для работы с транзакциями

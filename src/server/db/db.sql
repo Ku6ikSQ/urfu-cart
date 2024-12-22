@@ -118,3 +118,27 @@ CREATE TABLE checkouts (
     delivery_id INTEGER REFERENCES delivery(id) ON DELETE CASCADE,
     payment_total NUMERIC(10, 2) NOT NULL
 );
+
+
+CREATE TABLE transactions (
+    id SERIAL PRIMARY KEY,
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(10) CHECK (status IN ('PENDING', 'SUCCESS', 'ERROR')) NOT NULL,
+    amount NUMERIC(10, 2) NOT NULL,
+    checkout_id INTEGER REFERENCES checkouts(id) ON DELETE CASCADE,
+    provider_data JSONB
+);
+
+CREATE OR REPLACE FUNCTION update_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_transactions_timestamp
+BEFORE UPDATE ON transactions
+FOR EACH ROW
+EXECUTE FUNCTION update_timestamp();
