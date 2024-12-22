@@ -19,18 +19,38 @@ export default class MetricsService {
             throw new Error("Metrics already exist for this goodsId today")
 
         const result = await db.query(
-            "INSERT INTO metrics (goods_id, views, add_to_cart_count, order_count, metric_date) VALUES ($1, $2, $3, $4, CURRENT_DATE) RETURNING *",
-            [goodsId, 0, 0, 0]
+            "INSERT INTO metrics (goods_id, views, add_to_cart_count, order_count, add_to_favorites_count, metric_date) VALUES ($1, $2, $3, $4, $5, CURRENT_DATE) RETURNING *",
+            [goodsId, 0, 0, 0, 0]
         )
         return result.rows[0]
     }
 
-    static async updateMetrics(goodsId, views, addToCartCount, orderCount) {
+    static async updateMetrics(
+        goodsId,
+        views,
+        addToCartCount,
+        orderCount,
+        addToFavoritesCount
+    ) {
         const result = await db.query(
-            "UPDATE metrics SET views = $1, add_to_cart_count = $2, order_count = $3 WHERE goods_id = $4 AND metric_date = CURRENT_DATE RETURNING *",
-            [views, addToCartCount, orderCount, goodsId]
+            "UPDATE metrics SET views = views + $1, add_to_cart_count = add_to_cart_count + $2, order_count = order_count + $3, add_to_favorites_count = add_to_favorites_count + $4 WHERE goods_id = $5 AND metric_date = CURRENT_DATE RETURNING *",
+            [views, addToCartCount, orderCount, addToFavoritesCount, goodsId]
         )
-        if (!result.rows[0]) throw new Error("Metrics not found for today")
+        if (!result.rows[0]) {
+            await this.createMetrics(goodsId)
+            const result = await db.query(
+                "UPDATE metrics SET views = $1, add_to_cart_count = $2, order_count = $3, add_to_favorites_count = $4 WHERE goods_id = $5 AND metric_date = CURRENT_DATE RETURNING *",
+                [
+                    views,
+                    addToCartCount,
+                    orderCount,
+                    addToFavoritesCount,
+                    goodsId,
+                ]
+            )
+            if (!result.rows[0]) throw new Error("Metrics not found for today")
+            return result.rows[0]
+        }
         return result.rows[0]
     }
 

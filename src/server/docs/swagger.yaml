@@ -1433,6 +1433,9 @@ paths:
                                     order_count:
                                         type: integer
                                         description: Количество заказов товара
+                                    add_to_favorites_count:
+                                        type: integer
+                                        description: Количество добавлений товара в избранное
                 "404":
                     description: Метрики не найдены
                     content:
@@ -1479,6 +1482,9 @@ paths:
                                     order_count:
                                         type: integer
                                         description: Количество заказов товара
+                                    add_to_favorites_count:
+                                        type: integer
+                                        description: Количество добавлений товара в избранное
                 "400":
                     description: Ошибка при создании метрик
                     content:
@@ -1521,10 +1527,14 @@ paths:
                                 orderCount:
                                     type: integer
                                     description: Новое количество заказов товара
+                                addToFavoritesCount:
+                                    type: integer
+                                    description: Новое количество добавлений товара в избранное
                             required:
                                 - views
                                 - addToCartCount
                                 - orderCount
+                                - addToFavoritesCount
             responses:
                 "200":
                     description: Метрики успешно обновлены
@@ -1545,6 +1555,9 @@ paths:
                                     order_count:
                                         type: integer
                                         description: Количество заказов товара
+                                    add_to_favorites_count:
+                                        type: integer
+                                        description: Количество добавлений товара в избранное
                 "404":
                     description: Метрики не найдены
                     content:
@@ -1615,6 +1628,9 @@ paths:
                                         order_count:
                                             type: integer
                                             description: Количество заказов товара
+                                        add_to_favorites_count:
+                                            type: integer
+                                            description: Количество добавлений товара в избранное
                                         metric_date:
                                             type: string
                                             format: date
@@ -3163,11 +3179,11 @@ paths:
             description: Возвращает информацию о новости на основе её уникального идентификатора.
             parameters:
                 - in: path
-                name: id
-                required: true
-                schema:
-                    type: integer
-                description: Уникальный идентификатор новости.
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор новости.
             responses:
                 "200":
                     description: Информация о новости
@@ -3211,11 +3227,11 @@ paths:
             description: Обновляет данные существующей новости на основе переданного ID.
             parameters:
                 - in: path
-                name: id
-                required: true
-                schema:
-                    type: integer
-                description: Уникальный идентификатор новости.
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор новости.
             requestBody:
                 required: true
                 content:
@@ -3279,11 +3295,11 @@ paths:
             description: Удаляет новость на основе её уникального идентификатора.
             parameters:
                 - in: path
-                name: id
-                required: true
-                schema:
-                    type: integer
-                description: Уникальный идентификатор новости.
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор новости.
             responses:
                 "204":
                     description: Новость успешно удалена
@@ -3399,7 +3415,6 @@ paths:
                             schema:
                                 type: string
                                 example: "Internal server error"
-
 
 tags:
     - name: Auth

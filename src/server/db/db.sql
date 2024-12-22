@@ -171,3 +171,7 @@ CREATE TABLE news (
 
 INSERT INTO users (id, name, email, password, activated) 
 VALUES (0, 'admin', 'admin@admin.com', '$argon2id$v=19$m=65536,t=3,p=4$VvAfDQVmc2YmyyviGz4QDA$Rngpgs61aj3sWLu3AMwV2Ds0cKIHl83ZfwNKD9adFmY', 1);
+
+
+ALTER TABLE metrics
+ADD COLUMN add_to_favorites INT DEFAULT 0;

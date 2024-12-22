@@ -24,12 +24,14 @@ export default class MetricsController {
     static async updateMetrics(req, res) {
         try {
             const { goodsId } = req.params
-            const { views, addToCartCount, orderCount } = req.body
+            const { views, addToCartCount, orderCount, addToFavoritesCount } =
+                req.body
             const metrics = await MetricsService.updateMetrics(
                 goodsId,
                 views,
                 addToCartCount,
-                orderCount
+                orderCount,
+                addToFavoritesCount
             )
             return res.json(metrics)
         } catch (e) {
