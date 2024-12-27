@@ -1419,23 +1419,25 @@ paths:
                     content:
                         application/json:
                             schema:
-                                type: object
-                                properties:
-                                    goods_id:
-                                        type: integer
-                                        description: Уникальный идентификатор товара
-                                    views:
-                                        type: integer
-                                        description: Количество просмотров товара
-                                    add_to_cart_count:
-                                        type: integer
-                                        description: Количество добавлений товара в корзину
-                                    order_count:
-                                        type: integer
-                                        description: Количество заказов товара
-                                    add_to_favorites_count:
-                                        type: integer
-                                        description: Количество добавлений товара в избранное
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        goods_id:
+                                            type: integer
+                                            description: Уникальный идентификатор товара
+                                        views:
+                                            type: integer
+                                            description: Количество просмотров товара
+                                        add_to_cart_count:
+                                            type: integer
+                                            description: Количество добавлений товара в корзину
+                                        order_count:
+                                            type: integer
+                                            description: Количество заказов товара
+                                        add_to_favorites_count:
+                                            type: integer
+                                            description: Количество добавлений товара в избранное
                 "404":
                     description: Метрики не найдены
                     content:

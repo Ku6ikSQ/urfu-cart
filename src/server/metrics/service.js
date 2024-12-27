@@ -7,7 +7,7 @@ export default class MetricsService {
             [goodsId]
         )
         if (!result.rows[0]) throw new Error("Metrics not found")
-        return result.rows[0]
+        return result.rows
     }
 
     static async createMetrics(goodsId) {
