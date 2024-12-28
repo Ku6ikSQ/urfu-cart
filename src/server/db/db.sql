@@ -187,3 +187,8 @@ WHERE conrelid = 'Cart'::regclass;
 
 ALTER TABLE Cart
 DROP CONSTRAINT cart_user_id_key;
+
+
+-- Fix
+ALTER TABLE metrics
+RENAME COLUMN add_to_favorites TO add_to_favorites_count;
