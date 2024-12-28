@@ -1154,30 +1154,39 @@ paths:
                             schema:
                                 type: string
                                 example: "Internal server error"
-    /api/cart/{userId}:
-        get:
+    /api/cart:
+        post:
             tags:
                 - Cart
-            summary: Получение корзины пользователя по ID
-            description: Возвращает информацию о корзине пользователя на основе его уникального идентификатора.
-            parameters:
-                - in: path
-                  name: userId
-                  required: true
-                  schema:
-                      type: integer
-                  description: Уникальный идентификатор пользователя.
+            summary: Создание новой корзины
+            description: Создает новую корзину для указанного пользователя.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                userId:
+                                    type: integer
+                                    description: Уникальный идентификатор пользователя, для которого создается корзина.
             responses:
-                "200":
-                    description: Информация о корзине
+                "201":
+                    description: Успешно создана новая корзина
                     content:
                         application/json:
                             schema:
                                 type: object
                                 properties:
+                                    cart_id:
+                                        type: integer
+                                        description: Уникальный идентификатор созданной корзины
                                     user_id:
                                         type: integer
                                         description: Уникальный идентификатор пользователя
+                                    main:
+                                        type: boolean
+                                        description: Является ли корзина основной
                                     items:
                                         type: array
                                         items:
@@ -1191,7 +1200,7 @@ paths:
                                                     description: Идентификатор корзины
                                                 goods_id:
                                                     type: integer
-                                                    description: Идентификатор товара
+                                                    description: Уникальный идентификатор товара
                                                 count:
                                                     type: integer
                                                     description: Количество товара в корзине
@@ -1199,12 +1208,12 @@ paths:
                                                     type: boolean
                                                     description: Статус выбора товара
                 "400":
-                    description: Корзина не найдена
+                    description: Неверный запрос
                     content:
                         application/json:
                             schema:
                                 type: string
-                                example: "Cart not found"
+                                example: "Invalid userId"
                 "500":
                     description: Внутренняя ошибка сервера
                     content:
@@ -1212,11 +1221,210 @@ paths:
                             schema:
                                 type: string
                                 example: "Internal server error"
-        post:
+
+    /api/cart/{cartId}:
+        get:
             tags:
                 - Cart
-            summary: Добавление товара в корзину
-            description: Добавляет новый товар в корзину пользователя.
+            summary: Получение корзины по cartId
+            description: Возвращает детали корзины по уникальному идентификатору.
+            parameters:
+                - in: path
+                  name: cartId
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор корзины.
+            responses:
+                "200":
+                    description: Успешно получена корзина
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    cart_id:
+                                        type: integer
+                                        description: Уникальный идентификатор корзины
+                                    user_id:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    main:
+                                        type: boolean
+                                        description: Является ли корзина основной
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                    description: Уникальный идентификатор элемента корзины
+                                                cart_id:
+                                                    type: integer
+                                                    description: Идентификатор корзины
+                                                goods_id:
+                                                    type: integer
+                                                    description: Уникальный идентификатор товара
+                                                count:
+                                                    type: integer
+                                                    description: Количество товара в корзине
+                                                selected:
+                                                    type: boolean
+                                                    description: Статус выбора товара
+                "404":
+                    description: Корзина не найдена
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Cart not found"
+
+    /api/cart/{cartId}/{goodsId}:
+        patch:
+            tags:
+                - Cart
+            summary: Обновление товара в корзине
+            description: Обновляет количество и статус выбора товара в корзине.
+            parameters:
+                - in: path
+                  name: cartId
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор корзины.
+                - in: path
+                  name: goodsId
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор товара.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                count:
+                                    type: integer
+                                    description: Новое количество товара.
+                                selected:
+                                    type: boolean
+                                    description: Новый статус выбора товара.
+            responses:
+                "200":
+                    description: Успешно обновлен товар
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    cart_id:
+                                        type: integer
+                                        description: Уникальный идентификатор корзины
+                                    user_id:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    main:
+                                        type: boolean
+                                        description: Является ли корзина основной
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                    description: Уникальный идентификатор элемента корзины
+                                                cart_id:
+                                                    type: integer
+                                                    description: Идентификатор корзины
+                                                goods_id:
+                                                    type: integer
+                                                    description: Уникальный идентификатор товара
+                                                count:
+                                                    type: integer
+                                                    description: Количество товара в корзине
+                                                selected:
+                                                    type: boolean
+                                                    description: Статус выбора товара
+                "400":
+                    description: Неверный запрос
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Item not found in cart"
+
+        delete:
+            tags:
+                - Cart
+            summary: Удаление товара из корзины
+            description: Удаляет товар из указанной корзины.
+            parameters:
+                - in: path
+                  name: cartId
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор корзины.
+                - in: path
+                  name: goodsId
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор товара.
+            responses:
+                "200":
+                    description: Успешно удален товар
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    cart_id:
+                                        type: integer
+                                        description: Уникальный идентификатор корзины
+                                    user_id:
+                                        type: integer
+                                        description: Уникальный идентификатор пользователя
+                                    main:
+                                        type: boolean
+                                        description: Является ли корзина основной
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                    description: Уникальный идентификатор элемента корзины
+                                                cart_id:
+                                                    type: integer
+                                                    description: Идентификатор корзины
+                                                goods_id:
+                                                    type: integer
+                                                    description: Уникальный идентификатор товара
+                                                count:
+                                                    type: integer
+                                                    description: Количество товара в корзине
+                                                selected:
+                                                    type: boolean
+                                                    description: Статус выбора товара
+                "400":
+                    description: Неверный запрос
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "Item not found in cart"
+    /api/cart/user/{userId}:
+        get:
+            tags:
+                - Cart
+            summary: Получение всех корзин пользователя
+            description: Возвращает все корзины для указанного пользователя по userId.
             parameters:
                 - in: path
                   name: userId
@@ -1224,6 +1432,65 @@ paths:
                   schema:
                       type: integer
                   description: Уникальный идентификатор пользователя.
+            responses:
+                "200":
+                    description: Успешно получены корзины
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        cart_id:
+                                            type: integer
+                                            description: Уникальный идентификатор корзины
+                                        user_id:
+                                            type: integer
+                                            description: Уникальный идентификатор пользователя
+                                        main:
+                                            type: boolean
+                                            description: Является ли корзина основной
+                                        items:
+                                            type: array
+                                            items:
+                                                type: object
+                                                properties:
+                                                    id:
+                                                        type: integer
+                                                        description: Уникальный идентификатор элемента корзины
+                                                    cart_id:
+                                                        type: integer
+                                                        description: Идентификатор корзины
+                                                    goods_id:
+                                                        type: integer
+                                                        description: Уникальный идентификатор товара
+                                                    count:
+                                                        type: integer
+                                                        description: Количество товара в корзине
+                                                    selected:
+                                                        type: boolean
+                                                        description: Статус выбора товара
+                "404":
+                    description: Пользователь не найден или у него нет корзин
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                                example: "No carts found for this user"
+    /api/cart/{cartId}/items:
+        post:
+            tags:
+                - Cart
+            summary: Добавление товара в корзину
+            description: Добавляет товар в указанную корзину. Если товар уже существует, обновляет его количество и статус выбора.
+            parameters:
+                - in: path
+                  name: cartId
+                  required: true
+                  schema:
+                      type: integer
+                  description: Уникальный идентификатор корзины.
             requestBody:
                 required: true
                 content:
@@ -1233,27 +1500,30 @@ paths:
                             properties:
                                 goodsId:
                                     type: integer
-                                    description: Уникальный идентификатор товара
+                                    description: Уникальный идентификатор товара.
                                 count:
                                     type: integer
-                                    description: Количество товара для добавления
+                                    description: Количество товара.
                                 selected:
                                     type: boolean
-                                    description: Статус выбора товара
-                            required:
-                                - goodsId
-                                - count
+                                    description: Статус выбора товара.
             responses:
-                "200":
-                    description: Товар успешно добавлен в корзину
+                "201":
+                    description: Успешно добавлен товар
                     content:
                         application/json:
                             schema:
                                 type: object
                                 properties:
+                                    cart_id:
+                                        type: integer
+                                        description: Уникальный идентификатор корзины
                                     user_id:
                                         type: integer
                                         description: Уникальный идентификатор пользователя
+                                    main:
+                                        type: boolean
+                                        description: Является ли корзина основной
                                     items:
                                         type: array
                                         items:
@@ -1267,7 +1537,7 @@ paths:
                                                     description: Идентификатор корзины
                                                 goods_id:
                                                     type: integer
-                                                    description: Идентификатор товара
+                                                    description: Уникальный идентификатор товара
                                                 count:
                                                     type: integer
                                                     description: Количество товара в корзине
@@ -1275,131 +1545,19 @@ paths:
                                                     type: boolean
                                                     description: Статус выбора товара
                 "400":
-                    description: Ошибка при добавлении товара
+                    description: Неверный запрос
                     content:
                         application/json:
                             schema:
                                 type: string
                                 example: "Invalid input"
-                "500":
-                    description: Внутренняя ошибка сервера
+                "404":
+                    description: Корзина не найдена
                     content:
                         application/json:
                             schema:
                                 type: string
-                                example: "Internal server error"
-    /api/cart/{userId}/{goodsId}:
-        patch:
-            tags:
-                - Cart
-            summary: Обновление товара в корзине
-            description: Обновляет данные о товаре в корзине пользователя на основе переданного ID товара.
-            parameters:
-                - in: path
-                  name: userId
-                  required: true
-                  schema:
-                      type: integer
-                  description: Уникальный идентификатор пользователя.
-                - in: path
-                  name: goodsId
-                  required: true
-                  schema:
-                      type: integer
-                  description: Уникальный идентификатор товара.
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                count:
-                                    type: integer
-                                    description: Обновленное количество товара в корзине
-                                selected:
-                                    type: boolean
-                                    description: Обновленный статус выбора товара
-            responses:
-                "200":
-                    description: Товар успешно обновлен в корзине
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    user_id:
-                                        type: integer
-                                        description: Уникальный идентификатор пользователя
-                                    items:
-                                        type: array
-                                        items:
-                                            type: object
-                                            properties:
-                                                id:
-                                                    type: integer
-                                                    description: Уникальный идентификатор элемента корзины
-                                                cart_id:
-                                                    type: integer
-                                                    description: Идентификатор корзины
-                                                goods_id:
-                                                    type: integer
-                                                    description: Идентификатор товара
-                                                count:
-                                                    type: integer
-                                                    description: Количество товара в корзине
-                                                selected:
-                                                    type: boolean
-                                                    description: Статус выбора товара
-                "400":
-                    description: Ошибка при обновлении товара
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: "Item not found or invalid input"
-                "500":
-                    description: Внутренняя ошибка сервера
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: "Internal server error"
-        delete:
-            tags:
-                - Cart
-            summary: Удаление товара из корзины
-            description: Удаляет товар из корзины пользователя по его уникальному идентификатору товара.
-            parameters:
-                - in: path
-                  name: userId
-                  required: true
-                  schema:
-                      type: integer
-                  description: Уникальный идентификатор пользователя.
-                - in: path
-                  name: goodsId
-                  required: true
-                  schema:
-                      type: integer
-                  description: Уникальный идентификатор товара.
-            responses:
-                "200":
-                    description: Товар успешно удален из корзины
-                "400":
-                    description: Ошибка при удалении товара
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: "Item not found"
-                "500":
-                    description: Внутренняя ошибка сервера
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: "Internal server error"
+                                example: "Cart not found"
     /api/metrics/{goodsId}:
         get:
             tags:

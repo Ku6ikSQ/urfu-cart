@@ -175,3 +175,15 @@ VALUES (0, 'admin', 'admin@admin.com', '$argon2id$v=19$m=65536,t=3,p=4$VvAfDQVmc
 
 ALTER TABLE metrics
 ADD COLUMN add_to_favorites INT DEFAULT 0;
+
+
+ALTER TABLE Cart ADD COLUMN main BOOLEAN DEFAULT TRUE;
+
+
+-- update the Cart table
+SELECT conname
+FROM pg_constraint
+WHERE conrelid = 'Cart'::regclass;
+
+ALTER TABLE Cart
+DROP CONSTRAINT cart_user_id_key;
