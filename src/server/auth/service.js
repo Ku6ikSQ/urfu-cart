@@ -30,7 +30,10 @@ export default class AuthService {
         const user = await UserService.createUser(null, email, password)
         await sendConfirm(email, user.id)
 
-        await CartService.createCart(user.id)
+        await db.query("INSERT INTO Cart (user_id, main) VALUES ($1)", [
+            user.id,
+            true,
+        ])
         return user
     }
 
