@@ -4,6 +4,7 @@ import { sendMail } from "../mail/service.js"
 import UserService from "../user/service.js"
 import * as argon2 from "argon2"
 import { generatePassword } from "../utils.js"
+import CartService from "../cart/service.js"
 
 async function sendConfirm(email, id) {
     // this link routes to site and there's sending the request to the server (AuthService.confirm)
@@ -28,6 +29,8 @@ export default class AuthService {
     static async signUp(email, password) {
         const user = await UserService.createUser(null, email, password)
         await sendConfirm(email, user.id)
+
+        await CartService.createCart(user.id)
         return user
     }
 
