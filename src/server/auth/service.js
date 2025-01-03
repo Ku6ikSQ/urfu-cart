@@ -18,12 +18,19 @@ const ACTIVATED = 1
 export default class AuthService {
     static async confirm(id) {
         const user = await db.query("SELECT * FROM users WHERE id = $1", [id])
-        if (!user.rows || !user.rows[0])
+        if (!user.rows || !user.rows[0]) {
             throw new Error("Failed to find a user with this id")
+        }
+        const email = user.rows[0].email
         await db.query(
             "UPDATE users SET activated = $1 WHERE id = $2 RETURNING *",
             [ACTIVATED, id]
         )
+        // clearing db from zombie accounts
+        await db.query("DELETE FROM users WHERE email = $1 AND id != $2", [
+            email,
+            id,
+        ])
     }
 
     static async signUp(email, password) {
