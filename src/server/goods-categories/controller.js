@@ -29,7 +29,7 @@ export default class GoodCategoryController {
                 parentId,
                 photo
             )
-            return res.status(201).json(category)
+            return res.status(200).json(category)
         } catch (e) {
             return res.status(400).json(e.message)
         }
@@ -56,7 +56,7 @@ export default class GoodCategoryController {
         try {
             const { id } = req.params
             await GoodCategoryService.deleteCategory(id)
-            return res.status(204).send()
+            return res.status(200).send()
         } catch (e) {
             return res.status(400).json(e.message)
         }
