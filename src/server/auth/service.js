@@ -7,7 +7,7 @@ import { generatePassword } from "../utils.js"
 
 async function sendConfirm(email, id) {
     // this link routes to site and there's sending the request to the server (AuthService.confirm)
-    const confirmURL = `${serverURL}/auth/confirm?id=${id}`
+    const confirmURL = `${serverURL}/api/auth/confirm?id=${id}`
     // send this URL to email
     await sendMail(email, confirmURL)
 }
