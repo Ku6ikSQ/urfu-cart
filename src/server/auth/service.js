@@ -28,9 +28,9 @@ export default class AuthService {
 
     static async signUp(email, password) {
         const user = await UserService.createUser(null, email, password)
-        await sendConfirm(email, user.id)
+        // TEMP: await sendConfirm(email, user.id)
 
-        await db.query("INSERT INTO Cart (user_id, main) VALUES ($1)", [
+        await db.query("INSERT INTO Cart (user_id, main) VALUES ($1, $2)", [
             user.id,
             true,
         ])
