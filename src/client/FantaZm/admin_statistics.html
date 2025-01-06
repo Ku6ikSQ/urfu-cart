@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>FANTECH - PANEL</title>
+        <link type="image/x-icon" rel="shortcut icon" href="assets/FANTECH.svg">
+        <link rel="stylesheet" href="styles/admin_panel_styles.css">
+        <link rel="stylesheet" href="styles/admin_goods_styles.css">
+        <link rel="stylesheet" href="styles/admin_statistics_styles.css">
+        <link rel="stylesheet" href="styles/header_styles.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="scripts/light_selected.js" defer></script>
+        <script src="scripts/is_latin_letter_or_digit.js" defer></script>
+        <script src="scripts/draw_chart.js" defer></script>
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo">
+                <img src="assets/FANTECH.svg" alt="Логотип" class="logo">
+                <a href="admin_goods.html" class="link"><h1>FANTECH - PANEL</h1></a>
+            </div>
+            <div class="right-elems">
+                <p class="nickname">Администратор</p>
+            </div>
+        </header>
+        <main>
+        <div class="body">
+            <aside class="left">
+                <ul>
+                    <li><a href="shop_showcase.html">На страницу магазина</a></li>
+                    <li><a href="admin_goods.html">Товары</a></li>
+                    <li><a href="admin_categories.html">Категории</a></li>
+                    <li><a href="admin_users.html">Пользователи</a></li>
+                    <li><a href="admin_orders.html">Заказы</a></li>
+                    <li><a href="admin_statistics.html">Статистика</a></li>
+                </ul>
+            </aside>
+            <div class="content" id="content">
+                <div class="graphics">
+                    <h1>За последние 28 дней ваши товары набрали сколько-то там лайков</h1>
+                    <div class="graphics-body">
+                        <canvas id="likes"></canvas>
+                    </div>
+                </div>
+                <div class="popular-goods">
+                    <h2>Самые популярные товары за период</h2>
+                    <div class="goods_table">
+                        <div class="table-header">
+                            <p>Товары</p>
+                            <p>Количество лайков</p>
+                        </div>
+                        <div class="table-body">
+                            <div class="stat-goods">
+                                <div class="stat-good">
+                                    <p>1</p>
+                                    <img src="assets/good_without_pic.jpg">
+                                    <p>Название товара</p>
+                                </div>
+                                <div class="stat-stat">
+                                    <p>2</p>
+                                </div>
+                            </div>
+                            <div class="stat-goods">
+                                <div class="stat-good">
+                                    <p>2</p>
+                                    <img src="assets/good_without_pic.jpg">
+                                    <p>Название товара</p>
+                                </div>
+                                <div class="stat-stat">
+                                    <p>5</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="add_button">
+                <select name="option" class="add" id="add">
+                    <option value="likes" selected>Избранное</option>
+                    <option value="orders">Заказы</option>
+                    <option value="views">Просмотры</option>
+                    <option value="cartAdd">Товары в корзине</option>
+                </select>
+                <select name="time" class="add" id="add1">
+                    <option value="week">Неделя</option>
+                    <option value="month">Месяц</option>
+                    <option value="three_months">3 месяца</option>
+                    <option value="year">Год</option>
+                </select>
+            </div>
+        </div>
+        </main>
+    </body>
+</html>

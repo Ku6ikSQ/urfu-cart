@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>FANTECH - PANEL</title>
+        <link type="image/x-icon" rel="shortcut icon" href="assets/FANTECH.svg">
+        <link rel="stylesheet" href="styles/admin_panel_styles.css">
+        <link rel="stylesheet" href="styles/admin_users_styles.css">
+        <link rel="stylesheet" href="styles/header_styles.css">
+        <script src="scripts/light_selected.js" defer></script>
+        <script src="scripts/load_users.js" defer></script>
+        <script src="scripts/users_search_script.js" defer></script>
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo">
+                <img src="assets/FANTECH.svg" alt="Логотип" class="logo">
+                <a href="admin_goods.html" class="link"><h1>FANTECH - PANEL</h1></a>
+            </div>
+            <div class="right-elems">
+                <p class="nickname">Администратор</p>
+            </div>
+        </header>
+        <main>
+        <div class="body">
+            <aside class="left">
+                <ul>
+                    <li><a href="admin_test_showcase.html">На страницу магазина</a></li>
+                    <li><a href="admin_goods.html">Товары</a></li>
+                    <li><a href="admin_categories.html">Категории</a></li>
+                    <li><a href="admin_users.html">Пользователи</a></li>
+                    <li><a href="admin_orders.html">Заказы</a></li>
+                    <li><a href="admin_statistics.html">Статистика</a></li>
+                </ul>
+            </aside>
+            <div class="content">
+                <div class="search">
+                    <div class="search-input">
+                        <p>Поиск по логину:</p>
+                        <input type="text" id="searchEmail" placeholder="Введите логин">
+                    </div>
+                    <div class="search-input">
+                        <p>Поиск по ФИО:</p>
+                        <input type="text"  id="searchName" placeholder="Введите ФИО">
+                    </div>
+                    <div class="search-input">
+                        <p>Поиск по номеру заказа:</p>
+                        <input type="text" id="searchOrder" placeholder="Введите номер заказа" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,5}$/.test(this.value));">
+                    </div>
+                </div>
+                <div class="usersList" id="usersList">
+                    <div class="usersList-header">
+                        <p class="userId">№ID</p>
+                        <p class="userEmail">ПОЧТА</p>
+                        <p class="userName">Фамилия, имя, отчество</p>
+                        <p class="userOrder">Заказ №</p>
+                    </div>
+                    <div class="usersList-content">
+                        <div class="usersList-item">
+                            <p class="userId">1</p>
+                            <p class="userEmail">+38 (095) 123-45-67</p>
+                            <p class="userName">Иванов Иван Иванович</p>
+                            <p class="userCity">Санкт-Петербург</p>
+                            <p class="userOrder">123456</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </main>
+</html>

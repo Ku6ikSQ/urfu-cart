@@ -1,0 +1,151 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Italic.ttf') format('truetype');
+    font-style: italic;
+}
+
+html, body{
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+    font-family: 'Inter';
+    font-weight: normal;
+    background-image: url("../assets/auth_background.png");
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #d9b9e7;
+    width: auto;
+    height: auto;
+    border-radius: 25px;
+    width:500px;
+}
+
+img{
+    width: 100px;
+    height: 100px;
+    margin:50px;
+}
+
+.auth-container h1{
+    font-size: 32px;
+    color: white;
+    padding-top: 10px;
+}
+
+.auth-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.password-wrapper{
+    position: relative;
+}
+
+.eye{
+    width:22px;
+    height: 22px;
+    position: absolute;
+    right: 10px;
+    transform: translateY(-50%);
+    top: 50%;
+    cursor: pointer;
+    margin: 0px;
+    padding: 0px;
+}
+
+.auth-input{
+    width: 250px;
+    height: 44px;
+    border-radius: 15px;
+    text-indent: 5px;
+    font-size: 15px;
+    border: none;
+}
+
+.auth-input-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    font-size: 15px;
+}
+
+.auth-input-container p{
+    margin: 10px 0px 5px 0px;
+    padding: 0px;
+}
+
+.auth-button{
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    border: 2px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: #6B7A99;
+    background-color: white;
+    font-family: 'Inter';
+    font-weight: bold;
+}
+
+.text-container{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.text-container p{
+    margin: 0px;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+.invisible{
+    color: #debee6;
+    width: 100px;
+    height: 100px;
+    margin: 50px;
+}
+
+p{
+    font-weight: bold;
+    color:white;
+    font-size: 15px;
+}
+
+a{
+    text-decoration: none;
+}
+
+#register{
+    width:auto;
+}
