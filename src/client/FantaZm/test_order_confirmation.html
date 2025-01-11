@@ -3,12 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title>FANTECH</title>
+        <link type="image/x-icon" rel="shortcut icon" href="assets/FANTECH.svg">
         <link rel="stylesheet" href="styles/shop_showcase_styles.css">
         <link rel="stylesheet" href="styles/test_order_confirmation_styles.css">
-        <script src="scripts/checkbox_script.js"></script>
         <script src="scripts/promo_script.js"></script>
         <script src="scripts/order_confirmation.js"></script>
-        <script src="scripts/confirm_order.js"></script>
     </head>
     <body>
         <header class="header">
@@ -17,7 +16,7 @@
                 <a href="main_page.html" class="link"><h1>FANTECH</h1></a>
             </div>
             <h2>Ваш заказ</h2>
-            <span class="close" id="close">&times;</span>
+            <span class="close" id="close" onclick="window.location.href='shop_showcase.html'">&times;</span>
         </header>
         <main>
             <div class="body">
@@ -33,7 +32,7 @@
                         </div>
                         <div>
                             <label for="phone">Телефон:</label>
-                            <input type="text" id="phone" placeholder="+7 999-999-99-99" onfocus="this.value='+7'" onblur="this.value=''" onkeypress="return /^[+]?[0-9]*$/.test(this.value + String.fromCharCode(event.charCode));" maxlength="12">
+                            <input type="text" id="phone" placeholder="+7 999-999-99-99" onfocus="this.value='+7'" onkeypress="return /^[+]?[0-9]*$/.test(this.value + String.fromCharCode(event.charCode));" maxlength="12">
                         </div>
                         <div class="promo"><input type="text" placeholder="Промокод"><button>Активировать</button></div>
                     </div>
@@ -45,21 +44,21 @@
                         </div>
                         <div class="deliveryType">
                             <div>
-                                <input type="radio" name="type" id="deliveryType" value="Почта России">
+                                <input type="radio" name="type" id="deliveryTypePost" value="Почта России">
                                 <label for="type">Почта России</label>
                             </div>
                             <div>
-                                <input type="radio" name="type" id="deliveryType" value="СДЭК | Доставка в пункт выдачи">
+                                <input type="radio" name="type" id="deliveryTypePUP" value="СДЭК | Доставка в пункт выдачи">
                                 <label for="type">СДЭК | Доставка в пункт выдачи</label>
                             </div>
                             <div>
-                                <input type="radio" name="type" id="deliveryType" value="СДЭК | Доставка курьером">
+                                <input type="radio" name="type" id="deliveryTypeCourier" value="СДЭК | Доставка курьером">
                                 <label for="type">СДЭК | Доставка курьером</label>
                             </div>
                         </div>
                         <div>
                             <label for="address">Адрес</label>
-                            <input type="text" id="address" placeholder="Введите адрес отделения Почта России">
+                            <input type="text" id="address" placeholder="Введите адрес получения заказа">
                         </div>
                         <div>
                             <label for="buyer">Получатель (ФИО полностью)</label>
@@ -71,7 +70,7 @@
                         </div>
                         <div class="terms">
                             <div>
-                                <input type="checkbox" id="terms">
+                                <input type="checkbox" id="termsInput">
                                 <label for="terms">Я согласен с <a href="#">Пользовательским соглашением</a> и даю согласие на <a href="#">обработку персональных данных</a></label>
                             </div>
                         </div>
@@ -79,11 +78,11 @@
                     <div class="paymentInfo">
                         <h4>Выберите способ оплаты</h4>
                         <div>
-                            <input type="radio" name="payment" id="payment" value="Яндекс.Сплит">
+                            <input type="radio" name="payment" id="paymentSplit" value="Яндекс.Сплит">
                             <label for="payment">Яндекс.Сплит</label>
                         </div>
                         <div>
-                            <input type="radio" name="payment" id="payment" value="Банковская карта, ЮMoney или ЮКасса">
+                            <input type="radio" name="payment" id="paymentCard" value="Банковская карта, ЮMoney или ЮКасса">
                             <label for="payment">Банковская карта, ЮMoney или ЮКасса</label>
                         </div>
                     </div>
@@ -145,7 +144,7 @@
                 <div class="footer_left">
                     <div class="footer_logo">
                         <img src="assets/FANTECH.svg" alt="Логотип" width="70px" height="70px">
-                        <span class="logo-text">SITE NAME</span>
+                        <span class="logo-text">FANTECH</span>
                     </div>
                     <p class="footer_rights">2024 ALL RIGHTS RESERVED</p>
                 </div>

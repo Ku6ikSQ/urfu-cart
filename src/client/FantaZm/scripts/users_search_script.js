@@ -1,53 +1,32 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const searchEmail = document.getElementById('searchEmail');
     const searchName = document.getElementById('searchName');
-    const searchCity = document.getElementById('searchCity');
-    const searchButton = document.getElementById('searchButton');
-    searchEmail.value = '';
-    searchName.value = '';
-    searchCity.value = '';
-    searchButton.addEventListener('click', async function () {
-        const email = searchEmail.value || '';
-        const name = searchName.value || '';
-        const city = searchCity.value || '';
-        console.log(email,name,city);
-        if (email=='' && name=='' && city==''){
-            return;
-        }
-        const response = await fetch('https://5.35.124.24:5000/api/users');
-        if (!response.ok){
-            throw new Error(`Ошибка: ${response.status}`);
-        }
-        let data = await response.json();
-        if (email){
-            data = data.filter(user => user.email.toLowerCase().includes(email.toLowerCase()));
-        }
-        if (name){
-            data = data.filter(user => { return user.name && user.name.toLowerCase().includes(name.toLowerCase())});
-        }
-        console.log(data);
-        const container = document.getElementById('usersList');
-        container.innerHTML = '';
-        if (data.length > 0){
-            for (const user of data) {
-                const card = await createUserCard(user);
-                container.appendChild(card);
+    const searchOrder = document.getElementById('searchOrder');
+    const usersListContent = document.querySelector('.usersList-content');
+
+    function filterUsers() { 
+        const emailQuery = searchEmail.value.toLowerCase();
+        const nameQuery = searchName.value.toLowerCase();
+        const orderQuery = searchOrder.value;
+        const userItems = usersListContent.querySelectorAll('.usersList-item');
+        userItems.forEach(userItem => {
+            const userEmail = userItem.querySelector('.userEmail').textContent.toLowerCase();
+            const userName = userItem.querySelector('.userName').textContent.toLowerCase();
+            const userOrder = userItem.querySelector('.userOrder').textContent;
+            const matchesEmail = !emailQuery || userEmail.includes(emailQuery);
+            const matchesName = !nameQuery || userName.includes(nameQuery);
+            const matchesOrder = !orderQuery || userOrder.includes(orderQuery);
+            if (matchesEmail && matchesName && matchesOrder) {
+                userItem.style.display = 'flex';
+            } else {
+                userItem.style.display = 'none';
             }
-        }
-    });
+        });
+    }
+
+    searchEmail.addEventListener('input', filterUsers);
+    searchName.addEventListener('input', filterUsers);
+    searchOrder.addEventListener('input', filterUsers);
+
+    filterUsers();
 });
-
-async function createUserCard(user) {
-    const card = document.createElement('div');
-    card.className = 'usersList-item';
-    card.setAttribute('data-id', user.id.toString());
-
-    card.innerHTML = `
-        <p class="userId">${user.id}</p>
-        <p class="userEmail">${user.email}</p>
-        <p class="userName">${user.name}</p>
-        <p class="userCity"></p>
-        <p class="userOrder">Нет заказов</p>
-    `;
-    return card;
-}

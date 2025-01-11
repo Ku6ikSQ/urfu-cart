@@ -90,9 +90,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                 'price': parseFloat(price),
                 'category_id': document.querySelector(`#category-list1 option[value="${category}"]`).getAttribute('data-id'),
                 'photos':[uploadFileName],
-                'article':'',
+                'article':brand || '',
                 'discount':0,
-                'brand': brand || '',
+                'brand': '',
                 'stock': quantity || 0
             };
             const response = await fetch(`https://5.35.124.24:5000/api/goods`, {
@@ -110,13 +110,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'goods_id': metricdata.id,
-                    'views': 0,
-                    'add_to_cart_count': 0,
-                    'order_count': 0
-                })
+                }
             });
             if (!metricsResponse.ok) {
                 throw new Error('Не удалось добавить метрики товара');

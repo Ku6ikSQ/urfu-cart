@@ -2,31 +2,26 @@
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <title>FANTECH</title>
+        <title>FANTECH - PANEL</title>
         <link type="image/x-icon" rel="shortcut icon" href="assets/FANTECH.svg">
-        <link rel="stylesheet" href="styles/main_page_styles.css">
         <link rel="stylesheet" href="styles/admin_panel_styles.css">
-        <link rel="stylesheet" href="styles/admin_goods_styles.css">
         <link rel="stylesheet" href="styles/header_styles.css">
-        <link rel="stylesheet" href="styles/footer_styles.css">
-        <link rel="stylesheet" href="styles/test_customer_cabinet_styles.css">
+        <link rel="stylesheet" href="styles/admin_goods_styles.css">
         <link rel="stylesheet" href="styles/test_customer_orders_styles.css">
+        <link rel="stylesheet" href="styles/admin_orders_styles.css">
         <script src="scripts/light_selected.js" defer></script>
-        <script src="scripts/customer_favorites.js" defer></script>
-        <script src="scripts/customer_cart.js" defer></script>
-        <script src="scripts/load_customer_orders.js" defer></script>
-        <script src="scripts/orders_search_script.js" defer></script>
+        <script src="scripts/is_latin_letter_or_digit.js" defer></script>
+        <script src="scripts/load_admin_orders.js" defer></script>
+        <script src="scripts/admin_orders_search.js" defer></script>
     </head>
     <body>
         <header class="header">
             <div class="logo">
                 <img src="assets/FANTECH.svg" alt="Логотип" class="logo">
-                <a href="main_page.html" class="link"><h1>FANTECH</h1></a>
+                <a href="admin_goods.html" class="link"><h1>FANTECH - PANEL</h1></a>
             </div>
-            <div class="right-elems">   
-                <a href="#" id="cartButton"><img src="assets/shopping_bag.svg" alt="Корзина" class="shopping_bag"></a>
-                <a href="#" id="favoritesButton"><img src="assets/star.svg" alt="Избранное" class="shopping_bag"></a>
-                <a href="#" class="link"><p class="nickname">Кабинет</p></a>
+            <div class="right-elems">
+                <p class="nickname">Администратор</p>
             </div>
         </header>
         <main>
@@ -34,11 +29,14 @@
                 <aside class="left">
                     <ul>
                         <li><a href="shop_showcase.html">На страницу магазина</a></li>
-                        <li><a href="test_customer_cabinet.html">Личные данные</a></li>
-                        <li><a href="test_customer_orders.html">Заказы</a></li>
+                        <li><a href="admin_goods.html">Товары</a></li>
+                        <li><a href="admin_categories.html">Категории</a></li>
+                        <li><a href="admin_users.html">Пользователи</a></li>
+                        <li><a href="admin_orders.html">Заказы</a></li>
+                        <li><a href="admin_statistics.html">Статистика</a></li>
                     </ul>
                 </aside>
-                <div class="ordersContent">
+                <div class="content">
                     <div class="search">
                         <div class="inputs">
                             <div class="search-input name">
@@ -56,9 +54,13 @@
                                 <label for="searchOrder">Поиск по номеру заказа:</label>
                                 <input type="text" placeholder="Номер заказа" id="searchOrder" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,5}$/.test(this.value));">
                             </div>
+                            <div class="search-input">
+                                <label for="searchRecipient">Поиск по ФИО получателя:</label>
+                                <input type="text" placeholder="Иванов Иван Иванович" id="searchRecipient">
+                            </div>
                         </div>
                     </div>
-                    <h2>Личные заказы</h2>
+                    <h2>Заказы пользователей</h2>
                     <div class="ordersTable" id="ordersTable">
                         <div class="order">
                             <div class="order-info">
@@ -238,92 +240,5 @@
                 </div>
             </div>
         </main>
-        <div class="aside" id="customerCart">
-            <aside class="cart">
-              <h4>Ваш заказ:</h4>
-              <div class="cartContent">
-                <div class="cartItem">
-                  <div class="imgTextContent">
-                    <input type='checkbox' checked="checked" class="inputCheck">
-                    <img src="assets/good_without_pic.jpg">
-                    <div class="textInfo">
-                      <p>Ключевое имя</p>
-                      <p>Цена</p>
-                    </div>
-                  </div>
-                  <span class="close" id="close">&times;</span>
-                </div>
-                <div class="cartItem">
-                  <div class="imgTextContent">
-                    <input type='checkbox' checked="checked" class="inputCheck">
-                    <img src="assets/good_without_pic.jpg">
-                    <div class="textInfo">
-                      <p>Ключевое имя</p>
-                      <p>Цена</p>
-                    </div>
-                  </div>
-                  <span class="close" id="close">&times;</span>
-                </div>
-              </div>
-              <h3 id="totalSum">Сумма заказа: </h3>
-              <button class="checkout">ОФОРМИТЬ</button>
-            </aside>
-        </div>
-        <div class="aside" id="favoritesCart">
-            <aside class="cart">
-                <h4>Избранное:</h4>
-                <div class="cartContent">
-                    <div class="cartItem">
-                        <div class="imgTextContent">
-                            <input type='checkbox' checked="checked" class="inputCheck">
-                            <img src="assets/good_without_pic.jpg">
-                            <div class="textInfo">
-                                <p>Ключевое имя</p>
-                                <p>Цена</p>
-                            </div>
-                        </div>
-                        <span class="close" id="close">&times;</span>
-                    </div>
-                    <div class="cartItem">
-                        <div class="imgTextContent">
-                            <input type='checkbox' checked="checked" class="inputCheck">
-                            <img src="assets/good_without_pic.jpg">
-                            <div class="textInfo">
-                                <p>Ключевое имя</p>
-                                <p>Цена</p>
-                            </div>
-                        </div>
-                        <span class="close" id="close">&times;</span>
-                    </div>
-                    <div class="cartItem">
-                        <div class="imgTextContent">
-                            <input type='checkbox' checked="checked" class="inputCheck">
-                            <img src="assets/good_without_pic.jpg">
-                            <div class="textInfo">
-                                <p>Ключевое имя</p>
-                                <p>Цена</p>
-                            </div>
-                        </div>
-                        <span class="close" id="close">&times;</span>
-                    </div>
-                </div>
-            </aside>
-        </div>
-        <footer class="footer">
-            <div class="footer_container">
-                <div class="footer_left">
-                    <div class="footer_logo">
-                        <img src="assets/FANTECH.svg" alt="Логотип" width="70px" height="70px">
-                        <span class="logo-text">FANTECH</span>
-                    </div>
-                    <p class="footer_rights">2024 ALL RIGHTS RESERVED</p>
-                </div>
-                <div class="footer_right">
-                    <a href="#" class="footer_link">Контакты</a>
-                    <a href="#" class="footer_link">Пользовательское соглашение</a>
-                    <a href="#" class="footer_link">Политика конфиденциальности</a>
-                </div>
-            </div>
-        </footer>
     </body>
 </html>

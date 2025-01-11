@@ -3,13 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>FANTECH - PANEL</title>
+        <link type="image/x-icon" rel="shortcut icon" href="assets/FANTECH.svg">
         <link rel="stylesheet" href="styles/admin_panel_styles.css">
         <link rel="stylesheet" href="styles/admin_goods_styles.css">
         <link rel="stylesheet" href="styles/header_styles.css">
-        <script src="scripts/open_dropdown.js" defer></script>
         <script src="scripts/light_selected.js" defer></script>
         <script src="scripts/add_good.js" defer></script>
-        <script src="scripts/add_picture.js" defer></script>
         <script src="scripts/load_goods.js" defer></script>
         <script src="scripts/is_latin_letter_or_digit.js" defer></script>
         <script src="scripts/search_script.js" defer></script>
@@ -21,8 +20,7 @@
                 <a href="admin_goods.html" class="link"><h1>FANTECH - PANEL</h1></a>
             </div>
             <div class="right-elems">
-                <a href="auth_admin.html" class="link"><p class="login">Войти</p></a>
-                <a href="register_admin.html" class="link"><p class="register">Регистрация</p></a>
+                <p class="nickname">Администратор</p>
             </div>
         </header>
         <main>
@@ -32,7 +30,6 @@
                     <li><a href="shop_showcase.html">На страницу магазина</a></li>
                     <li><a href="admin_goods.html">Товары</a></li>
                     <li><a href="admin_categories.html">Категории</a></li>
-                    <li><a href="admin_brands.html">Бренды</a></li>
                     <li><a href="admin_users.html">Пользователи</a></li>
                     <li><a href="admin_orders.html">Заказы</a></li>
                     <li><a href="admin_statistics.html">Статистика</a></li>
@@ -44,10 +41,6 @@
                         <p>Поиск</p>
                         <input type="text" id="searchName" placeholder="По ключевому имени">
                     </div>
-                    <div class="search-input">
-                        <p>Бренд</p>
-                        <input type="text" id="searchBrand" placeholder="Введите название бренда">
-                    </div>
                     <div class="search-input-price ">
                         <p>Стоимость, ₽</p>
                         <div class="price-input">
@@ -56,7 +49,6 @@
                             <input type="text" pattern ="\d*" placeholder="До"  id="searchPriceTo" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,5}$/.test(this.value));">
                         </div>
                     </div>
-                    <img src="assets/magnifier.png" class="search-icon" id="searchButton">
                 </div>
                 <div class="table" id="productContainer">
                     <div class="good_card">
@@ -133,8 +125,8 @@
                                     <input type="text" id="productName" placeholder="Введите название товара">
                                 </div>
                                 <div class="labelItem">
-                                    <label for="productBrand">Бренд:</label>
-                                    <input type="text" id="productBrand" placeholder="Введите название бренда" onkeypress="return is_latin_letter_or_digit(event);">
+                                    <label for="productBrand">Артикул:</label>
+                                    <input type="text" id="productBrand" placeholder="Введите артикул товара" onkeypress="return is_latin_letter_or_digit(event);">
                                 </div>
                                 <div class="labelItem">
                                     <label for="productCategory">Категория:</label>
@@ -154,8 +146,6 @@
                             <div class="secondly">
                                 <label for="productDescription">Описание товара:</label>
                                 <textarea id="productDescription" placeholder="Введите описание товара"></textarea>
-                                <label for="goodsMemory">Размер памяти (при необходимости):</label>
-                                <input type="text" id="goodsMemory" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,5}$/.test(this.value));">
                             </div>
                         </div>
                     </div>
@@ -190,8 +180,8 @@
                                     <input type="text" id="productName1" placeholder="Введите название товара">
                                 </div>
                                 <div class="labelItem">
-                                    <label for="productBrand1">Бренд:</label>
-                                    <input type="text" id="productBrand1" placeholder="Введите название бренда" onkeypress="return is_latin_letter_or_digit(event);">
+                                    <label for="productBrand1">Артикул:</label>
+                                    <input type="text" id="productBrand1" placeholder="Введите артикул товара" onkeypress="return is_latin_letter_or_digit(event);">
                                 </div>
                                 <div class="labelItem">
                                     <label for = "productCategory1">Категория:</label>
@@ -211,8 +201,6 @@
                             <div class="secondly">
                                 <label for="productDescription1">Описание товара:</label>
                                 <textarea id="productDescription1" placeholder="Введите описание товара"></textarea>
-                                <label for="goodsMemory1">Размер памяти (при необходимости):</label>
-                                <input type="text" id="goodsMemory1" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,5}$/.test(this.value));">
                             </div>
                         </div>
                     </div>

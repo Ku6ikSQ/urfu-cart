@@ -109,9 +109,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                 'price': parseFloat(price),
                 'category_id': document.querySelector(`#category-list option[value="${category}"]`).getAttribute('data-id'),
                 'photos': [uploadFileName],
-                'article': '',
+                'article': brand,
                 'discount': 0,
-                'brand': brand,
+                'brand': '',
                 'stock': stock
             };
 

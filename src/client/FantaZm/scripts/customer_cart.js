@@ -6,38 +6,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartButton = document.getElementById('cartButton');
     const userId = sessionStorage.getItem('userId');
     const checkout = document.querySelector('.checkout');
-    checkout.addEventListener('click', async function(event) {
-        const response = await fetch(`https://5.35.124.24:5000/api/cart/${userId}`);
-        if (!response.ok) {
-            throw new Error(`Ошибка HTTP: ${response.status}`);
-        }
-        const data = await response.json();
-        if (data.items.length == 0) {
-            alert('Ваша корзина пуста');
-            return;
-        }
-        window.location.href = 'test_order_confirmation.html';
-    });
-
-    async function getMetrics(id){
-        try{
-            const metricResponse = await fetch(`https://5.35.124.24:5000/api/metrics/${id}`,{
-                method : 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            if (!metricResponse.ok) {
-                throw new Error(`Ошибка HTTP: ${metricResponse.status}`);
-            }
-            const data = await metricResponse.json();
-            console.log(data);
-            return data;
-        } catch (error) {
-            console.error(error);
-            return null;
-        }
+    let cartData = localStorage.getItem('cartData');
+    if (!cartData) {
+        cartData = { items: [] };
+        localStorage.setItem('cartData', JSON.stringify(cartData));
+    } else {
+        cartData = JSON.parse(cartData);
     }
+
+    checkout.addEventListener('click', async function(event) {
+        if (userId) {
+            const response = await fetch(`https://5.35.124.24:5000/api/cart/user/${userId}`);
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+            const data = await response.json();
+            const cart = data.filter(item => item.main == true)[0];
+            if (cart.items.length == 0) {
+                alert('Ваша корзина пуста');
+                return;
+            }
+            window.location.href = 'test_order_confirmation.html';
+        } else {
+            if (cartData.items.length == 0) {
+                alert('Ваша корзина пуста');
+                return;
+            }
+            alert('Для оформления заказа необходимо войти в личный кабинет');
+        }
+    });
 
     async function getFileLink(fileName) {
         if (fileName) {
@@ -72,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    async function createCartCard(item, intSum) {
+    async function createCartCard(item, intSum, cartId) {
         const card = document.createElement('div');
         card.classList.add('cartItem');
         const imgTextContent = document.createElement('div');
@@ -81,21 +78,29 @@ document.addEventListener('DOMContentLoaded', function() {
         inputCheck.type = 'checkbox';
         inputCheck.checked = item.selected;
         inputCheck.addEventListener('change', async function () {
-            const response = await fetch(`https://5.35.124.24:5000/api/cart/${userId}/${item.goods_id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'count': item.count,
-                    'selected': inputCheck.checked
-                })
-            });
-            if (!response.ok) {
-                throw new Error(`Ошибка HTTP: ${response.status}`);
+            if (userId) {
+                const response = await fetch(`https://5.35.124.24:5000/api/cart/${cartId}/${item.goods_id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'count': item.count,
+                        'selected': inputCheck.checked
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log(data);
+            } else {
+                const cartData = JSON.parse(localStorage.getItem('cartData'));
+                const cartItemIndex = cartData.items.findIndex(i => i.goods_id == item.goods_id);
+                cartData.items[cartItemIndex].count = item.count;
+                cartData.items[cartItemIndex].selected = inputCheck.checked;
+                localStorage.setItem('cartData', JSON.stringify(cartData));
             }
-            const data = await response.json();
-            console.log(data);
         });
         inputCheck.classList.add('inputCheck');
         const good = await getGood(item.goods_id);
@@ -122,23 +127,30 @@ document.addEventListener('DOMContentLoaded', function() {
         decrement.innerHTML = '-';
         decrement.addEventListener('click', async function () {
             if (item.count <= 1) {
-                const response = await fetch(`https://5.35.124.24:5000/api/cart/${userId}/${item.goods_id}`, {
-                    method: 'DELETE'
-                });
-                if (!response.ok) {
-                    throw new Error(`Ошибка HTTP: ${response.status}`);
+                if (userId) {
+                    const response = await fetch(`https://5.35.124.24:5000/api/cart/${cartId}/${item.goods_id}`, {
+                        method: 'DELETE'
+                    });
+                    if (!response.ok) {
+                        throw new Error(`Ошибка HTTP: ${response.status}`);
+                    }
+                    const data = await response.json();
+                } else {
+                    const cartData = JSON.parse(localStorage.getItem('cartData'));
+                    const cartItemIndex = cartData.items.findIndex(i => i.goods_id == item.goods_id);
+                    cartData.items.splice(cartItemIndex, 1);
+                    localStorage.setItem('cartData', JSON.stringify(cartData));
                 }
-                const data = await response.json();
-                const metricdata = await getMetrics(item.goods_id);
                 const metricResponse = await fetch(`https://5.35.124.24:5000/api/metrics/${item.goods_id}`,{
                     method:'PATCH',
                     headers : {
                         'Content-Type':'application/json'
                     },
                     body : JSON.stringify({
-                        'views':metricdata.views,
-                        'addToCartCount': metricdata.add_to_cart_count - 1,
-                        'orderCount':metricdata.order_count
+                        'views':0,
+                        'addToCartCount': -1,
+                        'orderCount':0,
+                        'addToFavoritesCount':0
                     })
                 });
                 if (!metricResponse.ok) {
@@ -146,26 +158,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 const ret = await metricResponse.json();
                 console.log(ret);
-                console.log(data);
+                const event = new CustomEvent('cartUpdate',{
+                    detail : {
+                        'goodsId' : item.goods_id,
+                        'action' : 'delete'
+                    },
+                });
+                document.dispatchEvent(event);
                 alert('Товар успешно удален из корзины');
                 openCart();
                 return;
             }
-            const response = await fetch(`https://5.35.124.24:5000/api/cart/${userId}/${item.goods_id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'count': item.count - 1,
-                    'selected': inputCheck.checked
-                })
-            });
-            if (!response.ok) {
-                throw new Error(`Ошибка HTTP: ${response.status}`);
+            if (userId) {
+                const response = await fetch(`https://5.35.124.24:5000/api/cart/${cartId}/${item.goods_id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'count': item.count - 1,
+                        'selected': inputCheck.checked
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP: ${response.status}`);
+                }
+                const data = await response.json();
+            } else {
+                const cartData = JSON.parse(localStorage.getItem('cartData'));
+                const cartItemIndex = cartData.items.findIndex(i => i.goods_id == item.goods_id);
+                cartData.items[cartItemIndex].count -= 1;
+                localStorage.setItem('cartData', JSON.stringify(cartData));
             }
-            const data = await response.json();
-            console.log(data);
+            const event = new CustomEvent('cartUpdate',{
+                detail : {
+                    'goodsId' : item.goods_id,
+                    'action' : 'decrement'
+                },
+            });
+            document.dispatchEvent(event);
             openCart();
         });
         itemCount.appendChild(decrement);
@@ -180,21 +211,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Это максимальное количество товара');
                 return;
             }
-            const response = await fetch(`https://5.35.124.24:5000/api/cart/${userId}/${item.goods_id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'count': item.count + 1,
-                    'selected': inputCheck.checked
-                })
-            });
-            if (!response.ok) {
-                throw new Error(`Ошибка HTTP: ${response.status}`);
+            if (userId) {
+                const response = await fetch(`https://5.35.124.24:5000/api/cart/${cartId}/${item.goods_id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'count': item.count + 1,
+                        'selected': inputCheck.checked
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP: ${response.status}`);
+                }
+                const data = await response.json();
+            } else {
+                const cartData = JSON.parse(localStorage.getItem('cartData'));
+                const cartItemIndex = cartData.items.findIndex(i => i.goods_id == item.goods_id);
+                cartData.items[cartItemIndex].count += 1;
+                localStorage.setItem('cartData', JSON.stringify(cartData));
             }
-            const data = await response.json();
-            console.log(data);
+            const event = new CustomEvent('cartUpdate',{
+                detail : {
+                    'goodsId' : item.goods_id,
+                    'action' : 'increment'
+                },
+            });
+            document.dispatchEvent(event);
             openCart();
         });
         itemCount.appendChild(increment);
@@ -204,23 +248,30 @@ document.addEventListener('DOMContentLoaded', function() {
         cross.id = 'close';
         cross.innerHTML = '&times;';
         cross.addEventListener('click', async function () {
-            const response = await fetch(`https://5.35.124.24:5000/api/cart/${userId}/${item.goods_id}`, {
-                method: 'DELETE'
-            });
-            if (!response.ok) {
-                throw new Error(`Ошибка HTTP: ${response.status}`);
+            if (userId) {
+                const response = await fetch(`https://5.35.124.24:5000/api/cart/${cartId}/${item.goods_id}`, {
+                    method: 'DELETE'
+                });
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP: ${response.status}`);
+                }
+                const data = await response.json();
+            } else {
+                const cartData = JSON.parse(localStorage.getItem('cartData'));
+                const cartItemIndex = cartData.items.findIndex(item => item.goods_id == item.goods_id);
+                cartData.items.splice(cartItemIndex, 1);
+                localStorage.setItem('cartData', JSON.stringify(cartData));
             }
-            const data = await response.json();
-            const metricdata = await getMetrics(item.goods_id);
             const metricResponse = await fetch(`https://5.35.124.24:5000/api/metrics/${item.goods_id}`,{
                 method:'PATCH',
                 headers : {
                     'Content-Type':'application/json'
                 },
                 body : JSON.stringify({
-                    'views':metricdata.views,
-                    'addToCartCount': metricdata.add_to_cart_count - 1,
-                    'orderCount':metricdata.order_count
+                    'views':0,
+                    'addToCartCount': -1, 
+                    'orderCount':0,
+                    'addToFavoritesCount':0
                 })
             });
             if (!metricResponse.ok) {
@@ -228,7 +279,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             const ret = await metricResponse.json();
             console.log(ret);
-            console.log(data);
+            const event = new CustomEvent('cartUpdate',{
+                detail : {
+                    'goodsId' : item.goods_id,
+                    'action' : 'delete'
+                },
+            });
+            document.dispatchEvent(event);
             alert('Товар успешно удален из корзины');
             openCart();
         });
@@ -241,19 +298,31 @@ document.addEventListener('DOMContentLoaded', function() {
         const content = cart.querySelector('.cartContent');
         content.innerHTML = '';
         const totalSum = document.getElementById('totalSum');
-        const userId = sessionStorage.getItem('userId');
-        const response = await fetch(`https://5.35.124.24:5000/api/cart/${userId}`);
-        if (!response.ok) {
-            throw new Error(`Ошибка HTTP: ${response.status}`);
+        const userId = sessionStorage.getItem('userId') || '';
+        if (userId) {
+            const response = await fetch(`https://5.35.124.24:5000/api/cart/user/${userId}`);
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+            const data = await response.json();
+            const cart = data.filter(item => item.main == true)[0];
+            let intSum = 0;
+            for (const item of cart.items) {
+                const {card,intSumNew} = await createCartCard(item, intSum, cart.cart_id);
+                intSum = intSumNew;
+                content.appendChild(card);
+            };
+            totalSum.textContent = `Сумма заказа: ${intSum} ₽`;
+        } else {
+            const cartData = JSON.parse(localStorage.getItem('cartData'));
+            let intSum = 0;
+            for (const item of cartData.items) {
+                const {card,intSumNew} = await createCartCard(item, intSum);
+                intSum = intSumNew;
+                content.appendChild(card);
+            };
+            totalSum.textContent = `Сумма заказа: ${intSum} ₽`;
         }
-        const data = await response.json();
-        let intSum = 0;
-        for (const item of data.items) {
-            const {card,intSumNew} = await createCartCard(item, intSum);
-            intSum = intSumNew;
-            content.appendChild(card);
-        };
-        totalSum.textContent = `Сумма заказа: ${intSum} ₽`;
     }
 
     cartButton.addEventListener('click', function(event) {

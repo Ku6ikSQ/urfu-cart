@@ -3,7 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>FANTECH</title>
+        <link type="image/x-icon" rel="shortcut icon" href="assets/FANTECH.svg">
         <link rel="stylesheet" href="styles/main_page_styles.css">
+        <link rel="stylesheet" href="styles/header_styles.css">
+        <link rel="stylesheet" href="styles/footer_styles.css">
         <script>
             function goToAuth(){
                 window.location.href = "auth_admin.html";
@@ -16,6 +19,7 @@
             }
         </script>
         <script src="scripts/customer_cart.js" defer></script>
+        <script src="scripts/customer_favorites.js" defer></script>
     </head>
     <body>
         <header class="header">
@@ -25,15 +29,16 @@
             </div>
             <div class="right-elems">
                 <a href="#" id="cartButton"><img src="assets/shopping_bag.svg" alt="Корзина" class="shopping_bag"></a>
+                <a href="#" id="favoritesButton"><img src="assets/star.svg" alt="Избранное" class="shopping_bag"></a>
                 <a href="auth_admin.html" class="link"><p class="login">Войти</p></a>
                 <a href="register_admin.html" class="link"><p class="register">Регистрация</p></a>
-                <a href="test_customer_cabinet.html" class="link" id="cabinet"><p class="cabinet">Никнейм</p></a>
+                <a href="test_customer_cabinet.html" class="link" id="cabinet"><p class="cabinet">Кабинет</p></a>
             </div>
         </header>
         <main>
             <div class="body">
                 <div class="image">
-                    <img src="assets/main_page_image.png" alt="main page">
+                    <img src="assets/goods_1.png" alt="main page">
                 </div>
                 <div class="textAndButton">
                     <h1>Идеальное место для ваших покупок</h1>
@@ -71,13 +76,53 @@
                   <button class="checkout">ОФОРМИТЬ</button>
                 </aside>
             </div>
+            <div class="aside" id="favoritesCart">
+                <aside class="cart">
+                    <h4>Избранное:</h4>
+                    <div class="cartContent">
+                        <div class="cartItem">
+                            <div class="imgTextContent">
+                                <input type='checkbox' checked="checked" class="inputCheck">
+                                <img src="assets/good_without_pic.jpg">
+                                <div class="textInfo">
+                                    <p>Ключевое имя</p>
+                                    <p>Цена</p>
+                                </div>
+                            </div>
+                            <span class="close" id="close">&times;</span>
+                        </div>
+                        <div class="cartItem">
+                            <div class="imgTextContent">
+                                <input type='checkbox' checked="checked" class="inputCheck">
+                                <img src="assets/good_without_pic.jpg">
+                                <div class="textInfo">
+                                    <p>Ключевое имя</p>
+                                    <p>Цена</p>
+                                </div>
+                            </div>
+                            <span class="close" id="close">&times;</span>
+                        </div>
+                        <div class="cartItem">
+                            <div class="imgTextContent">
+                                <input type='checkbox' checked="checked" class="inputCheck">
+                                <img src="assets/good_without_pic.jpg">
+                                <div class="textInfo">
+                                    <p>Ключевое имя</p>
+                                    <p>Цена</p>
+                                </div>
+                            </div>
+                            <span class="close" id="close">&times;</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
         </main>
         <footer class="footer">
             <div class="footer_container">
                 <div class="footer_left">
                     <div class="footer_logo">
                         <img src="assets/FANTECH.svg" alt="Логотип" width="70px" height="70px">
-                        <span class="logo-text">SITE NAME</span>
+                        <span class="logo-text">FANTECH</span>
                     </div>
                     <p class="footer_rights">2024 ALL RIGHTS RESERVED</p>
                 </div>

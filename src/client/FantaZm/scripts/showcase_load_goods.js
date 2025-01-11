@@ -1,9 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
-    async function openGoodCard(productId) {
-        window.location.href = `test_good_card.html?id=${productId}`;
-    }
-
     async function load_goods_for_showcase() {
+        let cartData = localStorage.getItem('cartData');
+        if (!cartData) {
+            cartData = { items: [] };
+            localStorage.setItem('cartData', JSON.stringify(cartData));
+        } else {
+            cartData = JSON.parse(cartData);
+        }
         const container = document.getElementById('goodsTable');
         try{
             const response = await fetch('https://5.35.124.24:5000/api/goods');

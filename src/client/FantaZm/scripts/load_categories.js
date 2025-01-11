@@ -12,34 +12,38 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     const data = await response.json();
     console.log(data);
-    const contentItem = document.createElement('ul');
+    const contentItem = document.createElement('div');
     contentItem.classList.add('categories');
     data.forEach(category => {
         if (category.parent_id === null) {
-            const categoryItem = document.createElement('li');
-            const categoryLink = document.createElement('a');
-            categoryLink.classList.add('link');
+            const categoryItem = document.createElement('div');
+            categoryItem.classList.add('category');
+            const categoryName = document.createElement('div');
+            categoryName.classList.add('category-name');
+            const categoryLink = document.createElement('p');
             categoryLink.setAttribute('data-id', category.id);
             categoryLink.innerText = category.title;
             categoryLink.addEventListener('click', function(e) {
                 setActiveClass(e.target);
                 categoryClick(e,data);
             });
-            categoryItem.appendChild(categoryLink);
+            categoryName.appendChild(categoryLink);
             const span = document.createElement('span');
             span.innerText = "×";
             span.addEventListener('click', function(e) {
-                deleteCategory(e.target.closest('li').querySelector('a').getAttribute('data-id'));
+                deleteCategory(category.id);
             });
-            categoryItem.appendChild(span);
+            categoryName.appendChild(span);
+            categoryItem.appendChild(categoryName);
             contentItem.appendChild(categoryItem);
         }
     });
-    const btn = document.createElement('li');
+    const btn = document.createElement('button');
     btn.classList.add('btn');
-    const btnLink = document.createElement('a');
-    btnLink.innerText = 'Добавить категорию';
-    btn.appendChild(btnLink); 
+    btn.innerText = 'Добавить категорию';
+    btn.addEventListener('click', function(e) {
+        addCategory(e,data);
+    });
     contentItem.appendChild(btn);
     content.appendChild(contentItem);
 });
@@ -48,81 +52,52 @@ async function categoryClick(e, categories) {
     e.preventDefault();
     const clickedCategory = e.target;
     const id = clickedCategory.getAttribute('data-id');
-    const existingSubDivs = document.querySelectorAll('.contentDiv');
-    existingSubDivs.forEach(div => div.remove());
-    const subcategories = categories.filter(category => category.parent_id == id);
-    const contentDiv = document.createElement('div');
-    contentDiv.classList.add('contentDiv');
-    contentDiv.setAttribute('data-parent-id', id);
-    contentDiv.style.marginLeft = '20px'; 
-    contentDiv.style.display = 'flex';
-    contentDiv.style.flexDirection = 'row';
-    contentDiv.style.gap = '10px'; 
-    contentDiv.style.flexWrap = 'wrap'; 
-    if (subcategories.length > 0) {
-        subcategories.forEach(category => {
-            const subContent = document.createElement('ul');
-            subContent.classList.add('categories');
-            const categoryItem = document.createElement('li');
-            const categoryLink = document.createElement('a');
-            categoryLink.classList.add('link');
-            categoryLink.setAttribute('data-id', category.id);
-            categoryLink.innerText = category.title;
-            categoryItem.appendChild(categoryLink);
-            const span = document.createElement('span');
-            span.innerText = "×";
-            span.addEventListener('click', function(e) {
-                deleteCategory(e.target.closest('li').querySelector('a').getAttribute('data-id'));
-            });
-            categoryItem.appendChild(span);
-            subContent.appendChild(categoryItem);
-            const subsubcategories = categories.filter(subcategory => subcategory.parent_id == category.id);
-            if (subsubcategories.length > 0) {
-                subsubcategories.forEach(subcategory => {
-                    const subcategoryItem = document.createElement('li');
-                    const subcategoryLink = document.createElement('a');
-                    subcategoryLink.classList.add('link');
-                    subcategoryLink.setAttribute('data-id', subcategory.id);
-                    subcategoryLink.innerText = subcategory.title;
-                    subcategoryItem.appendChild(subcategoryLink);
-                    const subspan = document.createElement('span');
-                    subspan.innerText = "×";
-                    subspan.addEventListener('click', function(e) {
-                        deleteCategory(e.target.closest('li').querySelector('a').getAttribute('data-id'));
-                    });
-                    subcategoryItem.appendChild(subspan);
-                    subContent.appendChild(subcategoryItem);
-                });
-                categoryItem.classList.add('active');
-            }
-            const btn = document.createElement('li');
-            btn.classList.add('btn');
-            const btnLink = document.createElement('a');
-            btnLink.innerText = 'Добавить категорию';
-            btn.appendChild(btnLink);
-            subContent.appendChild(btn);
-            contentDiv.appendChild(subContent);
-        });
+    console.log(id);
+    const allUnderCategories = document.querySelectorAll('.underCategories');
+    allUnderCategories.forEach(underCategories => {
+        underCategories.remove();
+    });
+    const parentCategory = clickedCategory.closest('.category');
+    if (parentCategory.querySelector('.underCategories')) {
+        return;
     }
-    const ulbtn = document.createElement('ul');
-    ulbtn.classList.add('categories');
-    const btn = document.createElement('li');
+    const underCategories = document.createElement('div');
+    underCategories.classList.add('underCategories');
+    for (const category of categories.filter(item => item.parent_id == id)) {
+        const underCategory = document.createElement('div');
+        underCategory.classList.add('underCategory');
+        const categoryLink = document.createElement('p');
+        categoryLink.setAttribute('data-id', category.id);
+        categoryLink.innerText = category.title;
+        categoryLink.addEventListener('click', function(e) {
+            setActiveClass(e.target);
+            categoryClick(e,data);
+        });
+        underCategory.appendChild(categoryLink);
+        const span = document.createElement('span');
+        span.innerText = "×";
+        span.addEventListener('click', function(e) {
+            deleteCategory(category.id);
+        });
+        underCategory.appendChild(span);
+        underCategories.appendChild(underCategory);
+    }
+    const btn = document.createElement('button');
     btn.classList.add('btn');
-    const btnLink = document.createElement('a');
-    btnLink.innerText = 'Добавить категорию';
-    btn.appendChild(btnLink);
-    ulbtn.appendChild(btn);
-    contentDiv.appendChild(ulbtn);
-    const content = document.getElementById('content');
-    content.appendChild(contentDiv);
-}   
+    btn.innerText = 'Добавить категорию';
+    btn.addEventListener('click', function(e) {
+        addCategory(e,data);
+    });
+    underCategories.appendChild(btn);
+    parentCategory.appendChild(underCategories);
+}
 
 function setActiveClass(clickedCategory) {
-    const allLinks = clickedCategory.closest('.categories').querySelectorAll('li');
+    const allLinks = clickedCategory.closest('.categories').querySelectorAll('.category-name');
     allLinks.forEach(link => {
         link.classList.remove('active');
     });
-    clickedCategory.closest('li').classList.add('active');
+    clickedCategory.closest('.category-name').classList.add('active');
 }
 
 async function deleteCategory(categoryId) {

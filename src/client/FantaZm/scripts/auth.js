@@ -25,6 +25,10 @@ document.getElementById('authForm').addEventListener('submit', async function (e
             const allUsersData = await allUsers.json();
             const user = allUsersData.find(user => user.email === login);
             sessionStorage.setItem('userId', user.id);
+            if (login == 'admin@admin.com'){
+                window.location.href = 'admin_goods.html';
+                return;
+            }
             window.location.href = 'shop_showcase.html';
         } catch (error) {
             if (error == 'Error: Failed to find this user'){

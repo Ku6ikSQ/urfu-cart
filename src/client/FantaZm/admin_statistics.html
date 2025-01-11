@@ -2,16 +2,16 @@
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <title>FANTECH - PANE</title>
+        <title>FANTECH - PANEL</title>
+        <link type="image/x-icon" rel="shortcut icon" href="assets/FANTECH.svg">
         <link rel="stylesheet" href="styles/admin_panel_styles.css">
         <link rel="stylesheet" href="styles/admin_goods_styles.css">
         <link rel="stylesheet" href="styles/admin_statistics_styles.css">
         <link rel="stylesheet" href="styles/header_styles.css">
-        <script src="scripts/open_dropdown.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="scripts/light_selected.js" defer></script>
         <script src="scripts/is_latin_letter_or_digit.js" defer></script>
-        <script src="scripts/show_graph.js" defer></script>
-
+        <script src="scripts/draw_chart.js" defer></script>
     </head>
     <body>
         <header class="header">
@@ -20,8 +20,7 @@
                 <a href="admin_goods.html" class="link"><h1>FANTECH - PANEL</h1></a>
             </div>
             <div class="right-elems">
-                <a href="auth_admin.html" class="link"><p class="login">Войти</p></a>
-                <a href="register_admin.html" class="link"><p class="register">Регистрация</p></a>
+                <p class="nickname">Администратор</p>
             </div>
         </header>
         <main>
@@ -31,19 +30,16 @@
                     <li><a href="shop_showcase.html">На страницу магазина</a></li>
                     <li><a href="admin_goods.html">Товары</a></li>
                     <li><a href="admin_categories.html">Категории</a></li>
-                    <li><a href="admin_brands.html">Бренды</a></li>
                     <li><a href="admin_users.html">Пользователи</a></li>
                     <li><a href="admin_orders.html">Заказы</a></li>
                     <li><a href="admin_statistics.html">Статистика</a></li>
                 </ul>
             </aside>
-            <div class="content likes">
+            <div class="content" id="content">
                 <div class="graphics">
                     <h1>За последние 28 дней ваши товары набрали сколько-то там лайков</h1>
                     <div class="graphics-body">
-                        <div class="graphics-item">
-                            <img src="assets/graph.png">
-                        </div>
+                        <canvas id="likes"></canvas>
                     </div>
                 </div>
                 <div class="popular-goods">
@@ -78,51 +74,12 @@
                     </div>
                 </div>
             </div>
-            <div class="content orders">
-                <div class="graphics">
-                    <h1>За последние 28 дней на ваши товары было оформлено сколько-то заказов</h1>
-                    <div class="graphics-body">
-                        <div class="graphics-item">
-                            <img src="assets/graph.png">
-                        </div>
-                    </div>
-                </div>
-                <div class="popular-goods">
-                    <h2>Самые популярные товары за период</h2>
-                    <div class="goods_table">
-                        <div class="table-header">
-                            <p>Товары</p>
-                            <p>Количество в заказах</p>
-                        </div>
-                        <div class="table-body">
-                            <div class="stat-goods">
-                                <div class="stat-good">
-                                    <p>1</p>
-                                    <img src="assets/good_without_pic.jpg">
-                                    <p>Название товара</p>
-                                </div>
-                                <div class="stat-stat">
-                                    <p>2</p>
-                                </div>
-                            </div>
-                            <div class="stat-goods">
-                                <div class="stat-good">
-                                    <p>2</p>
-                                    <img src="assets/good_without_pic.jpg">
-                                    <p>Название товара</p>
-                                </div>
-                                <div class="stat-stat">
-                                    <p>5</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="add_button">
                 <select name="option" class="add" id="add">
                     <option value="likes" selected>Избранное</option>
                     <option value="orders">Заказы</option>
+                    <option value="views">Просмотры</option>
+                    <option value="cartAdd">Товары в корзине</option>
                 </select>
                 <select name="time" class="add" id="add1">
                     <option value="week">Неделя</option>

@@ -11,8 +11,16 @@
     flex-direction: column;
 }
 
+label{
+    font-family: 'Inter';
+    font-weight: bold;
+    
+}
+
 .search-input{
     margin-top:10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .search-input.name{
@@ -25,7 +33,7 @@
 
 .search-input.date{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 25%;
 }   
 
@@ -184,4 +192,9 @@ h2{
 
 .body{
     align-items: flex-start;
+}
+
+.column{
+    display: flex;
+    flex-direction: row;
 }
